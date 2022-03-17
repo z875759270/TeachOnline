@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>线上教学平台</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- NewsBoard CSS  -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/widgets.css">
+    <link rel="stylesheet" href="/assets/css/responsive.css">
+</head>
+
+<body>
+    <!--Offcanvas sidebar-->
+    <aside th:insert="~{common/menu-front::front-sidebar}"></aside>
+    <!-- Start Header -->
+    <header th:insert="~{common/menu-front::front-header}"></header>
+    <!--Start search form-->
+    <div th:insert="~{common/menu-front::front-search}"></div>
+
+    <main class="bg-grey pt-50 pb-30">
+        <div class="container single-content">
+            <div class="entry-header entry-header-style-1 mb-50 pt-50">
+                <h1 class="entry-title mb-50 font-weight-900">
+                    话题标题
+                </h1>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="entry-meta align-items-center meta-2 font-small color-muted">
+                            <p class="mb-5">
+                                <a class="author-avatar" href="single.html#"><img class="img-circle" src="/assets/imgs/authors/author-3.jpg" alt=""></a>
+                                By <a href="#"><span class="author-name font-weight-bold">创建者</span></a>
+                            </p>
+                            <span class="post-on">2022-03-17</span>
+                            <span class="hit-count has-dot"><i class="elegant-icon icon_group"></i> 2222</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end single header-->
+            <figure class="image mb-30 m-auto text-center border-radius-10">
+                <img class="border-radius-10" src="/assets/imgs/news/news-1.jpg" alt="post-title" />
+            </figure>
+            <!--figure-->
+            <article class="entry-wraper mb-50">
+                <div class="entry-main-content wow fadeIn animated">
+                    <p>Yet more some certainly yet alas abandonedly whispered intriguingly well extensive one howled talkative admonishingly below a rethought overlaid dear gosh activated less however hawk yet oh scratched ostrich some outside crud irrespective lightheartedly and much far amenably that the elephant since when.</p>
+                </div>
+                <div class="entry-bottom mt-50 mb-30 wow fadeIn animated">
+                    <div class="tags">
+                        <span>分类: </span>
+                        <a href="category.html" rel="tag">分类名</a>
+                    </div>
+                </div>
+                <div class="single-social-share clearfix wow fadeIn animated">
+                    <div class="entry-meta meta-1 font-small color-grey float-left mt-10">
+                        <span class="hit-count mr-15"><i class="elegant-icon icon_comment_alt mr-5"></i>182</span>
+                        <span class="hit-count mr-15"><i class="elegant-icon icon_like mr-5"></i>268</span>
+                    </div>
+                    <ul class="header-social-network d-inline-block list-inline float-md-right mt-md-0 mt-4">
+                        <li class="list-inline-item text-muted"><span>Share this: </span></li>
+                        <li class="list-inline-item"><a class="social-icon fb text-xs-center" target="_blank" href="single.html#"><i class="elegant-icon social_facebook"></i></a></li>
+                        <li class="list-inline-item"><a class="social-icon tw text-xs-center" target="_blank" href="single.html#"><i class="elegant-icon social_twitter "></i></a></li>
+                        <li class="list-inline-item"><a class="social-icon pt text-xs-center" target="_blank" href="single.html#"><i class="elegant-icon social_pinterest "></i></a></li>
+                    </ul>
+                </div>
+                <!--Comments-->
+                <div class="comments-area">
+                    <div class="widget-header-2 position-relative mb-30">
+                        <h5 class="mt-5 mb-30">评论</h5>
+                    </div>
+                    <div class="comment-list wow fadeIn animated">
+                        <div class="single-comment justify-content-between d-flex">
+                            <div class="user justify-content-between d-flex">
+                                <div class="thumb">
+                                    <img src="assets/imgs/authors/author-2.jpg" alt="">
+                                </div>
+                                <div class="desc">
+                                    <p class="comment">
+                                        评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容
+                                    </p>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="d-flex align-items-center">
+                                            <h5>
+                                                <a href="single.html#">用户名</a>
+                                            </h5>
+                                            <p class="date">2022-03-16 17:02 </p>
+                                        </div>
+                                        <div class="reply-btn">
+                                            <a href="single.html#" class="btn-reply">回复</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single-comment depth-2 justify-content-between d-flex mt-50">
+                            <div class="user justify-content-between d-flex">
+                                <div class="thumb">
+                                    <img src="assets/imgs/authors/author.jpg" alt="">
+                                </div>
+                                <div class="desc">
+                                    <p class="comment">
+                                        <a th:href="@{/profile}">@父评论用户</a>：评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容
+                                    </p>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="d-flex align-items-center">
+                                            <h5>
+                                                <a href="single.html#">用户名</a>
+                                            </h5>
+                                            <p class="date">2022-03-16 17:05 </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comment-list wow fadeIn animated">
+                        <div class="single-comment justify-content-between d-flex">
+                            <div class="user justify-content-between d-flex">
+                                <div class="thumb">
+                                    <img src="assets/imgs/authors/author-3.jpg" alt="">
+                                </div>
+                                <div class="desc">
+                                    <p class="comment">
+                                        Donec in ullamcorper quam. Aenean vel nibh eu magna gravida fermentum. Praesent eget nisi pulvinar, sollicitudin eros vitae, tristique odio.
+                                    </p>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="d-flex align-items-center">
+                                            <h5>
+                                                <a href="single.html#">Danielle Steel</a>
+                                            </h5>
+                                            <p class="date">December 4, 2020 at 3:12 pm </p>
+                                        </div>
+                                        <div class="reply-btn">
+                                            <a href="single.html#" class="btn-reply">Reply</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--comment form-->
+                <div class="comment-form wow fadeIn animated">
+                    <form class="form-contact comment_form" action="single.html#" id="commentForm">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9" placeholder="发表你的评论..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn button button-contactForm">评论</button>
+                        </div>
+                    </form>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <!--site-bottom-->
+    <div th:insert="~{common/menu-front::front-bottom}"></div>
+    <!--end site-bottom-->
+    <!-- Footer Start-->
+    <footer th:insert="~{common/menu-front::front-footer}"></footer>
+    <!-- End Footer -->
+    <div class="dark-mark"></div>
+    <!-- Vendor JS-->
+    <script src="/assets/js/vendor/modernizr-3.5.0.min.js"></script>
+    <script src="/assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="/assets/js/vendor/popper.min.js"></script>
+    <script src="/assets/js/vendor/bootstrap.min.js"></script>
+    <script src="/assets/js/vendor/jquery.slicknav.js"></script>
+    <script src="/assets/js/vendor/slick.min.js"></script>
+    <script src="/assets/js/vendor/wow.min.js"></script>
+    <script src="/assets/js/vendor/jquery.ticker.js"></script>
+    <script src="/assets/js/vendor/jquery.vticker-min.js"></script>
+    <script src="/assets/js/vendor/jquery.scrollUp.min.js"></script>
+    <script src="/assets/js/vendor/jquery.nice-select.min.js"></script>
+    <script src="/assets/js/vendor/jquery.magnific-popup.js"></script>
+    <script src="/assets/js/vendor/jquery.sticky.js"></script>
+    <script src="/assets/js/vendor/perfect-scrollbar.js"></script>
+    <script src="/assets/js/vendor/waypoints.min.js"></script>
+    <script src="/assets/js/vendor/jquery.theia.sticky.js"></script>
+    <!-- NewsBoard JS -->
+    <script src="/assets/js/main.js"></script>
+</body>
+
+</html>
