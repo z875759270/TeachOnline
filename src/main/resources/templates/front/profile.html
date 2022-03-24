@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>线上教学平台</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- NewsBoard CSS  -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/widgets.css">
+    <link rel="stylesheet" href="/assets/css/responsive.css">
+</head>
+
+<body>
+    <!--Offcanvas sidebar-->
+    <aside th:insert="~{common/menu-front::front-sidebar}"></aside>
+    <!-- Start Header -->
+    <header th:insert="~{common/menu-front::front-header}"></header>
+    <!--Start search form-->
+    <div th:insert="~{common/menu-front::front-search}"></div>
+
+    <main class="bg-grey pt-50 pb-50">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <!--author box-->
+                    <div class="author-bio mb-50 bg-white p-30 border-radius-10">
+                        <div class="author-image mb-30">
+                            <a href="#"><img src="/assets/imgs/authors/author.jpg" alt="" class="avatar"></a>
+                        </div>
+                        <div class="author-info">
+                            <h3 class="font-weight-900"><span class="vcard author"><span class="fn">用户名</span></span>
+                            </h3>
+                            <h5 class="text-muted">用户角色</h5>
+                            <div class="author-description text-muted">个人简介个人简介个人简介个人简介</div>
+
+                            <hr class="wp-block-separator is-style-wide">
+                            <p>
+                                <span class="mr-5">
+                                    <ion-icon name="location-outline" role="img" class="md hydrated" aria-label="location outline"></ion-icon>
+                                </span>
+                                <strong>邮箱</strong>： xxxxxx@xx.com
+                            </p>
+                            <p>
+                                <span class="mr-5">
+                                    <ion-icon name="location-outline" role="img" class="md hydrated" aria-label="location outline"></ion-icon>
+                                </span>
+                                <strong>QQ</strong>： 456456456
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="post-module-2">
+                        <div class="widget-header-2 position-relative mb-30  wow fadeInUp animated">
+                            <h5 class="mt-5 mb-30">Username上传的课程</h5>
+                        </div>
+                        <div class="loop-list loop-list-style-1">
+                            <div class="row">
+                                <article class="col-md-6 mb-40 wow fadeInUp  animated">
+                                    <div class="post-card-1 border-radius-10 hover-up">
+                                        <div class="post-thumb thumb-overlay img-hover-slide position-relative" style="background-image: url(assets/imgs/news/news-6.jpg)">
+                                            <a class="img-link" href="single.html"></a>
+                                            <ul class="social-share">
+                                                <li><a href="page-author.html#"><i class="elegant-icon social_share"></i></a></li>
+                                                <li><a class="fb" href="page-author.html#" title="Share on Facebook" target="_blank"><i class="elegant-icon social_facebook"></i></a></li>
+                                                <li><a class="tw" href="page-author.html#" target="_blank" title="Tweet now"><i class="elegant-icon social_twitter"></i></a></li>
+                                                <li><a class="pt" href="page-author.html#" target="_blank" title="Pin it"><i class="elegant-icon social_pinterest"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="post-content p-30">
+                                            <div class="entry-meta meta-0 font-small mb-10">
+                                                <a href="category.html"><span class="post-cat text-info">Artists</span></a>
+                                                <a href="category.html"><span class="post-cat text-success">Film</span></a>
+                                            </div>
+                                            <div class="d-flex post-card-content">
+                                                <h5 class="post-title mb-20 font-weight-900">
+                                                    <a href="single.html">Easy Ways to Use Alternatives to Plastic</a>
+                                                </h5>
+                                                <div class="post-excerpt mb-25 font-small text-muted">
+                                                    <p>Graduating from a top accelerator or incubator can be as career-defining for a&nbsp;startup founder&nbsp;as an elite university diploma. The intensive programmes, which…</p>
+                                                </div>
+                                                <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
+                                                    <span class="post-on">27 August</span>
+                                                    <span class="time-reading has-dot">12 mins read</span>
+                                                    <span class="post-by has-dot">23k views</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                                <article class="col-md-6 mb-40 wow fadeInUp  animated">
+                                    <div class="post-card-1 border-radius-10 hover-up">
+                                        <div class="post-thumb thumb-overlay img-hover-slide position-relative" style="background-image: url(assets/imgs/news/news-8.jpg)">
+                                            <a class="img-link" href="single.html"></a>
+                                            <ul class="social-share">
+                                                <li><a href="page-author.html#"><i class="elegant-icon social_share"></i></a></li>
+                                                <li><a class="fb" href="page-author.html#" title="Share on Facebook" target="_blank"><i class="elegant-icon social_facebook"></i></a></li>
+                                                <li><a class="tw" href="page-author.html#" target="_blank" title="Tweet now"><i class="elegant-icon social_twitter"></i></a></li>
+                                                <li><a class="pt" href="page-author.html#" target="_blank" title="Pin it"><i class="elegant-icon social_pinterest"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="post-content p-30">
+                                            <div class="entry-meta meta-0 font-small mb-10">
+                                                <a href="category.html"><span class="post-cat">Fashion</span></a>
+                                            </div>
+                                            <div class="d-flex post-card-content">
+                                                <h5 class="post-title mb-20 font-weight-900">
+                                                    <a href="single.html">Tips for Growing Healthy, Longer Hair</a>
+                                                </h5>
+                                                <div class="post-excerpt mb-25 font-small text-muted">
+                                                    <p>Proin vitae placerat quam. Ut sodales eleifend urna, in condimentum tortor ultricies eu. Nunc auctor iaculis dolorProin vitae placerat quam. Proin vitae placerat quam.</p>
+                                                </div>
+                                                <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
+                                                    <span class="post-on">12 August</span>
+                                                    <span class="time-reading has-dot">6 mins read</span>
+                                                    <span class="post-by has-dot">3k views</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post-module-3">
+                        <div class="widget-header-2 position-relative mb-30  wow fadeInUp animated">
+                            <h5 class="mt-5 mb-30">Username发起的讨论</h5>
+                        </div>
+                        <div class="loop-list loop-list-style-1">
+                            <article class="hover-up-2 transition-normal wow fadeInUp animated">
+                                <div class="row mb-40 list-style-2">
+                                    <div class="col-md-4">
+                                        <div class="post-thumb position-relative border-radius-5">
+                                            <div class="img-hover-slide border-radius-5 position-relative" style="background-image: url(assets/imgs/news/news-13.jpg)">
+                                                <a class="img-link" href="single.html"></a>
+                                            </div>
+                                            <ul class="social-share">
+                                                <li><a href="page-author.html#"><i class="elegant-icon social_share"></i></a></li>
+                                                <li><a class="fb" href="page-author.html#" title="Share on Facebook" target="_blank"><i class="elegant-icon social_facebook"></i></a></li>
+                                                <li><a class="tw" href="page-author.html#" target="_blank" title="Tweet now"><i class="elegant-icon social_twitter"></i></a></li>
+                                                <li><a class="pt" href="page-author.html#" target="_blank" title="Pin it"><i class="elegant-icon social_pinterest"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 align-self-center">
+                                        <div class="post-content">
+                                            <div class="entry-meta meta-0 font-small mb-10">
+                                                <a href="category.html"><span class="post-cat text-primary">Food</span></a>
+                                            </div>
+                                            <h5 class="post-title font-weight-900 mb-20">
+                                                <a href="single.html">Helpful Tips for Working from Home as a Freelancer</a>
+                                                <span class="post-format-icon"><i class="elegant-icon icon_star_alt"></i></span>
+                                            </h5>
+                                            <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
+                                                <span class="post-on">7 August</span>
+                                                <span class="time-reading has-dot">11 mins read</span>
+                                                <span class="post-by has-dot">3k views</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                            <article class="hover-up-2 transition-normal wow fadeInUp animated">
+                                <div class="row mb-40 list-style-2">
+                                    <div class="col-md-4">
+                                        <div class="post-thumb position-relative border-radius-5">
+                                            <div class="img-hover-slide border-radius-5 position-relative" style="background-image: url(assets/imgs/news/news-4.jpg)">
+                                                <a class="img-link" href="single.html"></a>
+                                            </div>
+                                            <ul class="social-share">
+                                                <li><a href="page-author.html#"><i class="elegant-icon social_share"></i></a></li>
+                                                <li><a class="fb" href="page-author.html#" title="Share on Facebook" target="_blank"><i class="elegant-icon social_facebook"></i></a></li>
+                                                <li><a class="tw" href="page-author.html#" target="_blank" title="Tweet now"><i class="elegant-icon social_twitter"></i></a></li>
+                                                <li><a class="pt" href="page-author.html#" target="_blank" title="Pin it"><i class="elegant-icon social_pinterest"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 align-self-center">
+                                        <div class="post-content">
+                                            <div class="entry-meta meta-0 font-small mb-10">
+                                                <a href="category.html"><span class="post-cat text-success">Cooking</span></a>
+                                            </div>
+                                            <h5 class="post-title font-weight-900 mb-20">
+                                                <a href="single.html">10 Easy Ways to Be Environmentally Conscious At Home</a>
+                                            </h5>
+                                            <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
+                                                <span class="post-on">27 Sep</span>
+                                                <span class="time-reading has-dot">10 mins read</span>
+                                                <span class="post-by has-dot">22k views</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                            <article class="hover-up-2 transition-normal wow fadeInUp animated">
+                                <div class="row mb-40 list-style-2">
+                                    <div class="col-md-4">
+                                        <div class="post-thumb position-relative border-radius-5">
+                                            <div class="img-hover-slide border-radius-5 position-relative" style="background-image: url(assets/imgs/news/news-2.jpg)">
+                                                <a class="img-link" href="single.html"></a>
+                                            </div>
+                                            <ul class="social-share">
+                                                <li><a href="page-author.html#"><i class="elegant-icon social_share"></i></a></li>
+                                                <li><a class="fb" href="page-author.html#" title="Share on Facebook" target="_blank"><i class="elegant-icon social_facebook"></i></a></li>
+                                                <li><a class="tw" href="page-author.html#" target="_blank" title="Tweet now"><i class="elegant-icon social_twitter"></i></a></li>
+                                                <li><a class="pt" href="page-author.html#" target="_blank" title="Pin it"><i class="elegant-icon social_pinterest"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 align-self-center">
+                                        <div class="post-content">
+                                            <div class="entry-meta meta-0 font-small mb-10">
+                                                <a href="category.html"><span class="post-cat text-warning">Cooking</span></a>
+                                            </div>
+                                            <h5 class="post-title font-weight-900 mb-20">
+                                                <a href="single.html">My Favorite Comfies to Lounge in At Home</a>
+                                            </h5>
+                                            <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
+                                                <span class="post-on">7 August</span>
+                                                <span class="time-reading has-dot">9 mins read</span>
+                                                <span class="post-by has-dot">12k views</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                            <article class="hover-up-2 transition-normal wow fadeInUp animated">
+                                <div class="row mb-40 list-style-2">
+                                    <div class="col-md-4">
+                                        <div class="post-thumb position-relative border-radius-5">
+                                            <div class="img-hover-slide border-radius-5 position-relative" style="background-image: url(assets/imgs/news/news-3.jpg)">
+                                                <a class="img-link" href="single.html"></a>
+                                            </div>
+                                            <ul class="social-share">
+                                                <li><a href="page-author.html#"><i class="elegant-icon social_share"></i></a></li>
+                                                <li><a class="fb" href="page-author.html#" title="Share on Facebook" target="_blank"><i class="elegant-icon social_facebook"></i></a></li>
+                                                <li><a class="tw" href="page-author.html#" target="_blank" title="Tweet now"><i class="elegant-icon social_twitter"></i></a></li>
+                                                <li><a class="pt" href="page-author.html#" target="_blank" title="Pin it"><i class="elegant-icon social_pinterest"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 align-self-center">
+                                        <div class="post-content">
+                                            <div class="entry-meta meta-0 font-small mb-10">
+                                                <a href="category.html"><span class="post-cat text-danger">Travel</span></a>
+                                            </div>
+                                            <h5 class="post-title font-weight-900 mb-20">
+                                                <a href="single.html">How to Give Your Space a Parisian-Inspired Makeover</a>
+                                            </h5>
+                                            <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
+                                                <span class="post-on">27 August</span>
+                                                <span class="time-reading has-dot">12 mins read</span>
+                                                <span class="post-by has-dot">23k views</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                            <article class="hover-up-2 transition-normal wow fadeInUp animated">
+                                <div class="row mb-40 list-style-2">
+                                    <div class="col-md-4">
+                                        <div class="post-thumb position-relative border-radius-5">
+                                            <div class="img-hover-slide border-radius-5 position-relative" style="background-image: url(assets/imgs/news/news-4.jpg)">
+                                                <a class="img-link" href="single.html"></a>
+                                            </div>
+                                            <ul class="social-share">
+                                                <li><a href="page-author.html#"><i class="elegant-icon social_share"></i></a></li>
+                                                <li><a class="fb" href="page-author.html#" title="Share on Facebook" target="_blank"><i class="elegant-icon social_facebook"></i></a></li>
+                                                <li><a class="tw" href="page-author.html#" target="_blank" title="Tweet now"><i class="elegant-icon social_twitter"></i></a></li>
+                                                <li><a class="pt" href="page-author.html#" target="_blank" title="Pin it"><i class="elegant-icon social_pinterest"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 align-self-center">
+                                        <div class="post-content">
+                                            <div class="entry-meta meta-0 font-small mb-10">
+                                                <a href="category.html"><span class="post-cat text-danger">Travel</span></a>
+                                            </div>
+                                            <h5 class="post-title font-weight-900 mb-20">
+                                                <a href="single.html">How to Give Your Space a Parisian-Inspired Makeover</a>
+                                            </h5>
+                                            <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
+                                                <span class="post-on">27 August</span>
+                                                <span class="time-reading has-dot">12 mins read</span>
+                                                <span class="post-by has-dot">23k views</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                            <article class="hover-up-2 transition-normal wow fadeInUp animated">
+                                <div class="row mb-40 list-style-2">
+                                    <div class="col-md-4">
+                                        <div class="post-thumb position-relative border-radius-5">
+                                            <div class="img-hover-slide border-radius-5 position-relative" style="background-image: url(assets/imgs/news/news-5.jpg)">
+                                                <a class="img-link" href="single.html"></a>
+                                            </div>
+                                            <ul class="social-share">
+                                                <li><a href="page-author.html#"><i class="elegant-icon social_share"></i></a></li>
+                                                <li><a class="fb" href="page-author.html#" title="Share on Facebook" target="_blank"><i class="elegant-icon social_facebook"></i></a></li>
+                                                <li><a class="tw" href="page-author.html#" target="_blank" title="Tweet now"><i class="elegant-icon social_twitter"></i></a></li>
+                                                <li><a class="pt" href="page-author.html#" target="_blank" title="Pin it"><i class="elegant-icon social_pinterest"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 align-self-center">
+                                        <div class="post-content">
+                                            <div class="entry-meta meta-0 font-small mb-10">
+                                                <a href="category.html"><span class="post-cat text-danger">Travel</span></a>
+                                            </div>
+                                            <h5 class="post-title font-weight-900 mb-20">
+                                                <a href="single.html">How to Give Your Space a Parisian-Inspired Makeover</a>
+                                            </h5>
+                                            <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
+                                                <span class="post-on">27 August</span>
+                                                <span class="time-reading has-dot">12 mins read</span>
+                                                <span class="post-by has-dot">23k views</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-4 primary-sidebar sticky-sidebar">
+                    <div class="widget-area">
+                        <div class="sidebar-widget widget-latest-posts mb-50 wow fadeInUp animated">
+                            <div class="widget-header-2 position-relative mb-30">
+                                <h5 class="mt-5 mb-30">Username的收藏</h5>
+                            </div>
+                            <div class="post-block-list post-module-1">
+                                <ul class="list-post">
+                                    <li class="mb-30 wow fadeInUp animated">
+                                        <div class="d-flex bg-white has-border p-25 hover-up transition-normal border-radius-5">
+                                            <div class="post-content media-body">
+                                                <h6 class="post-title mb-15 text-limit-2-row font-medium"><a href="single.html">Spending Some Quality Time with Kids? It’s Possible</a></h6>
+                                                <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
+                                                    <span class="post-on">05 August</span>
+                                                    <span class="post-by has-dot">150 views</span>
+                                                </div>
+                                            </div>
+                                            <div class="post-thumb post-thumb-80 d-flex ml-15 border-radius-5 img-hover-scale overflow-hidden">
+                                                <a class="color-white" href="single.html">
+                                                    <img src="assets/imgs/news/thumb-6.jpg" alt="">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="mb-30 wow fadeInUp animated">
+                                        <div class="d-flex bg-white has-border p-25 hover-up transition-normal border-radius-5">
+                                            <div class="post-content media-body">
+                                                <h6 class="post-title mb-15 text-limit-2-row font-medium"><a href="single.html">Relationship Podcasts are Having “That” Talk</a></h6>
+                                                <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
+                                                    <span class="post-on">12 August</span>
+                                                    <span class="post-by has-dot">6k views</span>
+                                                </div>
+                                            </div>
+                                            <div class="post-thumb post-thumb-80 d-flex ml-15 border-radius-5 img-hover-scale overflow-hidden">
+                                                <a class="color-white" href="single.html">
+                                                    <img src="assets/imgs/news/thumb-7.jpg" alt="">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="mb-30 wow fadeInUp animated">
+                                        <div class="d-flex bg-white has-border p-25 hover-up transition-normal border-radius-5">
+                                            <div class="post-content media-body">
+                                                <h6 class="post-title mb-15 text-limit-2-row font-medium"><a href="single.html">Here’s How to Get the Best Sleep at Night</a></h6>
+                                                <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
+                                                    <span class="post-on">15 August</span>
+                                                    <span class="post-by has-dot">16k views</span>
+                                                </div>
+                                            </div>
+                                            <div class="post-thumb post-thumb-80 d-flex ml-15 border-radius-5 img-hover-scale overflow-hidden">
+                                                <a class="color-white" href="single.html">
+                                                    <img src="assets/imgs/news/thumb-2.jpg" alt="">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class=" wow fadeInUp animated">
+                                        <div class="d-flex bg-white has-border p-25 hover-up transition-normal border-radius-5">
+                                            <div class="post-content media-body">
+                                                <h6 class="post-title mb-15 text-limit-2-row font-medium"><a href="single.html">America’s Governors Get Tested for a Virus That Is Testing Them</a></h6>
+                                                <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
+                                                    <span class="post-on">12 August</span>
+                                                    <span class="post-by has-dot">3k views</span>
+                                                </div>
+                                            </div>
+                                            <div class="post-thumb post-thumb-80 d-flex ml-15 border-radius-5 img-hover-scale overflow-hidden">
+                                                <a class="color-white" href="single.html">
+                                                    <img src="assets/imgs/news/thumb-3.jpg" alt="">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="sidebar-widget widget-latest-posts mb-50 wow fadeInUp animated">
+                            <div class="widget-header-2 position-relative mb-30">
+                                <h5 class="mt-5 mb-30">Username的评论</h5>
+                            </div>
+                            <div class="post-block-list post-module-2">
+                                <ul class="list-post">
+                                    <li class="mb-30 wow fadeInUp animated">
+                                        <div class="d-flex bg-white has-border p-25 hover-up transition-normal border-radius-5">
+                                            <div class="post-content media-body">
+                                                <p class="mb-10"><a href="http://demo.mxyhn.xyz:8020/cssthemes6/adve43r22qedasdqw/author.html"><strong>David</strong></a>
+                                                    <span class="ml-15 font-small text-muted has-dot">16 Jan 2020</span>
+                                                </p>
+                                                <p class="text-muted font-small">A writer is someone for whom writing is more difficult than...</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="mb-30 wow fadeInUp animated">
+                                        <div class="d-flex bg-white has-border p-25 hover-up transition-normal border-radius-5">
+                                            <div class="post-content media-body">
+                                                <p class="mb-10"><a href="http://demo.mxyhn.xyz:8020/cssthemes6/adve43r22qedasdqw/author.html"><strong>Kokawa</strong></a>
+                                                    <span class="ml-15 font-small text-muted has-dot">12 Feb 2020</span>
+                                                </p>
+                                                <p class="text-muted font-small">Striking pewter studded epaulettes silver zips</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="wow fadeInUp animated">
+                                        <div class="d-flex bg-white has-border p-25 hover-up transition-normal border-radius-5">
+                                            <div class="post-content media-body">
+                                                <p class="mb-10"><a href="http://demo.mxyhn.xyz:8020/cssthemes6/adve43r22qedasdqw/author.html"><strong>Tsukasi</strong></a>
+                                                    <span class="ml-15 font-small text-muted has-dot">18 May 2020</span>
+                                                </p>
+                                                <p class="text-muted font-small">Workwear bow detailing a slingback buckle strap</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!--site-bottom-->
+    <div th:insert="~{common/menu-front::front-bottom}"></div>
+    <!--end site-bottom-->
+    <!-- Footer Start-->
+    <footer th:insert="~{common/menu-front::front-footer}"></footer>
+    <!-- End Footer -->
+    <div class="dark-mark"></div>
+    <!-- Vendor JS-->
+    <script src="/assets/js/vendor/modernizr-3.5.0.min.js"></script>
+    <script src="/assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="/assets/js/vendor/popper.min.js"></script>
+    <script src="/assets/js/vendor/bootstrap.min.js"></script>
+    <script src="/assets/js/vendor/jquery.slicknav.js"></script>
+    <script src="/assets/js/vendor/slick.min.js"></script>
+    <script src="/assets/js/vendor/wow.min.js"></script>
+    <script src="/assets/js/vendor/jquery.ticker.js"></script>
+    <script src="/assets/js/vendor/jquery.vticker-min.js"></script>
+    <script src="/assets/js/vendor/jquery.scrollUp.min.js"></script>
+    <script src="/assets/js/vendor/jquery.nice-select.min.js"></script>
+    <script src="/assets/js/vendor/jquery.magnific-popup.js"></script>
+    <script src="/assets/js/vendor/jquery.sticky.js"></script>
+    <script src="/assets/js/vendor/perfect-scrollbar.js"></script>
+    <script src="/assets/js/vendor/waypoints.min.js"></script>
+    <script src="/assets/js/vendor/jquery.theia.sticky.js"></script>
+    <!-- NewsBoard JS -->
+    <script src="/assets/js/main.js"></script>
+</body>
+
+</html>
