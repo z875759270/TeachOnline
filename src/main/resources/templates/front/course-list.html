@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>线上教学平台</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- NewsBoard CSS  -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/widgets.css">
+    <link rel="stylesheet" href="/assets/css/responsive.css">
+</head>
+
+<body>
+    <!--Offcanvas sidebar-->
+    <aside th:insert="~{common/menu-front::front-sidebar}"></aside>
+    <!-- Start Header -->
+    <header th:insert="~{common/menu-front::front-header}"></header>
+    <!--Start search form-->
+    <div th:insert="~{common/menu-front::front-search}"></div>
+
+    <main>
+        <!--archive header-->
+        <div class="archive-header pt-50">
+            <div class="container">
+                <h2 class="font-weight-900">课程</h2>
+                <div class="breadcrumb">
+                    <a th:href="@{/}" rel="nofollow">首页</a>
+                    <span></span> 课程
+                </div>
+                <div class="bt-1 border-color-1 mt-30 mb-50"></div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="loop-grid mb-30">
+                <div class="row">
+                    <div class="col-lg-8 mb-30">
+                        <div class="carausel-post-1 hover-up border-radius-10 overflow-hidden transition-normal position-relative wow fadeInUp animated">
+                            <div class="slide-fade">
+                                <div class="position-relative post-thumb">
+                                    <div class="thumb-overlay img-hover-slide position-relative" style="background-image: url(/assets/imgs/news/news-10.jpg)">
+                                        <a class="img-link" href="single.html"></a>
+                                        <span class="top-left-icon bg-warning"><i class="elegant-icon icon_star_alt"></i></span>
+                                        <div class="post-content-overlay text-white ml-30 mr-30 pb-50">
+                                            <div class="entry-meta meta-0 font-small mb-20">
+                                                <a href="category.html"><span class="post-cat text-info text-uppercase">标签1</span></a>
+                                                <a href="category.html"><span class="post-cat text-success text-uppercase">标签2</span></a>
+                                            </div>
+                                            <h3 class="post-title font-weight-900 mb-20">
+                                                <a class="text-white" href="single.html">查询出来的第一个课程</a>
+                                            </h3>
+                                            <div class="entry-meta meta-1 font-small text-white mt-10 pr-5 pl-5">
+                                                <span class="post-on">2022-03-17</span>
+                                                <span class="hit-count has-dot"><i class="elegant-icon arrow_triangle-right_alt2"></i> 2222</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <article class="col-lg-4 col-md-6 mb-30 wow fadeInUp animated" data-wow-delay="0.2s">
+                        <div class="post-card-1 border-radius-10 hover-up">
+                            <div class="post-thumb thumb-overlay img-hover-slide position-relative" style="background-image: url(assets/imgs/news/news-1.jpg)">
+                                <a class="img-link" href="single.html"></a>
+                                <span class="top-right-icon bg-success"><i class="elegant-icon icon_camera_alt"></i></span>
+                                <ul class="social-share">
+                                    <li><a href="category-grid.html#"><i class="elegant-icon social_share"></i></a></li>
+                                    <li><a class="fb" href="category-grid.html#" title="Share on Facebook" target="_blank"><i class="elegant-icon social_facebook"></i></a></li>
+                                    <li><a class="tw" href="category-grid.html#" target="_blank" title="Tweet now"><i class="elegant-icon social_twitter"></i></a></li>
+                                    <li><a class="pt" href="category-grid.html#" target="_blank" title="Pin it"><i class="elegant-icon social_pinterest"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="post-content p-30">
+                                <div class="entry-meta meta-0 font-small mb-10">
+                                    <a href="category.html"><span class="post-cat text-info">Travel</span></a>
+                                    <a href="category.html"><span class="post-cat text-success">Food</span></a>
+                                </div>
+                                <div class="d-flex post-card-content">
+                                    <h5 class="post-title mb-20 font-weight-900">
+                                        <a href="single.html">Want fluffy Japanese pancakes but can’t fly to Tokyo?</a>
+                                    </h5>
+                                    <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
+                                        <span class="post-on">27 August</span>
+                                        <span class="time-reading has-dot">12 mins read</span>
+                                        <span class="post-by has-dot">23k views</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="col-lg-4 col-md-6 mb-30 wow fadeInUp animated">
+                        <div class="post-card-1 border-radius-10 hover-up">
+                            <div class="post-thumb thumb-overlay img-hover-slide position-relative" style="background-image: url(assets/imgs/news/news-2.jpg)">
+                                <a class="img-link" href="single.html"></a>
+                                <ul class="social-share">
+                                    <li><a href="category-grid.html#"><i class="elegant-icon social_share"></i></a></li>
+                                    <li><a class="fb" href="category-grid.html#" title="Share on Facebook" target="_blank"><i class="elegant-icon social_facebook"></i></a></li>
+                                    <li><a class="tw" href="category-grid.html#" target="_blank" title="Tweet now"><i class="elegant-icon social_twitter"></i></a></li>
+                                    <li><a class="pt" href="category-grid.html#" target="_blank" title="Pin it"><i class="elegant-icon social_pinterest"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="post-content p-30">
+                                <div class="entry-meta meta-0 font-small mb-10">
+                                    <a href="category.html"><span class="post-cat text-warning">Fashion</span></a>
+                                </div>
+                                <div class="d-flex post-card-content">
+                                    <h5 class="post-title mb-20 font-weight-900">
+                                        <a href="single.html">Put Yourself in Your Customers Shoes</a>
+                                    </h5>
+                                    <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
+                                        <span class="post-on">17 July</span>
+                                        <span class="time-reading has-dot">8 mins read</span>
+                                        <span class="post-by has-dot">12k views</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="col-lg-4 col-md-6 mb-30 wow fadeInUp animated" data-wow-delay="0.2s">
+                        <div class="post-card-1 border-radius-10 hover-up">
+                            <div class="post-thumb thumb-overlay img-hover-slide position-relative" style="background-image: url(assets/imgs/news/news-3.jpg)">
+                                <a class="img-link" href="single.html"></a>
+                                <ul class="social-share">
+                                    <li><a href="category-grid.html#"><i class="elegant-icon social_share"></i></a></li>
+                                    <li><a class="fb" href="category-grid.html#" title="Share on Facebook" target="_blank"><i class="elegant-icon social_facebook"></i></a></li>
+                                    <li><a class="tw" href="category-grid.html#" target="_blank" title="Tweet now"><i class="elegant-icon social_twitter"></i></a></li>
+                                    <li><a class="pt" href="category-grid.html#" target="_blank" title="Pin it"><i class="elegant-icon social_pinterest"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="post-content p-30">
+                                <div class="entry-meta meta-0 font-small mb-10">
+                                    <a href="category.html"><span class="post-cat text-danger">Travel</span></a>
+                                </div>
+                                <div class="d-flex post-card-content">
+                                    <h5 class="post-title mb-20 font-weight-900">
+                                        <a href="single.html">Life and Death in the Empire of the Tiger</a>
+                                    </h5>
+                                    <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
+                                        <span class="post-on">7 August</span>
+                                        <span class="time-reading has-dot">15 mins read</span>
+                                        <span class="post-by has-dot">500 views</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="col-lg-4 col-md-6 mb-30 wow fadeInUp animated" data-wow-delay="0.4s">
+                        <div class="post-card-1 border-radius-10 hover-up">
+                            <div class="post-thumb thumb-overlay img-hover-slide position-relative" style="background-image: url(assets/imgs/news/news-4.jpg)">
+                                <a class="img-link" href="single.html"></a>
+                                <span class="top-right-icon bg-info"><i class="elegant-icon icon_headphones"></i></span>
+                                <ul class="social-share">
+                                    <li><a href="category-grid.html#"><i class="elegant-icon social_share"></i></a></li>
+                                    <li><a class="fb" href="category-grid.html#" title="Share on Facebook" target="_blank"><i class="elegant-icon social_facebook"></i></a></li>
+                                    <li><a class="tw" href="category-grid.html#" target="_blank" title="Tweet now"><i class="elegant-icon social_twitter"></i></a></li>
+                                    <li><a class="pt" href="category-grid.html#" target="_blank" title="Pin it"><i class="elegant-icon social_pinterest"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="post-content p-30">
+                                <div class="entry-meta meta-0 font-small mb-10">
+                                    <a href="category.html"><span class="post-cat text-success">Lifestyle</span></a>
+                                </div>
+                                <div class="d-flex post-card-content">
+                                    <h5 class="post-title mb-20 font-weight-900">
+                                        <a href="single.html">When Two Wheels Are Better Than Four</a>
+                                    </h5>
+                                    <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
+                                        <span class="post-on">15 Jun</span>
+                                        <span class="time-reading has-dot">9 mins read</span>
+                                        <span class="post-by has-dot">1.2k views</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="col-lg-4 col-md-6 mb-30 wow fadeInUp animated">
+                        <div class="post-card-1 border-radius-10 hover-up">
+                            <div class="post-thumb thumb-overlay img-hover-slide position-relative" style="background-image: url(assets/imgs/news/news-5.jpg)">
+                                <a class="img-link" href="single.html"></a>
+                                <ul class="social-share">
+                                    <li><a href="category-grid.html#"><i class="elegant-icon social_share"></i></a></li>
+                                    <li><a class="fb" href="category-grid.html#" title="Share on Facebook" target="_blank"><i class="elegant-icon social_facebook"></i></a></li>
+                                    <li><a class="tw" href="category-grid.html#" target="_blank" title="Tweet now"><i class="elegant-icon social_twitter"></i></a></li>
+                                    <li><a class="pt" href="category-grid.html#" target="_blank" title="Pin it"><i class="elegant-icon social_pinterest"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="post-content p-30">
+                                <div class="entry-meta meta-0 font-small mb-10">
+                                    <a href="category.html"><span class="post-cat text-warning">Fashion</span></a>
+                                </div>
+                                <div class="d-flex post-card-content">
+                                    <h5 class="post-title mb-20 font-weight-900">
+                                        <a href="single.html">The Life of a Travel Writer with David Farley</a>
+                                    </h5>
+                                    <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
+                                        <span class="post-on">17 July</span>
+                                        <span class="time-reading has-dot">8 mins read</span>
+                                        <span class="post-by has-dot">12k views</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="col-lg-4 col-md-6 mb-30 wow fadeInUp animated" data-wow-delay="0.2s">
+                        <div class="post-card-1 border-radius-10 hover-up">
+                            <div class="post-thumb thumb-overlay img-hover-slide position-relative" style="background-image: url(assets/imgs/news/news-6.jpg)">
+                                <a class="img-link" href="single.html"></a>
+                                <ul class="social-share">
+                                    <li><a href="category-grid.html#"><i class="elegant-icon social_share"></i></a></li>
+                                    <li><a class="fb" href="category-grid.html#" title="Share on Facebook" target="_blank"><i class="elegant-icon social_facebook"></i></a></li>
+                                    <li><a class="tw" href="category-grid.html#" target="_blank" title="Tweet now"><i class="elegant-icon social_twitter"></i></a></li>
+                                    <li><a class="pt" href="category-grid.html#" target="_blank" title="Pin it"><i class="elegant-icon social_pinterest"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="post-content p-30">
+                                <div class="entry-meta meta-0 font-small mb-10">
+                                    <a href="category.html"><span class="post-cat text-danger">Travel</span></a>
+                                </div>
+                                <div class="d-flex post-card-content">
+                                    <h5 class="post-title mb-20 font-weight-900">
+                                        <a href="single.html">The 22 Best Things to See and Do in Bangkok</a>
+                                    </h5>
+                                    <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
+                                        <span class="post-on">7 August</span>
+                                        <span class="time-reading has-dot">15 mins read</span>
+                                        <span class="post-by has-dot">500 views</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="col-lg-4 col-md-6 mb-30 wow fadeInUp animated" data-wow-delay="0.4s">
+                        <div class="post-card-1 border-radius-10 hover-up">
+                            <div class="post-thumb thumb-overlay img-hover-slide position-relative" style="background-image: url(assets/imgs/news/news-7.jpg)">
+                                <a class="img-link" href="single.html"></a>
+                                <ul class="social-share">
+                                    <li><a href="category-grid.html#"><i class="elegant-icon social_share"></i></a></li>
+                                    <li><a class="fb" href="category-grid.html#" title="Share on Facebook" target="_blank"><i class="elegant-icon social_facebook"></i></a></li>
+                                    <li><a class="tw" href="category-grid.html#" target="_blank" title="Tweet now"><i class="elegant-icon social_twitter"></i></a></li>
+                                    <li><a class="pt" href="category-grid.html#" target="_blank" title="Pin it"><i class="elegant-icon social_pinterest"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="post-content p-30">
+                                <div class="entry-meta meta-0 font-small mb-10">
+                                    <a href="category.html"><span class="post-cat text-success">Lifestyle</span></a>
+                                </div>
+                                <div class="d-flex post-card-content">
+                                    <h5 class="post-title mb-20 font-weight-900">
+                                        <a href="single.html">Why Don’t More Black American Women Travel Solo?</a>
+                                    </h5>
+                                    <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
+                                        <span class="post-on">15 Jun</span>
+                                        <span class="time-reading has-dot">9 mins read</span>
+                                        <span class="post-by has-dot">1.2k views</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="col-lg-4 col-md-6 mb-30 wow fadeInUp animated">
+                        <div class="post-card-1 border-radius-10 hover-up">
+                            <div class="post-thumb thumb-overlay img-hover-slide position-relative" style="background-image: url(assets/imgs/news/news-8.jpg)">
+                                <a class="img-link" href="single.html"></a>
+                                <ul class="social-share">
+                                    <li><a href="category-grid.html#"><i class="elegant-icon social_share"></i></a></li>
+                                    <li><a class="fb" href="category-grid.html#" title="Share on Facebook" target="_blank"><i class="elegant-icon social_facebook"></i></a></li>
+                                    <li><a class="tw" href="category-grid.html#" target="_blank" title="Tweet now"><i class="elegant-icon social_twitter"></i></a></li>
+                                    <li><a class="pt" href="category-grid.html#" target="_blank" title="Pin it"><i class="elegant-icon social_pinterest"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="post-content p-30">
+                                <div class="entry-meta meta-0 font-small mb-10">
+                                    <a href="category.html"><span class="post-cat text-warning">Fashion</span></a>
+                                </div>
+                                <div class="d-flex post-card-content">
+                                    <h5 class="post-title mb-20 font-weight-900">
+                                        <a href="single.html">My 8 Favorite Hostels in San José, Costa Rica</a>
+                                    </h5>
+                                    <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
+                                        <span class="post-on">17 July</span>
+                                        <span class="time-reading has-dot">8 mins read</span>
+                                        <span class="post-by has-dot">12k views</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="col-lg-4 col-md-6 mb-30 wow fadeInUp animated" data-wow-delay="0.2s">
+                        <div class="post-card-1 border-radius-10 hover-up">
+                            <div class="post-thumb thumb-overlay img-hover-slide position-relative" style="background-image: url(assets/imgs/news/news-9.jpg)">
+                                <a class="img-link" href="single.html"></a>
+                                <ul class="social-share">
+                                    <li><a href="category-grid.html#"><i class="elegant-icon social_share"></i></a></li>
+                                    <li><a class="fb" href="category-grid.html#" title="Share on Facebook" target="_blank"><i class="elegant-icon social_facebook"></i></a></li>
+                                    <li><a class="tw" href="category-grid.html#" target="_blank" title="Tweet now"><i class="elegant-icon social_twitter"></i></a></li>
+                                    <li><a class="pt" href="category-grid.html#" target="_blank" title="Pin it"><i class="elegant-icon social_pinterest"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="post-content p-30">
+                                <div class="entry-meta meta-0 font-small mb-10">
+                                    <a href="category.html"><span class="post-cat text-danger">Travel</span></a>
+                                </div>
+                                <div class="d-flex post-card-content">
+                                    <h5 class="post-title mb-20 font-weight-900">
+                                        <a href="single.html">The Nomadic Network: A Community Update & More Events</a>
+                                    </h5>
+                                    <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
+                                        <span class="post-on">7 August</span>
+                                        <span class="time-reading has-dot">15 mins read</span>
+                                        <span class="post-by has-dot">500 views</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="col-lg-4 col-md-6 mb-30 wow fadeInUp animated" data-wow-delay="0.4s">
+                        <div class="post-card-1 border-radius-10 hover-up">
+                            <div class="post-thumb thumb-overlay img-hover-slide position-relative" style="background-image: url(assets/imgs/news/news-11.jpg)">
+                                <a class="img-link" href="single.html"></a>
+                                <span class="top-right-icon bg-info"><i class="elegant-icon icon_headphones"></i></span>
+                                <ul class="social-share">
+                                    <li><a href="category-grid.html#"><i class="elegant-icon social_share"></i></a></li>
+                                    <li><a class="fb" href="category-grid.html#" title="Share on Facebook" target="_blank"><i class="elegant-icon social_facebook"></i></a></li>
+                                    <li><a class="tw" href="category-grid.html#" target="_blank" title="Tweet now"><i class="elegant-icon social_twitter"></i></a></li>
+                                    <li><a class="pt" href="category-grid.html#" target="_blank" title="Pin it"><i class="elegant-icon social_pinterest"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="post-content p-30">
+                                <div class="entry-meta meta-0 font-small mb-10">
+                                    <a href="category.html"><span class="post-cat text-success">Lifestyle</span></a>
+                                </div>
+                                <div class="d-flex post-card-content">
+                                    <h5 class="post-title mb-20 font-weight-900">
+                                        <a href="single.html">We’ve Updated Our Travel Hacking Guide</a>
+                                    </h5>
+                                    <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
+                                        <span class="post-on">15 Jun</span>
+                                        <span class="time-reading has-dot">9 mins read</span>
+                                        <span class="post-by has-dot">1.2k views</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div class="row mt-50">
+                    <div class="col-12">
+                        <div class="pagination-area mb-30 wow fadeInUp animated">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-start">
+                                    <li class="page-item"><a class="page-link" href="category-grid.html#"><i class="elegant-icon arrow_left"></i></a></li>
+                                    <li class="page-item active"><a class="page-link" href="category-grid.html#">01</a></li>
+                                    <li class="page-item"><a class="page-link" href="category-grid.html#">02</a></li>
+                                    <li class="page-item"><a class="page-link" href="category-grid.html#">03</a></li>
+                                    <li class="page-item"><a class="page-link" href="category-grid.html#">04</a></li>
+                                    <li class="page-item"><a class="page-link" href="category-grid.html#"><i class="elegant-icon arrow_right"></i></a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!--site-bottom-->
+    <div th:insert="~{common/menu-front::front-bottom}"></div>
+    <!--end site-bottom-->
+    <!-- Footer Start-->
+    <footer th:insert="~{common/menu-front::front-footer}"></footer>
+    <!-- End Footer -->
+    <div class="dark-mark"></div>
+    <!-- Vendor JS-->
+    <script src="/assets/js/vendor/modernizr-3.5.0.min.js"></script>
+    <script src="/assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="/assets/js/vendor/popper.min.js"></script>
+    <script src="/assets/js/vendor/bootstrap.min.js"></script>
+    <script src="/assets/js/vendor/jquery.slicknav.js"></script>
+    <script src="/assets/js/vendor/slick.min.js"></script>
+    <script src="/assets/js/vendor/wow.min.js"></script>
+    <script src="/assets/js/vendor/jquery.ticker.js"></script>
+    <script src="/assets/js/vendor/jquery.vticker-min.js"></script>
+    <script src="/assets/js/vendor/jquery.scrollUp.min.js"></script>
+    <script src="/assets/js/vendor/jquery.nice-select.min.js"></script>
+    <script src="/assets/js/vendor/jquery.magnific-popup.js"></script>
+    <script src="/assets/js/vendor/jquery.sticky.js"></script>
+    <script src="/assets/js/vendor/perfect-scrollbar.js"></script>
+    <script src="/assets/js/vendor/waypoints.min.js"></script>
+    <script src="/assets/js/vendor/jquery.theia.sticky.js"></script>
+    <!-- NewsBoard JS -->
+    <script src="/assets/js/main.js"></script>
+</body>
+
+</html>
