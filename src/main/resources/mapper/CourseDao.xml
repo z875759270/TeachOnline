@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhanc.teachonline.dao.CourseDao">
+
+    <resultMap type="com.zhanc.teachonline.entity.Course" id="CourseMap">
+        <result property="courseId" column="course_id" jdbcType="INTEGER"/>
+        <result property="courseName" column="course_name" jdbcType="VARCHAR"/>
+        <result property="courseDetail" column="course_detail" jdbcType="VARCHAR"/>
+        <result property="courseCategoryId" column="course_category_id" jdbcType="INTEGER"/>
+        <result property="courseCreater" column="course_creater" jdbcType="VARCHAR"/>
+        <result property="courseCreateTime" column="course_create_time" jdbcType="TIMESTAMP"/>
+        <result property="courseViews" column="course_views" jdbcType="INTEGER"/>
+        <result property="courseImg" column="course_img" jdbcType="VARCHAR"/>
+        <result property="courseVideo" column="course_video" jdbcType="VARCHAR"/>
+        <result property="courseNotice" column="course_notice" jdbcType="VARCHAR"/>
+        <result property="courseStatus" column="course_status" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="CourseMap">
+        select course_id,
+               course_name,
+               course_detail,
+               course_category_id,
+               course_creater,
+               course_create_time,
+               course_views,
+               course_img,
+               course_video,
+               course_notice,
+               course_status
+        from course
+        where course_id = #{courseId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="CourseMap">
+        select course_id,
+               course_name,
+               course_detail,
+               course_category_id,
+               course_creater,
+               course_create_time,
+               course_views,
+               course_img,
+               course_video,
+               course_notice,
+               course_status
+        from course limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from course
+        <where>
+            <if test="courseId != null">
+                and course_id = #{courseId}
+            </if>
+            <if test="courseName != null and courseName != ''">
+                and course_name = #{courseName}
+            </if>
+            <if test="courseDetail != null and courseDetail != ''">
+                and course_detail = #{courseDetail}
+            </if>
+            <if test="courseCategoryId != null">
+                and course_category_id = #{courseCategoryId}
+            </if>
+            <if test="courseCreater != null and courseCreater != ''">
+                and course_creater = #{courseCreater}
+            </if>
+            <if test="courseCreateTime != null">
+                and course_create_time = #{courseCreateTime}
+            </if>
+            <if test="courseViews != null">
+                and course_views = #{courseViews}
+            </if>
+            <if test="courseImg != null and courseImg != ''">
+                and course_img = #{courseImg}
+            </if>
+            <if test="courseVideo != null and courseVideo != ''">
+                and course_video = #{courseVideo}
+            </if>
+            <if test="courseNotice != null and courseNotice != ''">
+                and course_notice = #{courseNotice}
+            </if>
+            <if test="courseStatus != null">
+                and course_status = #{courseStatus}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="courseId" useGeneratedKeys="true">
+        insert into course(course_name, course_detail, course_category_id, course_creater, course_create_time,
+                           course_views, course_img, course_video, course_notice, course_status)
+        values (#{courseName}, #{courseDetail}, #{courseCategoryId}, #{courseCreater}, #{courseCreateTime},
+                #{courseViews}, #{courseImg}, #{courseVideo}, #{courseNotice}, #{courseStatus})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="courseId" useGeneratedKeys="true">
+        insert into course(course_name, course_detail, course_category_id, course_creater, course_create_time,
+        course_views, course_img, course_video, course_notice, course_status)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.courseName}, #{entity.courseDetail}, #{entity.courseCategoryId}, #{entity.courseCreater},
+            #{entity.courseCreateTime}, #{entity.courseViews}, #{entity.courseImg}, #{entity.courseVideo},
+            #{entity.courseNotice}, #{entity.courseStatus})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="courseId" useGeneratedKeys="true">
+        insert into course(course_name, course_detail, course_category_id, course_creater, course_create_time,
+        course_views, course_img, course_video, course_notice, course_status)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.courseName}, #{entity.courseDetail}, #{entity.courseCategoryId}, #{entity.courseCreater},
+            #{entity.courseCreateTime}, #{entity.courseViews}, #{entity.courseImg}, #{entity.courseVideo},
+            #{entity.courseNotice}, #{entity.courseStatus})
+        </foreach>
+        on duplicate key update
+        course_name = values(course_name),
+        course_detail = values(course_detail),
+        course_category_id = values(course_category_id),
+        course_creater = values(course_creater),
+        course_create_time = values(course_create_time),
+        course_views = values(course_views),
+        course_img = values(course_img),
+        course_video = values(course_video),
+        course_notice = values(course_notice),
+        course_status = values(course_status)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update course
+        <set>
+            <if test="courseName != null and courseName != ''">
+                course_name = #{courseName},
+            </if>
+            <if test="courseDetail != null and courseDetail != ''">
+                course_detail = #{courseDetail},
+            </if>
+            <if test="courseCategoryId != null">
+                course_category_id = #{courseCategoryId},
+            </if>
+            <if test="courseCreater != null and courseCreater != ''">
+                course_creater = #{courseCreater},
+            </if>
+            <if test="courseCreateTime != null">
+                course_create_time = #{courseCreateTime},
+            </if>
+            <if test="courseViews != null">
+                course_views = #{courseViews},
+            </if>
+            <if test="courseImg != null and courseImg != ''">
+                course_img = #{courseImg},
+            </if>
+            <if test="courseVideo != null and courseVideo != ''">
+                course_video = #{courseVideo},
+            </if>
+            <if test="courseNotice != null and courseNotice != ''">
+                course_notice = #{courseNotice},
+            </if>
+            <if test="courseStatus != null">
+                course_status = #{courseStatus},
+            </if>
+        </set>
+        where course_id = #{courseId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from course
+        where course_id = #{courseId}
+    </delete>
+
+</mapper>
+

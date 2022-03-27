@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhanc.teachonline.dao.IllegalDao">
+
+    <resultMap type="com.zhanc.teachonline.entity.Illegal" id="IllegalMap">
+        <result property="illegalId" column="illegal_id" jdbcType="INTEGER"/>
+        <result property="illegalType" column="illegal_type" jdbcType="VARCHAR"/>
+        <result property="illegalImg" column="illegal_img" jdbcType="VARCHAR"/>
+        <result property="illegalDetail" column="illegal_detail" jdbcType="VARCHAR"/>
+        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="illegalTime" column="illegal_time" jdbcType="TIMESTAMP"/>
+        <result property="illegalStatus" column="illegal_status" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="IllegalMap">
+        select illegal_id,
+               illegal_type,
+               illegal_img,
+               illegal_detail,
+               user_name,
+               illegal_time,
+               illegal_status
+        from illegal
+        where illegal_id = #{illegalId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="IllegalMap">
+        select illegal_id,
+               illegal_type,
+               illegal_img,
+               illegal_detail,
+               user_name,
+               illegal_time,
+               illegal_status
+        from illegal limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from illegal
+        <where>
+            <if test="illegalId != null">
+                and illegal_id = #{illegalId}
+            </if>
+            <if test="illegalType != null">
+                and illegal_type = #{illegalType}
+            </if>
+            <if test="illegalImg != null and illegalImg != ''">
+                and illegal_img = #{illegalImg}
+            </if>
+            <if test="illegalDetail != null and illegalDetail != ''">
+                and illegal_detail = #{illegalDetail}
+            </if>
+            <if test="userName != null and userName != ''">
+                and user_name = #{userName}
+            </if>
+            <if test="illegalTime != null">
+                and illegal_time = #{illegalTime}
+            </if>
+            <if test="illegalStatus != null">
+                and illegal_status = #{illegalStatus}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="illegalId" useGeneratedKeys="true">
+        insert into illegal(illegal_type, illegal_img, illegal_detail, user_name, illegal_time, illegal_status)
+        values (#{illegalType}, #{illegalImg}, #{illegalDetail}, #{userName}, #{illegalTime}, #{illegalStatus})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="illegalId" useGeneratedKeys="true">
+        insert into illegal(illegal_type, illegal_img, illegal_detail, user_name, illegal_time, illegal_status)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.illegalType}, #{entity.illegalImg}, #{entity.illegalDetail}, #{entity.userName},
+            #{entity.illegalTime}, #{entity.illegalStatus})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="illegalId" useGeneratedKeys="true">
+        insert into illegal(illegal_type, illegal_img, illegal_detail, user_name, illegal_time, illegal_status)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.illegalType}, #{entity.illegalImg}, #{entity.illegalDetail}, #{entity.userName},
+            #{entity.illegalTime}, #{entity.illegalStatus})
+        </foreach>
+        on duplicate key update
+        illegal_type = values(illegal_type),
+        illegal_img = values(illegal_img),
+        illegal_detail = values(illegal_detail),
+        user_name = values(user_name),
+        illegal_time = values(illegal_time),
+        illegal_status = values(illegal_status)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update illegal
+        <set>
+            <if test="illegalType != null">
+                illegal_type = #{illegalType},
+            </if>
+            <if test="illegalImg != null and illegalImg != ''">
+                illegal_img = #{illegalImg},
+            </if>
+            <if test="illegalDetail != null and illegalDetail != ''">
+                illegal_detail = #{illegalDetail},
+            </if>
+            <if test="userName != null and userName != ''">
+                user_name = #{userName},
+            </if>
+            <if test="illegalTime != null">
+                illegal_time = #{illegalTime},
+            </if>
+            <if test="illegalStatus != null">
+                illegal_status = #{illegalStatus},
+            </if>
+        </set>
+        where illegal_id = #{illegalId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from illegal
+        where illegal_id = #{illegalId}
+    </delete>
+
+</mapper>
+

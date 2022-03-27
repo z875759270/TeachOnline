@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhanc.teachonline.dao.TopicCategoryDao">
+
+    <resultMap type="com.zhanc.teachonline.entity.TopicCategory" id="TopicCategoryMap">
+        <result property="categoryId" column="category_id" jdbcType="INTEGER"/>
+        <result property="categoryName" column="category_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TopicCategoryMap">
+        select category_id,
+               category_name
+        from topic_category
+        where category_id = #{categoryId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TopicCategoryMap">
+        select category_id,
+               category_name
+        from topic_category limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from topic_category
+        <where>
+            <if test="categoryId != null">
+                and category_id = #{categoryId}
+            </if>
+            <if test="categoryName != null and categoryName != ''">
+                and category_name = #{categoryName}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="categoryId" useGeneratedKeys="true">
+        insert into topic_category(category_name)
+        values (#{categoryName})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="categoryId" useGeneratedKeys="true">
+        insert into topic_category(category_name)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.categoryName})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="categoryId" useGeneratedKeys="true">
+        insert into topic_category(category_name)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.categoryName})
+        </foreach>
+        on duplicate key update
+        category_name = values(category_name)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update topic_category
+        <set>
+            <if test="categoryName != null and categoryName != ''">
+                category_name = #{categoryName},
+            </if>
+        </set>
+        where category_id = #{categoryId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from topic_category
+        where category_id = #{categoryId}
+    </delete>
+
+</mapper>
+
