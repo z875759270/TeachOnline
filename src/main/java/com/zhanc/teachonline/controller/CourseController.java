@@ -114,30 +114,6 @@ public class CourseController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
-    @PostMapping("upload/video")
-    public ResponseEntity<Map<String, Object>> uploadVideo(MultipartFile courseVideoUpload) {
-        if (courseVideoUpload.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-        String fileName = "course" + CommonUtils.setFileName(courseVideoUpload.getOriginalFilename());
-        File dest = new File(filePath + fileName);
-        try {
-            if (!dest.exists()) {
-                dest.createNewFile();
-            }
-            courseVideoUpload.transferTo(dest);
-            System.out.println("文件[" + fileName + "]上传成功");
-            Map<String, Object> map = new HashMap<>();
-            map.put("msg", "上传成功");
-            map.put("resUrl", fileName);
-            map.put("flag", true);
-            return ResponseEntity.ok(map);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-    }
-
     /**
      * 编辑数据
      *
