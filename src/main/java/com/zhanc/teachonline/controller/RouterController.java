@@ -1,16 +1,23 @@
 package com.zhanc.teachonline.controller;
 
-import com.zhanc.teachonline.entity.CourseCategory;
-import com.zhanc.teachonline.service.CourseCategoryService;
+import com.zhanc.teachonline.entity.*;
+import com.zhanc.teachonline.service.*;
 import com.zhanc.teachonline.utils.SensitiveWordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName RouterController
@@ -22,8 +29,17 @@ import java.io.*;
 @Controller
 public class RouterController {
 
+
+    @Resource
+    private UserService userService;
+    @Resource
+    private CourseService courseService;
     @Resource
     private CourseCategoryService courseCategoryService;
+    @Resource
+    private TagService tagService;
+    @Resource
+    private CourseTagService courseTagService;
 
     //region 后台
 
@@ -98,66 +114,83 @@ public class RouterController {
     //endregion
 
     //region 前台
-    @RequestMapping(value = {"/", "/index", "/front/", "/front/index"})
+    @RequestMapping(value = {"/", "/index"})
     public String toFrontIndex() {
         return "/front/index";
     }
 
-    @RequestMapping(value = {"/login", "/front/login"})
+    @RequestMapping(value = {"/login"})
     public String toLogin() {
         return "/front/login";
     }
 
-    @RequestMapping(value = {"/register", "/front/register"})
+    @RequestMapping(value = {"/register"})
     public String toReg() {
         return "/front/register";
     }
 
-    @RequestMapping(value = {"/search", "/front/search"})
+    @RequestMapping(value = {"/search"})
     public String toSearch() {
         return "/front/search";
     }
 
-    @RequestMapping(value = {"/intro", "/front/intro"})
-    public String toCourseIntro() {
+    @RequestMapping(value = {"/course/intro/{courseId}"})
+    public String toCourseIntro(@PathVariable Integer courseId,Model model) {
+        Course course = this.courseService.queryById(courseId);
+
+        //获取课程标签
+        ArrayList<Tag> tagList=new ArrayList<>();
+        Page<CourseTag> courseTags = this.courseTagService.queryByCourseTag(new CourseTag(null, course.getCourseId()));
+        for (CourseTag cTag : courseTags.getContent()) {
+            tagList.add(this.tagService.queryById(cTag.getTagId()));
+        }
+
+        model.addAttribute("course",course);
+        model.addAttribute("tagList",tagList);
         return "/front/course-intro";
     }
 
-    @RequestMapping(value = {"/info", "/front/info"})
+    @RequestMapping(value = {"/info"})
     public String toCourseInfo() {
         return "/front/course-info";
     }
 
-    @RequestMapping(value = {"/report", "/front/report"})
+    @RequestMapping(value = {"/report"})
     public String toIllegal() {
         return "/front/report";
     }
 
-    @RequestMapping(value = {"/course", "/front/course"})
+    @RequestMapping(value = {"/course"})
     public String toCourse() {
         return "/front/course-list";
     }
 
-    @RequestMapping(value = {"/topic", "/front/topic"})
+    @RequestMapping(value = {"/topic"})
     public String toTopic() {
         return "/front/topic-list";
     }
 
-    @RequestMapping(value = {"/topic/info", "/front/topic/info"})
+    @RequestMapping(value = {"/topic/info"})
     public String toTopicInfo() {
         return "/front/topic-info";
     }
 
-    @RequestMapping(value = {"/collection", "/front/collection"})
+    @RequestMapping(value = {"/collection"})
     public String toCollection() {
         return "/front/collection";
     }
 
-    @RequestMapping(value = {"/course/mine", "/front/course/mine"})
+    @RequestMapping(value = {"/course/mine"})
     public String toMyCourse() {
         return "/front/course-mine";
     }
 
+    @RequestMapping(value = {"/profile/{userName}"})
+    public String toProfile(@PathVariable String userName, Model model) {
+        User user = this.userService.queryById(userName);
+        model.addAttribute("user",user);
+        return "/front/profile";
+    }
 
     //endregion 前台
 

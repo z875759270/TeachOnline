@@ -133,12 +133,7 @@ public class UserController {
         return new ModelAndView("/front/login");
     }
 
-    @RequestMapping(value = {"/profile/{userName}"})
-    public ModelAndView toProfile(@PathVariable String userName, Model model) {
-        User user = this.userService.queryById(userName);
-        model.addAttribute("user",user);
-        return new ModelAndView("/front/profile");
-    }
+
 
 }
 

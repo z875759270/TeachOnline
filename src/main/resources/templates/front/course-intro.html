@@ -27,27 +27,26 @@
                 <div class="row">
                     <div class="col-md-6 mb-md-0 mb-sm-3">
                         <figure class="mb-0 mt-lg-0 mt-3 border-radius-5">
-                            <img class=" border-radius-5" src="assets/imgs/news/news-8.jpg" alt="">
+                            <img class=" border-radius-5" th:src="'/media/course/img/'+${course.courseImg}" alt="">
                         </figure>
                     </div>
                     <div class="col-md-6 align-self-center">
                         <div class="post-content">
                             <div class="entry-meta meta-0 mb-15 font-small">
-                                <a href="category.html"><span class="post-cat position-relative text-info">标签1</span></a>
-                                <a href="category.html"><span class="post-cat position-relative text-success">标签2</span></a>
+                                <a href="category.html" th:each="tag:${tagList}"><span class="post-cat position-relative text-info" th:text="${tag.tagName}">标签1</span></a>
                             </div>
-                            <h1 class="entry-title mb-30 font-weight-900">
+                            <h1 class="entry-title mb-30 font-weight-900" th:text="${course.courseName}">
                                 课程标题
                             </h1>
-                            <p class="excerpt mb-30">
+                            <p class="excerpt mb-30" th:text="${course.courseDetail}">
                                 课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介
                             </p>
                             <div class="entry-meta align-items-center meta-2 font-small color-muted">
                                 <p class="mb-5">
                                     <a class="author-avatar" href="single-3.html#"><img class="img-circle" src="assets/imgs/authors/author-3.jpg" alt=""></a>
-                                    By <a th:href="@{/profile}"><span class="author-name font-weight-bold">创建者</span></a>
+                                    By <a th:href="@{/profile/}+${course.courseCreater}"><span class="author-name font-weight-bold" th:text="${course.courseCreater}">创建者</span></a>
                                 </p>
-                                <span class="mr-10"> 2022-03-17 </span>
+                                <span class="mr-10" th:text="${#dates.format(course.courseCreateTime,'yyyy-MM-dd')}"> 2022-03-17 </span>
                                 <span class="has-dot"> <strong>123</strong>人正在学习</span>
                             </div>
                             <div class="form-group mt-30">
