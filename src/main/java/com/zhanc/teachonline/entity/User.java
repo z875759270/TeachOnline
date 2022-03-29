@@ -12,8 +12,8 @@ import java.io.Serializable;
 /**
  * (User)实体类
  *
- * @author makejava
- * @since 2022-03-27 20:19:34
+ * @author zhanc
+ * @since 2022-03-29 14:31:59
  */
 @Data
 @NoArgsConstructor
@@ -21,7 +21,7 @@ import java.io.Serializable;
 @Validated
 @Component
 public class User implements Serializable {
-    private static final long serialVersionUID = 301318907243154360L;
+    private static final long serialVersionUID = 466065988289844237L;
     /**
      * 用户名
      */

@@ -5,21 +5,18 @@ import com.zhanc.teachonline.dao.UserDao;
 import com.zhanc.teachonline.service.UserService;
 import com.zhanc.teachonline.utils.Const;
 import com.zhanc.teachonline.utils.Md5Utils;
-import org.apache.tomcat.util.security.MD5Encoder;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 
 /**
  * (User)表服务实现类
  *
  * @author Zhanc
- * @since 2022-03-27 20:19:35
+ * @since 2022-03-29 14:31:59
  */
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -51,7 +48,20 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 新增账号
+     * 根据实体查询
+     *
+     * @param user 筛选条件
+     * @return 查询结果
+     */
+    @Override
+    public Page<User> queryByUser(User user) {
+        long total = this.userDao.count(user);
+        PageRequest pageRequest = PageRequest.of(0, 1000);
+        return new PageImpl<>(this.userDao.queryAllByUser(user), pageRequest, total);
+    }
+
+    /**
+     * 新增数据
      *
      * @param user 实例对象
      * @return 实例对象

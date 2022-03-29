@@ -19,8 +19,8 @@ public class Md5Utils {
      * @param str 要加密的字符串
      * @return 加密后的字符串
      */
-    public static String encrypt(String str) {
-        str = str + Const.MD5_SALT;
+    public static String encrypt(String str,String salt) {
+        str = str + salt;
         return DigestUtils.md5DigestAsHex(str.getBytes());
     }
 

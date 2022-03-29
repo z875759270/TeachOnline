@@ -14,7 +14,7 @@ import javax.annotation.Resource;
  * (CourseRate)表服务实现类
  *
  * @author Zhanc
- * @since 2022-03-27 20:19:42
+ * @since 2022-03-29 14:31:58
  */
 @Service("courseRateService")
 public class CourseRateServiceImpl implements CourseRateService {
@@ -43,6 +43,19 @@ public class CourseRateServiceImpl implements CourseRateService {
     public Page<CourseRate> queryByPage(CourseRate courseRate, PageRequest pageRequest) {
         long total = this.courseRateDao.count(courseRate);
         return new PageImpl<>(this.courseRateDao.queryAllByLimit(courseRate, pageRequest), pageRequest, total);
+    }
+
+    /**
+     * 根据实体查询
+     *
+     * @param courseRate 筛选条件
+     * @return 查询结果
+     */
+    @Override
+    public Page<CourseRate> queryByCourseRate(CourseRate courseRate) {
+        long total = this.courseRateDao.count(courseRate);
+        PageRequest pageRequest = PageRequest.of(0, 1000);
+        return new PageImpl<>(this.courseRateDao.queryAllByCourseRate(courseRate), pageRequest, total);
     }
 
     /**

@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageRequest;
  * (CourseFile)表服务接口
  *
  * @author Zhanc
- * @since 2022-03-27 20:19:37
+ * @since 2022-03-29 14:31:59
  */
 public interface CourseFileService {
 
@@ -28,6 +28,14 @@ public interface CourseFileService {
      * @return 查询结果
      */
     Page<CourseFile> queryByPage(CourseFile courseFile, PageRequest pageRequest);
+
+    /**
+     * 根据实体查询
+     *
+     * @param courseFile 筛选条件
+     * @return 查询结果
+     */
+    Page<CourseFile> queryByCourseFile(CourseFile courseFile);
 
     /**
      * 新增数据

@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageRequest;
  * (Topic)表服务接口
  *
  * @author Zhanc
- * @since 2022-03-27 20:19:37
+ * @since 2022-03-29 14:32:00
  */
 public interface TopicService {
 
@@ -28,6 +28,14 @@ public interface TopicService {
      * @return 查询结果
      */
     Page<Topic> queryByPage(Topic topic, PageRequest pageRequest);
+
+    /**
+     * 根据实体查询
+     *
+     * @param topic 筛选条件
+     * @return 查询结果
+     */
+    Page<Topic> queryByTopic(Topic topic);
 
     /**
      * 新增数据

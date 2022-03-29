@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageRequest;
  * (CourseCategory)表服务接口
  *
  * @author Zhanc
- * @since 2022-03-27 20:19:35
+ * @since 2022-03-29 14:32:00
  */
 public interface CourseCategoryService {
 
@@ -28,6 +28,14 @@ public interface CourseCategoryService {
      * @return 查询结果
      */
     Page<CourseCategory> queryByPage(CourseCategory courseCategory, PageRequest pageRequest);
+
+    /**
+     * 根据实体查询
+     *
+     * @param courseCategory 筛选条件
+     * @return 查询结果
+     */
+    Page<CourseCategory> queryByCourseCategory(CourseCategory courseCategory);
 
     /**
      * 新增数据

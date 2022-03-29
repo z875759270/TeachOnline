@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageRequest;
  * (CourseRate)表服务接口
  *
  * @author Zhanc
- * @since 2022-03-27 20:19:42
+ * @since 2022-03-29 14:31:58
  */
 public interface CourseRateService {
 
@@ -28,6 +28,14 @@ public interface CourseRateService {
      * @return 查询结果
      */
     Page<CourseRate> queryByPage(CourseRate courseRate, PageRequest pageRequest);
+
+    /**
+     * 根据实体查询
+     *
+     * @param courseRate 筛选条件
+     * @return 查询结果
+     */
+    Page<CourseRate> queryByCourseRate(CourseRate courseRate);
 
     /**
      * 新增数据

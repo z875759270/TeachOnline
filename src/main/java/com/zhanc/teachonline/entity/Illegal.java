@@ -13,8 +13,8 @@ import java.io.Serializable;
 /**
  * (Illegal)实体类
  *
- * @author makejava
- * @since 2022-03-27 20:19:38
+ * @author zhanc
+ * @since 2022-03-29 14:31:57
  */
 @Data
 @NoArgsConstructor
@@ -22,7 +22,7 @@ import java.io.Serializable;
 @Validated
 @Component
 public class Illegal implements Serializable {
-    private static final long serialVersionUID = -31576317547779603L;
+    private static final long serialVersionUID = 316050951400452527L;
     /**
      * 违规ID
      */

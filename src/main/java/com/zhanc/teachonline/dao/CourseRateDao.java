@@ -10,7 +10,7 @@ import java.util.List;
  * (CourseRate)表数据库访问层
  *
  * @author Zhanc
- * @since 2022-03-27 20:19:42
+ * @since 2022-03-29 14:31:58
  */
 public interface CourseRateDao {
 
@@ -30,6 +30,14 @@ public interface CourseRateDao {
      * @return 对象列表
      */
     List<CourseRate> queryAllByLimit(CourseRate courseRate, @Param("pageable") Pageable pageable);
+
+    /**
+     * 指定对象查询数据
+     *
+     * @param courseRate 查询条件
+     * @return 对象列表
+     */
+    List<CourseRate> queryAllByCourseRate(CourseRate courseRate);
 
     /**
      * 统计总行数

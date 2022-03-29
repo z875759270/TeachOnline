@@ -10,10 +10,12 @@
   <link rel="stylesheet" href="/assets/css/style.css">
   <link rel="stylesheet" href="/assets/css/widgets.css">
   <link rel="stylesheet" href="/assets/css/responsive.css">
+  <link rel="stylesheet" href="/plugins/notifications/css/css.css">
+  <link rel="stylesheet" href="/plugins/notifications/css/lobibox.min.css">
+  <link href="/css/icons.css" rel="stylesheet">
 </head>
 
 <body>
-<div class="scroll-progress primary-bg"></div>
 <!--Offcanvas sidebar-->
 <aside th:insert="~{common/menu-front::front-sidebar}"></aside>
 <!-- Start Header -->
@@ -30,7 +32,7 @@
             <div class="heading_s1 text-center">
               <h3 class="mb-30 font-weight-900">登录</h3>
             </div>
-            <form method="post">
+            <form method="post" id="loginForm">
               <div class="form-group">
                 <input type="text" class="form-control" name="userName" placeholder="请输入用户名" th:minlength="4" th:maxlength="30" th:required="true">
               </div>
@@ -82,8 +84,14 @@
 <script src="/assets/js/vendor/perfect-scrollbar.js"></script>
 <script src="/assets/js/vendor/waypoints.min.js"></script>
 <script src="/assets/js/vendor/jquery.theia.sticky.js"></script>
+<!--notification js-->
+<script src="/plugins/notifications/js/lobibox.min.js"></script>
+<script src="/plugins/notifications/js/notifications.min.js"></script>
+<script src="/plugins/notifications/js/notification-custom-script.js"></script>
 <!-- NewsBoard JS -->
 <script src="/assets/js/main.js"></script>
+<script src="/js/config.js"></script>
+<script src="/js/page/front/login.js"></script>
 </body>
 
 </html>

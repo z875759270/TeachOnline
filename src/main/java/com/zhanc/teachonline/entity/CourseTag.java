@@ -12,8 +12,8 @@ import java.io.Serializable;
 /**
  * (CourseTag)实体类
  *
- * @author makejava
- * @since 2022-03-27 20:19:36
+ * @author zhanc
+ * @since 2022-03-29 14:31:57
  */
 @Data
 @NoArgsConstructor
@@ -21,7 +21,7 @@ import java.io.Serializable;
 @Validated
 @Component
 public class CourseTag implements Serializable {
-    private static final long serialVersionUID = 742835965588885691L;
+    private static final long serialVersionUID = -39148159960733789L;
     /**
      * 标签ID
      */

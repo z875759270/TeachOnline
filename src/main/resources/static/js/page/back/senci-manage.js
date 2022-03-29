@@ -1,6 +1,6 @@
 $("#senciForm").submit(function () {
     $.ajax({
-        url: AdminConfig.domain + "/back/senci/edit",
+        url: Const.domain + "/back/senci/edit",
         type: "POST",
         data:{
             senciList:$("#senci").val()

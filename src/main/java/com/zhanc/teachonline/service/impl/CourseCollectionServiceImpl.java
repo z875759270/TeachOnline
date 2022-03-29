@@ -14,7 +14,7 @@ import javax.annotation.Resource;
  * (CourseCollection)表服务实现类
  *
  * @author Zhanc
- * @since 2022-03-27 20:19:42
+ * @since 2022-03-29 14:32:01
  */
 @Service("courseCollectionService")
 public class CourseCollectionServiceImpl implements CourseCollectionService {
@@ -43,6 +43,19 @@ public class CourseCollectionServiceImpl implements CourseCollectionService {
     public Page<CourseCollection> queryByPage(CourseCollection courseCollection, PageRequest pageRequest) {
         long total = this.courseCollectionDao.count(courseCollection);
         return new PageImpl<>(this.courseCollectionDao.queryAllByLimit(courseCollection, pageRequest), pageRequest, total);
+    }
+
+    /**
+     * 根据实体查询
+     *
+     * @param courseCollection 筛选条件
+     * @return 查询结果
+     */
+    @Override
+    public Page<CourseCollection> queryByCourseCollection(CourseCollection courseCollection) {
+        long total = this.courseCollectionDao.count(courseCollection);
+        PageRequest pageRequest = PageRequest.of(0, 1000);
+        return new PageImpl<>(this.courseCollectionDao.queryAllByCourseCollection(courseCollection), pageRequest, total);
     }
 
     /**

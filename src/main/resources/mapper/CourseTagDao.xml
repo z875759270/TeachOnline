@@ -22,6 +22,21 @@
         from course_tag limit #{pageable.offset}, #{pageable.pageSize}
     </select>
 
+    <!--指定对象查询数据-->
+    <select id="queryAllByCourseTag" resultMap="CourseTagMap">
+        select
+        tag_id, course_id
+        from course_tag
+        <where>
+            <if test="tagId != null">
+                and tag_id = #{tagId}
+            </if>
+            <if test="courseId != null">
+                and course_id = #{courseId}
+            </if>
+        </where>
+    </select>
+
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)
@@ -38,26 +53,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="tagId" useGeneratedKeys="true">
-        insert into course_tag()
-        values ()
-    </insert>
-
-    <insert id="insertBatch" keyProperty="tagId" useGeneratedKeys="true">
-        insert into course_tag()
-        values
-        <foreach collection="entities" item="entity" separator=",">
-            ()
-        </foreach>
-    </insert>
-
-    <insert id="insertOrUpdateBatch" keyProperty="tagId" useGeneratedKeys="true">
-        insert into course_tag()
-        values
-        <foreach collection="entities" item="entity" separator=",">
-            ()
-        </foreach>
-        on duplicate key update
-
+        insert into course_tag(tag_id, course_id)
+        values (#{tagId},#{courseId})
     </insert>
 
     <!--通过主键修改数据-->

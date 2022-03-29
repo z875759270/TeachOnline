@@ -10,7 +10,7 @@ import java.util.List;
  * (Topic)表数据库访问层
  *
  * @author Zhanc
- * @since 2022-03-27 20:19:36
+ * @since 2022-03-29 14:32:00
  */
 public interface TopicDao {
 
@@ -30,6 +30,14 @@ public interface TopicDao {
      * @return 对象列表
      */
     List<Topic> queryAllByLimit(Topic topic, @Param("pageable") Pageable pageable);
+
+    /**
+     * 指定对象查询数据
+     *
+     * @param topic 查询条件
+     * @return 对象列表
+     */
+    List<Topic> queryAllByTopic(Topic topic);
 
     /**
      * 统计总行数

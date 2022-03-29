@@ -49,6 +49,49 @@
         from course limit #{pageable.offset}, #{pageable.pageSize}
     </select>
 
+    <!--指定对象查询数据-->
+    <select id="queryAllByCourse" resultMap="CourseMap">
+        select
+        course_id, course_name, course_detail, course_category_id, course_creater, course_create_time, course_views,
+        course_img, course_video, course_notice, course_status
+        from course
+        <where>
+            <if test="courseId != null">
+                and course_id = #{courseId}
+            </if>
+            <if test="courseName != null and courseName != ''">
+                and course_name = #{courseName}
+            </if>
+            <if test="courseDetail != null and courseDetail != ''">
+                and course_detail = #{courseDetail}
+            </if>
+            <if test="courseCategoryId != null">
+                and course_category_id = #{courseCategoryId}
+            </if>
+            <if test="courseCreater != null and courseCreater != ''">
+                and course_creater = #{courseCreater}
+            </if>
+            <if test="courseCreateTime != null">
+                and course_create_time = #{courseCreateTime}
+            </if>
+            <if test="courseViews != null">
+                and course_views = #{courseViews}
+            </if>
+            <if test="courseImg != null and courseImg != ''">
+                and course_img = #{courseImg}
+            </if>
+            <if test="courseVideo != null and courseVideo != ''">
+                and course_video = #{courseVideo}
+            </if>
+            <if test="courseNotice != null and courseNotice != ''">
+                and course_notice = #{courseNotice}
+            </if>
+            <if test="courseStatus != null">
+                and course_status = #{courseStatus}
+            </if>
+        </where>
+    </select>
+
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)

@@ -14,7 +14,7 @@ import javax.annotation.Resource;
  * (Tag)表服务实现类
  *
  * @author Zhanc
- * @since 2022-03-27 20:19:36
+ * @since 2022-03-29 14:31:58
  */
 @Service("tagService")
 public class TagServiceImpl implements TagService {
@@ -43,6 +43,19 @@ public class TagServiceImpl implements TagService {
     public Page<Tag> queryByPage(Tag tag, PageRequest pageRequest) {
         long total = this.tagDao.count(tag);
         return new PageImpl<>(this.tagDao.queryAllByLimit(tag, pageRequest), pageRequest, total);
+    }
+
+    /**
+     * 根据实体查询
+     *
+     * @param tag 筛选条件
+     * @return 查询结果
+     */
+    @Override
+    public Page<Tag> queryByTag(Tag tag) {
+        long total = this.tagDao.count(tag);
+        PageRequest pageRequest = PageRequest.of(0, 1000);
+        return new PageImpl<>(this.tagDao.queryAllByTag(tag), pageRequest, total);
     }
 
     /**

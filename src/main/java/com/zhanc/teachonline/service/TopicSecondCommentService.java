@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageRequest;
  * (TopicSecondComment)表服务接口
  *
  * @author Zhanc
- * @since 2022-03-27 20:19:42
+ * @since 2022-03-29 14:31:56
  */
 public interface TopicSecondCommentService {
 
@@ -28,6 +28,14 @@ public interface TopicSecondCommentService {
      * @return 查询结果
      */
     Page<TopicSecondComment> queryByPage(TopicSecondComment topicSecondComment, PageRequest pageRequest);
+
+    /**
+     * 根据实体查询
+     *
+     * @param topicSecondComment 筛选条件
+     * @return 查询结果
+     */
+    Page<TopicSecondComment> queryByTopicSecondComment(TopicSecondComment topicSecondComment);
 
     /**
      * 新增数据

@@ -3,18 +3,20 @@ package com.zhanc.teachonline.service.impl;
 import com.zhanc.teachonline.entity.Course;
 import com.zhanc.teachonline.dao.CourseDao;
 import com.zhanc.teachonline.service.CourseService;
+import com.zhanc.teachonline.utils.Const;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 /**
  * (Course)表服务实现类
  *
  * @author Zhanc
- * @since 2022-03-27 20:19:40
+ * @since 2022-03-29 14:31:57
  */
 @Service("courseService")
 public class CourseServiceImpl implements CourseService {
@@ -46,6 +48,19 @@ public class CourseServiceImpl implements CourseService {
     }
 
     /**
+     * 根据实体查询
+     *
+     * @param course 筛选条件
+     * @return 查询结果
+     */
+    @Override
+    public Page<Course> queryByCourse(Course course) {
+        long total = this.courseDao.count(course);
+        PageRequest pageRequest = PageRequest.of(0, 1000);
+        return new PageImpl<>(this.courseDao.queryAllByCourse(course), pageRequest, total);
+    }
+
+    /**
      * 新增数据
      *
      * @param course 实例对象
@@ -53,6 +68,9 @@ public class CourseServiceImpl implements CourseService {
      */
     @Override
     public Course insert(Course course) {
+        course.setCourseViews(0);
+        course.setCourseStatus(Const.STATUS_CHECK);
+        course.setCourseCreateTime(new Date());
         this.courseDao.insert(course);
         return course;
     }

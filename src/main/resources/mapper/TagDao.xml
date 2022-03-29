@@ -22,6 +22,21 @@
         from tag limit #{pageable.offset}, #{pageable.pageSize}
     </select>
 
+    <!--指定对象查询数据-->
+    <select id="queryAllByTag" resultMap="TagMap">
+        select
+        tag_id, tag_name
+        from tag
+        <where>
+            <if test="tagId != null">
+                and tag_id = #{tagId}
+            </if>
+            <if test="tagName != null and tagName != ''">
+                and tag_name = #{tagName}
+            </if>
+        </where>
+    </select>
+
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)

@@ -10,7 +10,7 @@ import java.util.List;
  * (Tag)表数据库访问层
  *
  * @author Zhanc
- * @since 2022-03-27 20:19:35
+ * @since 2022-03-29 14:31:58
  */
 public interface TagDao {
 
@@ -30,6 +30,14 @@ public interface TagDao {
      * @return 对象列表
      */
     List<Tag> queryAllByLimit(Tag tag, @Param("pageable") Pageable pageable);
+
+    /**
+     * 指定对象查询数据
+     *
+     * @param tag 查询条件
+     * @return 对象列表
+     */
+    List<Tag> queryAllByTag(Tag tag);
 
     /**
      * 统计总行数

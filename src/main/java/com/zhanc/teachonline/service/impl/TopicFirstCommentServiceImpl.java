@@ -14,7 +14,7 @@ import javax.annotation.Resource;
  * (TopicFirstComment)表服务实现类
  *
  * @author Zhanc
- * @since 2022-03-27 20:19:39
+ * @since 2022-03-29 14:31:59
  */
 @Service("topicFirstCommentService")
 public class TopicFirstCommentServiceImpl implements TopicFirstCommentService {
@@ -43,6 +43,19 @@ public class TopicFirstCommentServiceImpl implements TopicFirstCommentService {
     public Page<TopicFirstComment> queryByPage(TopicFirstComment topicFirstComment, PageRequest pageRequest) {
         long total = this.topicFirstCommentDao.count(topicFirstComment);
         return new PageImpl<>(this.topicFirstCommentDao.queryAllByLimit(topicFirstComment, pageRequest), pageRequest, total);
+    }
+
+    /**
+     * 根据实体查询
+     *
+     * @param topicFirstComment 筛选条件
+     * @return 查询结果
+     */
+    @Override
+    public Page<TopicFirstComment> queryByTopicFirstComment(TopicFirstComment topicFirstComment) {
+        long total = this.topicFirstCommentDao.count(topicFirstComment);
+        PageRequest pageRequest = PageRequest.of(0, 1000);
+        return new PageImpl<>(this.topicFirstCommentDao.queryAllByTopicFirstComment(topicFirstComment), pageRequest, total);
     }
 
     /**

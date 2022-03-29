@@ -14,7 +14,7 @@ import javax.annotation.Resource;
  * (CourseSecondComment)表服务实现类
  *
  * @author Zhanc
- * @since 2022-03-27 20:19:41
+ * @since 2022-03-29 14:32:00
  */
 @Service("courseSecondCommentService")
 public class CourseSecondCommentServiceImpl implements CourseSecondCommentService {
@@ -43,6 +43,19 @@ public class CourseSecondCommentServiceImpl implements CourseSecondCommentServic
     public Page<CourseSecondComment> queryByPage(CourseSecondComment courseSecondComment, PageRequest pageRequest) {
         long total = this.courseSecondCommentDao.count(courseSecondComment);
         return new PageImpl<>(this.courseSecondCommentDao.queryAllByLimit(courseSecondComment, pageRequest), pageRequest, total);
+    }
+
+    /**
+     * 根据实体查询
+     *
+     * @param courseSecondComment 筛选条件
+     * @return 查询结果
+     */
+    @Override
+    public Page<CourseSecondComment> queryByCourseSecondComment(CourseSecondComment courseSecondComment) {
+        long total = this.courseSecondCommentDao.count(courseSecondComment);
+        PageRequest pageRequest = PageRequest.of(0, 1000);
+        return new PageImpl<>(this.courseSecondCommentDao.queryAllByCourseSecondComment(courseSecondComment), pageRequest, total);
     }
 
     /**

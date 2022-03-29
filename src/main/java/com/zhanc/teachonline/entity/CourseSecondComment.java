@@ -13,8 +13,8 @@ import java.io.Serializable;
 /**
  * (CourseSecondComment)实体类
  *
- * @author makejava
- * @since 2022-03-27 20:19:41
+ * @author zhanc
+ * @since 2022-03-29 14:31:59
  */
 @Data
 @NoArgsConstructor
@@ -22,7 +22,7 @@ import java.io.Serializable;
 @Validated
 @Component
 public class CourseSecondComment implements Serializable {
-    private static final long serialVersionUID = 318156582336443606L;
+    private static final long serialVersionUID = 708255747833147696L;
     /**
      * 父评论ID
      */

@@ -219,7 +219,7 @@
     var niceSelectBox = function() {
         var nice_Select = $('select');
         if (nice_Select.length) {
-            nice_Select.niceSelect();
+            nice_Select.niceSelect("wide");
         }
     };
 
@@ -379,13 +379,13 @@
             return this;
         }
 
-        if ($.fn.vwScroller) {
-            var $more_articles = $('.single-more-articles');
-            $more_articles.vwScroller({ visibleClass: 'single-more-articles--visible', position: 0.55 })
-            $more_articles.find('.single-more-articles-close-button').on('click', function() {
-                $more_articles.hide();
-            });
-        }
+        // if ($.fn.vwScroller) {
+        //     var $more_articles = $('.single-more-articles');
+        //     $more_articles.vwScroller({ visibleClass: 'single-more-articles--visible', position: 0.55 })
+        //     $more_articles.find('.single-more-articles-close-button').on('click', function() {
+        //         $more_articles.hide();
+        //     });
+        // }
 
         $('button.single-more-articles-close').on('click', function() {
             $('.single-more-articles').removeClass('single-more-articles--visible');

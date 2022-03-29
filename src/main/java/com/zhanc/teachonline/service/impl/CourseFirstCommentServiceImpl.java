@@ -14,7 +14,7 @@ import javax.annotation.Resource;
  * (CourseFirstComment)表服务实现类
  *
  * @author Zhanc
- * @since 2022-03-27 20:19:41
+ * @since 2022-03-29 14:32:00
  */
 @Service("courseFirstCommentService")
 public class CourseFirstCommentServiceImpl implements CourseFirstCommentService {
@@ -43,6 +43,19 @@ public class CourseFirstCommentServiceImpl implements CourseFirstCommentService 
     public Page<CourseFirstComment> queryByPage(CourseFirstComment courseFirstComment, PageRequest pageRequest) {
         long total = this.courseFirstCommentDao.count(courseFirstComment);
         return new PageImpl<>(this.courseFirstCommentDao.queryAllByLimit(courseFirstComment, pageRequest), pageRequest, total);
+    }
+
+    /**
+     * 根据实体查询
+     *
+     * @param courseFirstComment 筛选条件
+     * @return 查询结果
+     */
+    @Override
+    public Page<CourseFirstComment> queryByCourseFirstComment(CourseFirstComment courseFirstComment) {
+        long total = this.courseFirstCommentDao.count(courseFirstComment);
+        PageRequest pageRequest = PageRequest.of(0, 1000);
+        return new PageImpl<>(this.courseFirstCommentDao.queryAllByCourseFirstComment(courseFirstComment), pageRequest, total);
     }
 
     /**

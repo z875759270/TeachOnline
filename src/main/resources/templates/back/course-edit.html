@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--plugins-->
+    <link href="/plugins/simplebar/css/simplebar.css" rel="stylesheet">
+    <link href="/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
+    <link href="/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet">
+
+    <link href="/plugins/bootstrap-fileinput/css/fileinput.min.css" media="all" rel="stylesheet">
+    <link href="/plugins/bootstrap-fileinput/themes/explorer-fas/theme.css" media="all" rel="stylesheet">
+    <!-- loader-->
+    <link href="/css/pace.min.css" rel="stylesheet">
+    <script src="/js/pace.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/app.css" rel="stylesheet">
+    <link href="/css/icons.css" rel="stylesheet">
+    <!-- Theme Style CSS -->
+    <link rel="stylesheet" href="/css/dark-theme.css">
+    <link rel="stylesheet" href="/css/semi-dark.css">
+    <link rel="stylesheet" href="/css/header-colors.css">
+    <title>xxxxx</title>
+</head>
+<body>
+<div class="wrapper">
+    <div th:insert="~{common/menu-back::wrapper}"></div>
+
+    <header th:insert="~{common/menu-back::header}"></header>
+
+    <div class="page-wrapper">
+        <div class="page-content">
+            <!--breadcrumb-->
+            <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+                <div class="breadcrumb-title pe-3">修改课程</div>
+                <div class="ps-3">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-0 p-0">
+                            <li class="breadcrumb-item"><a th:href="@{/back/}"><i class="bx bx-home-alt"></i></a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">修改课程</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <!--end breadcrumb-->
+
+            <!--Content-->
+            <div class=" card border-top border-0 border-4 border-primary">
+                <div class="card-body p-5">
+                    <form class="row g-3 me-5 ms-5">
+                        <div class="col-md-12">
+                            <label for="courseImg" class="form-label">课程封面</label>
+                            <input id="courseImg" name="courseImg" type="file" class="file" accept=".png,.jpg,.gif" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="courseName" class="form-label">课程名</label>
+                            <input type="password" class="form-control" id="courseName" name="courseName" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="courseCategoryId" class="form-label">分类</label>
+                            <select id="courseCategoryId" class="form-select" required>
+                                <option selected="">Choose...</option>
+                                <option>...</option>
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="inputPassword" class="form-label">简介</label>
+                            <textarea type="text" class="form-control" id="inputPassword" rows="5" required></textarea>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="courseFile" class="form-label">课件（可选）</label>
+                            <input id="courseFile" name="courseFile" type="file" class="file" accept=".png,.jpg,.gif" multiple>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary px-5">提交修改</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!--End Content-->
+        </div>
+    </div>
+
+    <div th:insert="~{common/menu-back::overlay}"></div>
+    <!--end overlay-->
+    <!--Start Back To Top Button-->
+    <a th:insert="~{common/menu-back::top}"></a>
+    <!--End Back To Top Button-->
+    <footer th:insert="~{common/menu-back::footer}"></footer>
+</div>
+</body>
+<!-- Bootstrap JS -->
+<script src="/js/bootstrap.bundle.min.js"></script>
+<!--plugins-->
+<script src="/js/jquery.min.js"></script>
+<script src="/plugins/simplebar/js/simplebar.min.js"></script>
+<script src="/plugins/metismenu/js/metisMenu.min.js"></script>
+<script src="/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+<script src="/plugins/chartjs/js/Chart.min.js"></script>
+<script src="/plugins/chartjs/js/Chart.extension.js"></script>
+<script src="/plugins/bootstrap-fileinput/js/plugins/piexif.js"></script>
+<script src="/plugins/bootstrap-fileinput/js/fileinput.min.js"></script>
+<script src="/plugins/bootstrap-fileinput/js/locales/zh.js"></script>
+<script src="/plugins/bootstrap-fileinput/themes/explorer-fas/theme.js"></script>
+<!--app JS-->
+<script src="/js/app.js"></script>
+<script src="/js/config.js"></script>
+<script src="/js/page/back/course-edit.js"></script>
+</html>

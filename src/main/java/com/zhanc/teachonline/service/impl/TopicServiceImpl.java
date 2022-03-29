@@ -14,7 +14,7 @@ import javax.annotation.Resource;
  * (Topic)表服务实现类
  *
  * @author Zhanc
- * @since 2022-03-27 20:19:37
+ * @since 2022-03-29 14:32:00
  */
 @Service("topicService")
 public class TopicServiceImpl implements TopicService {
@@ -43,6 +43,19 @@ public class TopicServiceImpl implements TopicService {
     public Page<Topic> queryByPage(Topic topic, PageRequest pageRequest) {
         long total = this.topicDao.count(topic);
         return new PageImpl<>(this.topicDao.queryAllByLimit(topic, pageRequest), pageRequest, total);
+    }
+
+    /**
+     * 根据实体查询
+     *
+     * @param topic 筛选条件
+     * @return 查询结果
+     */
+    @Override
+    public Page<Topic> queryByTopic(Topic topic) {
+        long total = this.topicDao.count(topic);
+        PageRequest pageRequest = PageRequest.of(0, 1000);
+        return new PageImpl<>(this.topicDao.queryAllByTopic(topic), pageRequest, total);
     }
 
     /**

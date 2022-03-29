@@ -14,7 +14,7 @@ import javax.annotation.Resource;
  * (CommentLikes)表服务实现类
  *
  * @author Zhanc
- * @since 2022-03-27 20:19:39
+ * @since 2022-03-29 14:31:58
  */
 @Service("commentLikesService")
 public class CommentLikesServiceImpl implements CommentLikesService {
@@ -43,6 +43,19 @@ public class CommentLikesServiceImpl implements CommentLikesService {
     public Page<CommentLikes> queryByPage(CommentLikes commentLikes, PageRequest pageRequest) {
         long total = this.commentLikesDao.count(commentLikes);
         return new PageImpl<>(this.commentLikesDao.queryAllByLimit(commentLikes, pageRequest), pageRequest, total);
+    }
+
+    /**
+     * 根据实体查询
+     *
+     * @param commentLikes 筛选条件
+     * @return 查询结果
+     */
+    @Override
+    public Page<CommentLikes> queryByCommentLikes(CommentLikes commentLikes) {
+        long total = this.commentLikesDao.count(commentLikes);
+        PageRequest pageRequest = PageRequest.of(0, 1000);
+        return new PageImpl<>(this.commentLikesDao.queryAllByCommentLikes(commentLikes), pageRequest, total);
     }
 
     /**

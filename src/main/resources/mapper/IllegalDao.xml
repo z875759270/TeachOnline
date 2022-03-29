@@ -37,6 +37,36 @@
         from illegal limit #{pageable.offset}, #{pageable.pageSize}
     </select>
 
+    <!--指定对象查询数据-->
+    <select id="queryAllByIllegal" resultMap="IllegalMap">
+        select
+        illegal_id, illegal_type, illegal_img, illegal_detail, user_name, illegal_time, illegal_status
+        from illegal
+        <where>
+            <if test="illegalId != null">
+                and illegal_id = #{illegalId}
+            </if>
+            <if test="illegalType != null">
+                and illegal_type = #{illegalType}
+            </if>
+            <if test="illegalImg != null and illegalImg != ''">
+                and illegal_img = #{illegalImg}
+            </if>
+            <if test="illegalDetail != null and illegalDetail != ''">
+                and illegal_detail = #{illegalDetail}
+            </if>
+            <if test="userName != null and userName != ''">
+                and user_name = #{userName}
+            </if>
+            <if test="illegalTime != null">
+                and illegal_time = #{illegalTime}
+            </if>
+            <if test="illegalStatus != null">
+                and illegal_status = #{illegalStatus}
+            </if>
+        </where>
+    </select>
+
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)

@@ -43,6 +43,42 @@
         from user limit #{pageable.offset}, #{pageable.pageSize}
     </select>
 
+    <!--指定对象查询数据-->
+    <select id="queryAllByUser" resultMap="UserMap">
+        select
+        user_name, user_pwd, user_role, user_status, user_email, user_qq, user_salt, user_img, user_intro
+        from user
+        <where>
+            <if test="userName != null and userName != ''">
+                and user_name = #{userName}
+            </if>
+            <if test="userPwd != null and userPwd != ''">
+                and user_pwd = #{userPwd}
+            </if>
+            <if test="userRole != null and userRole != ''">
+                and user_role = #{userRole}
+            </if>
+            <if test="userStatus != null">
+                and user_status = #{userStatus}
+            </if>
+            <if test="userEmail != null and userEmail != ''">
+                and user_email = #{userEmail}
+            </if>
+            <if test="userQq != null and userQq != ''">
+                and user_qq = #{userQq}
+            </if>
+            <if test="userSalt != null and userSalt != ''">
+                and user_salt = #{userSalt}
+            </if>
+            <if test="userImg != null and userImg != ''">
+                and user_img = #{userImg}
+            </if>
+            <if test="userIntro != null and userIntro != ''">
+                and user_intro = #{userIntro}
+            </if>
+        </where>
+    </select>
+
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)
@@ -82,33 +118,6 @@
     <insert id="insert" keyProperty="userName" useGeneratedKeys="true">
         insert into user(user_name, user_pwd, user_role, user_status, user_email, user_qq, user_salt, user_img, user_intro)
         values (#{userName}, #{userPwd}, #{userRole}, #{userStatus}, #{userEmail}, #{userQq}, #{userSalt}, #{userImg}, #{userIntro})
-    </insert>
-
-    <insert id="insertBatch" keyProperty="userName" useGeneratedKeys="true">
-        insert into user(user_pwd, user_role, user_status, user_email, user_qq, user_salt, user_img, user_intro)
-        values
-        <foreach collection="entities" item="entity" separator=",">
-            (#{entity.userPwd}, #{entity.userRole}, #{entity.userStatus}, #{entity.userEmail}, #{entity.userQq},
-            #{entity.userSalt}, #{entity.userImg}, #{entity.userIntro})
-        </foreach>
-    </insert>
-
-    <insert id="insertOrUpdateBatch" keyProperty="userName" useGeneratedKeys="true">
-        insert into user(user_pwd, user_role, user_status, user_email, user_qq, user_salt, user_img, user_intro)
-        values
-        <foreach collection="entities" item="entity" separator=",">
-            (#{entity.userPwd}, #{entity.userRole}, #{entity.userStatus}, #{entity.userEmail}, #{entity.userQq},
-            #{entity.userSalt}, #{entity.userImg}, #{entity.userIntro})
-        </foreach>
-        on duplicate key update
-        user_pwd = values(user_pwd),
-        user_role = values(user_role),
-        user_status = values(user_status),
-        user_email = values(user_email),
-        user_qq = values(user_qq),
-        user_salt = values(user_salt),
-        user_img = values(user_img),
-        user_intro = values(user_intro)
     </insert>
 
     <!--通过主键修改数据-->

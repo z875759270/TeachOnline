@@ -12,8 +12,8 @@ import java.io.Serializable;
 /**
  * (CourseFile)实体类
  *
- * @author makejava
- * @since 2022-03-27 20:19:37
+ * @author zhanc
+ * @since 2022-03-29 14:31:58
  */
 @Data
 @NoArgsConstructor
@@ -21,7 +21,7 @@ import java.io.Serializable;
 @Validated
 @Component
 public class CourseFile implements Serializable {
-    private static final long serialVersionUID = -83628709061217921L;
+    private static final long serialVersionUID = -40550644252268233L;
     /**
      * 课件ID
      */

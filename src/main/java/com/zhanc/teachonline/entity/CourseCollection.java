@@ -12,8 +12,8 @@ import java.io.Serializable;
 /**
  * (CourseCollection)实体类
  *
- * @author makejava
- * @since 2022-03-27 20:19:41
+ * @author zhanc
+ * @since 2022-03-29 14:32:00
  */
 @Data
 @NoArgsConstructor
@@ -21,7 +21,7 @@ import java.io.Serializable;
 @Validated
 @Component
 public class CourseCollection implements Serializable {
-    private static final long serialVersionUID = 335518179360963804L;
+    private static final long serialVersionUID = 280604502250408624L;
     /**
      * 用户名
      */

@@ -16,21 +16,21 @@ public class Const {
     public static final String MD5_SALT="P@ssw0rd.salt";
     //endregion
 
-    //region 用户状态
+    //region 状态
     /**
      * 启用状态
      */
-    public static final int USER_STATUS_ENABLE=1;
+    public static final int STATUS_ENABLE=1;
     /**
      * 禁用状态
      */
-    public static final int USER_STATUS_UNABLE=0;
+    public static final int STATUS_UNABLE=0;
     /**
      * 审核状态
      */
-    public static final int USER_STATUS_CHECK=2;
+    public static final int STATUS_CHECK=2;
     //endregion
 
-    public static final String ARTICLE_IMG_LOCAL_PATH="D:/Pictures/BlogAdmin/ArticleImg/";
+    public static final String PROJECT_IMG_LOCAL_PATH="D:/Pictures/TeachOnline/media/";
 
 }

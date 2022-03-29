@@ -37,6 +37,36 @@
         from topic limit #{pageable.offset}, #{pageable.pageSize}
     </select>
 
+    <!--指定对象查询数据-->
+    <select id="queryAllByTopic" resultMap="TopicMap">
+        select
+        topic_id, topic_title, topic_detail, topic_category_id, topic_views, topic_create_time, topic_status
+        from topic
+        <where>
+            <if test="topicId != null">
+                and topic_id = #{topicId}
+            </if>
+            <if test="topicTitle != null and topicTitle != ''">
+                and topic_title = #{topicTitle}
+            </if>
+            <if test="topicDetail != null and topicDetail != ''">
+                and topic_detail = #{topicDetail}
+            </if>
+            <if test="topicCategoryId != null">
+                and topic_category_id = #{topicCategoryId}
+            </if>
+            <if test="topicViews != null">
+                and topic_views = #{topicViews}
+            </if>
+            <if test="topicCreateTime != null">
+                and topic_create_time = #{topicCreateTime}
+            </if>
+            <if test="topicStatus != null">
+                and topic_status = #{topicStatus}
+            </if>
+        </where>
+    </select>
+
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)

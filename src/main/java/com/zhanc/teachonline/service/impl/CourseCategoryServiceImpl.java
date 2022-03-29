@@ -14,7 +14,7 @@ import javax.annotation.Resource;
  * (CourseCategory)表服务实现类
  *
  * @author Zhanc
- * @since 2022-03-27 20:19:35
+ * @since 2022-03-29 14:32:00
  */
 @Service("courseCategoryService")
 public class CourseCategoryServiceImpl implements CourseCategoryService {
@@ -43,6 +43,19 @@ public class CourseCategoryServiceImpl implements CourseCategoryService {
     public Page<CourseCategory> queryByPage(CourseCategory courseCategory, PageRequest pageRequest) {
         long total = this.courseCategoryDao.count(courseCategory);
         return new PageImpl<>(this.courseCategoryDao.queryAllByLimit(courseCategory, pageRequest), pageRequest, total);
+    }
+
+    /**
+     * 根据实体查询
+     *
+     * @param courseCategory 筛选条件
+     * @return 查询结果
+     */
+    @Override
+    public Page<CourseCategory> queryByCourseCategory(CourseCategory courseCategory) {
+        long total = this.courseCategoryDao.count(courseCategory);
+        PageRequest pageRequest = PageRequest.of(0, 1000);
+        return new PageImpl<>(this.courseCategoryDao.queryAllByCourseCategory(courseCategory), pageRequest, total);
     }
 
     /**

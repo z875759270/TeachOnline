@@ -22,9 +22,9 @@
 </head>
 <body>
     <div class="wrapper">
-        <div th:insert="~{common/menu::wrapper}"></div>
+        <div th:insert="~{common/menu-back::wrapper}"></div>
 
-        <header th:insert="~{common/menu::header}"></header>
+        <header th:insert="~{common/menu-back::header}"></header>
 
         <div class="page-wrapper">
             <div class="page-content">
@@ -34,7 +34,7 @@
                     <div class="ps-3">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb mb-0 p-0">
-                                <li class="breadcrumb-item"><a href="/"><i class="bx bx-home-alt"></i></a>
+                                <li class="breadcrumb-item"><a th:href="@{/back/}"><i class="bx bx-home-alt"></i></a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">添加文章</li>
                             </ol>
@@ -49,12 +49,12 @@
             </div>
         </div>
 
-        <div th:insert="~{common/menu::overlay}"></div>
+        <div th:insert="~{common/menu-back::overlay}"></div>
         <!--end overlay-->
         <!--Start Back To Top Button-->
-        <a th:insert="~{common/menu::top}"></a>
+        <a th:insert="~{common/menu-back::top}"></a>
         <!--End Back To Top Button-->
-        <footer th:insert="~{common/menu::footer}"></footer>
+        <footer th:insert="~{common/menu-back::footer}"></footer>
     </div>
 </body>
 <!-- Bootstrap JS -->

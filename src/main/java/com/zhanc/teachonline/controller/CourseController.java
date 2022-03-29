@@ -1,9 +1,9 @@
 package com.zhanc.teachonline.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.zhanc.teachonline.entity.Course;
 import com.zhanc.teachonline.service.CourseService;
 import com.zhanc.teachonline.utils.CommonUtils;
+import com.zhanc.teachonline.utils.OssUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +24,7 @@ import java.util.Map;
  * (Course)表控制层
  *
  * @author Zhanc
- * @since 2022-03-27 20:19:39
+ * @since 2022-03-29 14:31:57
  */
 @RestController
 @RequestMapping("course")
@@ -56,6 +55,17 @@ public class CourseController {
     }
 
     /**
+     * 根据实体查询
+     *
+     * @param course 筛选条件
+     * @return 查询结果
+     */
+    @GetMapping("list")
+    public ResponseEntity<Page<Course>> queryByCourse(Course course) {
+        return ResponseEntity.ok(this.courseService.queryByCourse(course));
+    }
+
+    /**
      * 通过主键查询单条数据
      *
      * @param id 主键
@@ -80,22 +90,24 @@ public class CourseController {
     }
 
     @PostMapping("upload")
-    public ResponseEntity<Map<String, Object>> uploadImg(MultipartFile[] multipartFiles) {
+    public ResponseEntity<Map<String, Object>> upload(MultipartFile[] multipartFiles) {
         if (null == multipartFiles && 0 == multipartFiles.length) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-        for(MultipartFile multipartFile:multipartFiles){
+        for (MultipartFile multipartFile : multipartFiles) {
             String fileName = "course" + CommonUtils.setFileName(multipartFile.getOriginalFilename());
-            String fileType = CommonUtils.getFileSuffix(multipartFile.getOriginalFilename());
+            String fileSuffix = CommonUtils.getFileSuffix(multipartFile.getOriginalFilename());
+            String fileType = "";
             File dest = null;
-            if ("mp4".equals(fileType)) {
-                dest = new File(filePath + "course/video/" + fileName);
-            } else if ("jpg".equalsIgnoreCase(fileType) | "png".equalsIgnoreCase(fileType) | "jpeg".equalsIgnoreCase(fileType) | "gif".equalsIgnoreCase(fileType)) {
-                dest = new File(filePath + "course/img/" + fileName);
+            if ("mp4".equalsIgnoreCase(fileSuffix)) {
+                fileType = "course/video/";
+            } else if ("jpg".equalsIgnoreCase(fileSuffix) | "png".equalsIgnoreCase(fileSuffix) | "jpeg".equalsIgnoreCase(fileSuffix) | "gif".equalsIgnoreCase(fileType)) {
+                fileType = "course/img/";
             } else {
-                dest = new File(filePath + "course/file/" + fileName);
+                fileType = "course/file/";
             }
-
+            dest = new File(filePath + fileType + fileName);
+            //OssUtils.upload(fileVirtualPath + fileType + fileName, multipartFile);
             try {
                 if (!dest.exists()) {
                     dest.createNewFile();
@@ -135,7 +147,6 @@ public class CourseController {
     public ResponseEntity<Boolean> deleteById(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(this.courseService.deleteById(id));
     }
-
 
 }
 

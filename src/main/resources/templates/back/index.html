@@ -28,9 +28,9 @@
 <body>
 <!--wrapper-->
 <div class="wrapper">
-    <div th:insert="~{common/menu::wrapper}"></div>
+    <div th:insert="~{common/menu-back::wrapper}"></div>
 
-    <header th:insert="~{common/menu::header}"></header>
+    <header th:insert="~{common/menu-back::header}"></header>
 
     <!--start page wrapper -->
     <div class="page-wrapper">
@@ -589,16 +589,16 @@
     </div>
     <!--end page wrapper -->
     <!--start overlay-->
-    <div th:insert="~{common/menu::overlay}"></div>
+    <div th:insert="~{common/menu-back::overlay}"></div>
     <!--end overlay-->
     <!--Start Back To Top Button-->
-    <a th:insert="~{common/menu::top}"></a>
+    <a th:insert="~{common/menu-back::top}"></a>
     <!--End Back To Top Button-->
-    <footer th:insert="~{common/menu::footer}"></footer>
+    <footer th:insert="~{common/menu-back::footer}"></footer>
 </div>
 <!--end wrapper-->
 <!--start switcher-->
-<div th:insert="~{common/menu::swrapper}"></div>
+<div th:insert="~{common/menu-back::swrapper}"></div>
 <!--end switcher-->
 <!-- Bootstrap JS -->
 <script src="/js/bootstrap.bundle.min.js"></script>
@@ -614,5 +614,6 @@
 <script src="/js/index.js"></script>
 <!--app JS-->
 <script src="/js/app.js"></script>
+<script src="/js/page/back/index.js"></script>
 </body>
 </html>

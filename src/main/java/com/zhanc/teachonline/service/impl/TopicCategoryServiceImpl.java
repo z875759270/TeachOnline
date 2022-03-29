@@ -14,7 +14,7 @@ import javax.annotation.Resource;
  * (TopicCategory)表服务实现类
  *
  * @author Zhanc
- * @since 2022-03-27 20:19:38
+ * @since 2022-03-29 14:32:00
  */
 @Service("topicCategoryService")
 public class TopicCategoryServiceImpl implements TopicCategoryService {
@@ -43,6 +43,19 @@ public class TopicCategoryServiceImpl implements TopicCategoryService {
     public Page<TopicCategory> queryByPage(TopicCategory topicCategory, PageRequest pageRequest) {
         long total = this.topicCategoryDao.count(topicCategory);
         return new PageImpl<>(this.topicCategoryDao.queryAllByLimit(topicCategory, pageRequest), pageRequest, total);
+    }
+
+    /**
+     * 根据实体查询
+     *
+     * @param topicCategory 筛选条件
+     * @return 查询结果
+     */
+    @Override
+    public Page<TopicCategory> queryByTopicCategory(TopicCategory topicCategory) {
+        long total = this.topicCategoryDao.count(topicCategory);
+        PageRequest pageRequest = PageRequest.of(0, 1000);
+        return new PageImpl<>(this.topicCategoryDao.queryAllByTopicCategory(topicCategory), pageRequest, total);
     }
 
     /**

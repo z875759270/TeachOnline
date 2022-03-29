@@ -14,7 +14,7 @@ import javax.annotation.Resource;
  * (Illegal)表服务实现类
  *
  * @author Zhanc
- * @since 2022-03-27 20:19:38
+ * @since 2022-03-29 14:31:57
  */
 @Service("illegalService")
 public class IllegalServiceImpl implements IllegalService {
@@ -43,6 +43,19 @@ public class IllegalServiceImpl implements IllegalService {
     public Page<Illegal> queryByPage(Illegal illegal, PageRequest pageRequest) {
         long total = this.illegalDao.count(illegal);
         return new PageImpl<>(this.illegalDao.queryAllByLimit(illegal, pageRequest), pageRequest, total);
+    }
+
+    /**
+     * 根据实体查询
+     *
+     * @param illegal 筛选条件
+     * @return 查询结果
+     */
+    @Override
+    public Page<Illegal> queryByIllegal(Illegal illegal) {
+        long total = this.illegalDao.count(illegal);
+        PageRequest pageRequest = PageRequest.of(0, 1000);
+        return new PageImpl<>(this.illegalDao.queryAllByIllegal(illegal), pageRequest, total);
     }
 
     /**

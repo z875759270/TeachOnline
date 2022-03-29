@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageRequest;
  * (User)表服务接口
  *
  * @author Zhanc
- * @since 2022-03-27 20:19:35
+ * @since 2022-03-29 14:31:59
  */
 public interface UserService {
 
@@ -28,6 +28,14 @@ public interface UserService {
      * @return 查询结果
      */
     Page<User> queryByPage(User user, PageRequest pageRequest);
+
+    /**
+     * 根据实体查询
+     *
+     * @param user 筛选条件
+     * @return 查询结果
+     */
+    Page<User> queryByUser(User user);
 
     /**
      * 新增数据
@@ -60,5 +68,6 @@ public interface UserService {
      * @param userPwd  密码
      * @return 是否成功
      */
-    User loginCheck(String userName, String userPwd);
+    public User loginCheck(String userName, String userPwd);
+
 }

@@ -12,8 +12,8 @@ import java.io.Serializable;
 /**
  * (TopicCategory)实体类
  *
- * @author makejava
- * @since 2022-03-27 20:19:38
+ * @author zhanc
+ * @since 2022-03-29 14:32:00
  */
 @Data
 @NoArgsConstructor
@@ -21,7 +21,7 @@ import java.io.Serializable;
 @Validated
 @Component
 public class TopicCategory implements Serializable {
-    private static final long serialVersionUID = 164167036261631288L;
+    private static final long serialVersionUID = -71901592335896860L;
     /**
      * 分类ID
      */

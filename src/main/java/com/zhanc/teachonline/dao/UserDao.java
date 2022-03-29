@@ -10,7 +10,7 @@ import java.util.List;
  * (User)表数据库访问层
  *
  * @author Zhanc
- * @since 2022-03-27 20:19:34
+ * @since 2022-03-29 14:31:59
  */
 public interface UserDao {
 
@@ -30,6 +30,14 @@ public interface UserDao {
      * @return 对象列表
      */
     List<User> queryAllByLimit(User user, @Param("pageable") Pageable pageable);
+
+    /**
+     * 指定对象查询数据
+     *
+     * @param user 查询条件
+     * @return 对象列表
+     */
+    List<User> queryAllByUser(User user);
 
     /**
      * 统计总行数

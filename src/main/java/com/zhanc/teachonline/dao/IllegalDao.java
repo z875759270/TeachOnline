@@ -10,7 +10,7 @@ import java.util.List;
  * (Illegal)表数据库访问层
  *
  * @author Zhanc
- * @since 2022-03-27 20:19:38
+ * @since 2022-03-29 14:31:57
  */
 public interface IllegalDao {
 
@@ -30,6 +30,14 @@ public interface IllegalDao {
      * @return 对象列表
      */
     List<Illegal> queryAllByLimit(Illegal illegal, @Param("pageable") Pageable pageable);
+
+    /**
+     * 指定对象查询数据
+     *
+     * @param illegal 查询条件
+     * @return 对象列表
+     */
+    List<Illegal> queryAllByIllegal(Illegal illegal);
 
     /**
      * 统计总行数

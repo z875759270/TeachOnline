@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageRequest;
  * (Tag)表服务接口
  *
  * @author Zhanc
- * @since 2022-03-27 20:19:36
+ * @since 2022-03-29 14:31:58
  */
 public interface TagService {
 
@@ -28,6 +28,14 @@ public interface TagService {
      * @return 查询结果
      */
     Page<Tag> queryByPage(Tag tag, PageRequest pageRequest);
+
+    /**
+     * 根据实体查询
+     *
+     * @param tag 筛选条件
+     * @return 查询结果
+     */
+    Page<Tag> queryByTag(Tag tag);
 
     /**
      * 新增数据

@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageRequest;
  * (CommentLikes)表服务接口
  *
  * @author Zhanc
- * @since 2022-03-27 20:19:39
+ * @since 2022-03-29 14:31:58
  */
 public interface CommentLikesService {
 
@@ -28,6 +28,14 @@ public interface CommentLikesService {
      * @return 查询结果
      */
     Page<CommentLikes> queryByPage(CommentLikes commentLikes, PageRequest pageRequest);
+
+    /**
+     * 根据实体查询
+     *
+     * @param commentLikes 筛选条件
+     * @return 查询结果
+     */
+    Page<CommentLikes> queryByCommentLikes(CommentLikes commentLikes);
 
     /**
      * 新增数据

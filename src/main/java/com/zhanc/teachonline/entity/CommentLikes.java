@@ -12,8 +12,8 @@ import java.io.Serializable;
 /**
  * (CommentLikes)实体类
  *
- * @author makejava
- * @since 2022-03-27 20:19:39
+ * @author zhanc
+ * @since 2022-03-29 14:31:58
  */
 @Data
 @NoArgsConstructor
@@ -21,7 +21,7 @@ import java.io.Serializable;
 @Validated
 @Component
 public class CommentLikes implements Serializable {
-    private static final long serialVersionUID = -33984090997685373L;
+    private static final long serialVersionUID = 898078244132622841L;
     /**
      * 用户名
      */

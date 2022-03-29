@@ -10,7 +10,7 @@ import java.util.List;
  * (CommentLikes)表数据库访问层
  *
  * @author Zhanc
- * @since 2022-03-27 20:19:39
+ * @since 2022-03-29 14:31:58
  */
 public interface CommentLikesDao {
 
@@ -30,6 +30,14 @@ public interface CommentLikesDao {
      * @return 对象列表
      */
     List<CommentLikes> queryAllByLimit(CommentLikes commentLikes, @Param("pageable") Pageable pageable);
+
+    /**
+     * 指定对象查询数据
+     *
+     * @param commentLikes 查询条件
+     * @return 对象列表
+     */
+    List<CommentLikes> queryAllByCommentLikes(CommentLikes commentLikes);
 
     /**
      * 统计总行数

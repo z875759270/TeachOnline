@@ -31,6 +31,30 @@
         from course_file limit #{pageable.offset}, #{pageable.pageSize}
     </select>
 
+    <!--指定对象查询数据-->
+    <select id="queryAllByCourseFile" resultMap="CourseFileMap">
+        select
+        file_id, course_id, file_url, file_download, file_size
+        from course_file
+        <where>
+            <if test="fileId != null">
+                and file_id = #{fileId}
+            </if>
+            <if test="courseId != null">
+                and course_id = #{courseId}
+            </if>
+            <if test="fileUrl != null and fileUrl != ''">
+                and file_url = #{fileUrl}
+            </if>
+            <if test="fileDownload != null">
+                and file_download = #{fileDownload}
+            </if>
+            <if test="fileSize != null">
+                and file_size = #{fileSize}
+            </if>
+        </where>
+    </select>
+
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)

@@ -30,23 +30,23 @@
                             <a href="#"><img src="/assets/imgs/authors/author.jpg" alt="" class="avatar"></a>
                         </div>
                         <div class="author-info">
-                            <h3 class="font-weight-900"><span class="vcard author"><span class="fn">用户名</span></span>
+                            <h3 class="font-weight-900"><span class="vcard author"><span class="fn">[[${user.userName}]]</span></span>
                             </h3>
-                            <h5 class="text-muted">用户角色</h5>
-                            <div class="author-description text-muted">个人简介个人简介个人简介个人简介</div>
+                            <h5 class="text-muted">[[${user.userRole}]]</h5>
+                            <div class="author-description text-muted">[[${user.userIntro}]]</div>
 
                             <hr class="wp-block-separator is-style-wide">
                             <p>
                                 <span class="mr-5">
                                     <ion-icon name="location-outline" role="img" class="md hydrated" aria-label="location outline"></ion-icon>
                                 </span>
-                                <strong>邮箱</strong>： xxxxxx@xx.com
+                                <strong>邮箱</strong>： [[${user.userEmail}]]
                             </p>
                             <p>
                                 <span class="mr-5">
                                     <ion-icon name="location-outline" role="img" class="md hydrated" aria-label="location outline"></ion-icon>
                                 </span>
-                                <strong>QQ</strong>： 456456456
+                                <strong>QQ</strong>： [[${user.userQq}]]
                             </p>
                         </div>
                     </div>

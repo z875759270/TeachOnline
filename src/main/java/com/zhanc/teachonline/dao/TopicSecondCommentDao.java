@@ -10,7 +10,7 @@ import java.util.List;
  * (TopicSecondComment)表数据库访问层
  *
  * @author Zhanc
- * @since 2022-03-27 20:19:42
+ * @since 2022-03-29 14:31:56
  */
 public interface TopicSecondCommentDao {
 
@@ -30,6 +30,14 @@ public interface TopicSecondCommentDao {
      * @return 对象列表
      */
     List<TopicSecondComment> queryAllByLimit(TopicSecondComment topicSecondComment, @Param("pageable") Pageable pageable);
+
+    /**
+     * 指定对象查询数据
+     *
+     * @param topicSecondComment 查询条件
+     * @return 对象列表
+     */
+    List<TopicSecondComment> queryAllByTopicSecondComment(TopicSecondComment topicSecondComment);
 
     /**
      * 统计总行数

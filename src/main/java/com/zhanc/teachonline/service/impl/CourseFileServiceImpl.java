@@ -14,7 +14,7 @@ import javax.annotation.Resource;
  * (CourseFile)表服务实现类
  *
  * @author Zhanc
- * @since 2022-03-27 20:19:37
+ * @since 2022-03-29 14:31:59
  */
 @Service("courseFileService")
 public class CourseFileServiceImpl implements CourseFileService {
@@ -43,6 +43,19 @@ public class CourseFileServiceImpl implements CourseFileService {
     public Page<CourseFile> queryByPage(CourseFile courseFile, PageRequest pageRequest) {
         long total = this.courseFileDao.count(courseFile);
         return new PageImpl<>(this.courseFileDao.queryAllByLimit(courseFile, pageRequest), pageRequest, total);
+    }
+
+    /**
+     * 根据实体查询
+     *
+     * @param courseFile 筛选条件
+     * @return 查询结果
+     */
+    @Override
+    public Page<CourseFile> queryByCourseFile(CourseFile courseFile) {
+        long total = this.courseFileDao.count(courseFile);
+        PageRequest pageRequest = PageRequest.of(0, 1000);
+        return new PageImpl<>(this.courseFileDao.queryAllByCourseFile(courseFile), pageRequest, total);
     }
 
     /**

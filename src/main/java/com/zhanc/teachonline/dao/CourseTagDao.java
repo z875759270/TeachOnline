@@ -10,7 +10,7 @@ import java.util.List;
  * (CourseTag)表数据库访问层
  *
  * @author Zhanc
- * @since 2022-03-27 20:19:36
+ * @since 2022-03-29 14:31:57
  */
 public interface CourseTagDao {
 
@@ -30,6 +30,14 @@ public interface CourseTagDao {
      * @return 对象列表
      */
     List<CourseTag> queryAllByLimit(CourseTag courseTag, @Param("pageable") Pageable pageable);
+
+    /**
+     * 指定对象查询数据
+     *
+     * @param courseTag 查询条件
+     * @return 对象列表
+     */
+    List<CourseTag> queryAllByCourseTag(CourseTag courseTag);
 
     /**
      * 统计总行数

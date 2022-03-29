@@ -14,7 +14,7 @@ import javax.annotation.Resource;
  * (CourseTag)表服务实现类
  *
  * @author Zhanc
- * @since 2022-03-27 20:19:36
+ * @since 2022-03-29 14:31:57
  */
 @Service("courseTagService")
 public class CourseTagServiceImpl implements CourseTagService {
@@ -43,6 +43,19 @@ public class CourseTagServiceImpl implements CourseTagService {
     public Page<CourseTag> queryByPage(CourseTag courseTag, PageRequest pageRequest) {
         long total = this.courseTagDao.count(courseTag);
         return new PageImpl<>(this.courseTagDao.queryAllByLimit(courseTag, pageRequest), pageRequest, total);
+    }
+
+    /**
+     * 根据实体查询
+     *
+     * @param courseTag 筛选条件
+     * @return 查询结果
+     */
+    @Override
+    public Page<CourseTag> queryByCourseTag(CourseTag courseTag) {
+        long total = this.courseTagDao.count(courseTag);
+        PageRequest pageRequest = PageRequest.of(0, 1000);
+        return new PageImpl<>(this.courseTagDao.queryAllByCourseTag(courseTag), pageRequest, total);
     }
 
     /**

@@ -1,7 +1,5 @@
-var BlogConfig = {
-    domain: "http://localhost:8090/",
+var Const = {
+    domain: "http://localhost:8091/",
+    oss : "https://zhanc-teach-online.oss-cn-shenzhen.aliyuncs.com/media/"
 }
 
-var AdminConfig = {
-    domain: "http://localhost:8091/"
-}

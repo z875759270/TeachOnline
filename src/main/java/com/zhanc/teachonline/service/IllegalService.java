@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageRequest;
  * (Illegal)表服务接口
  *
  * @author Zhanc
- * @since 2022-03-27 20:19:38
+ * @since 2022-03-29 14:31:57
  */
 public interface IllegalService {
 
@@ -28,6 +28,14 @@ public interface IllegalService {
      * @return 查询结果
      */
     Page<Illegal> queryByPage(Illegal illegal, PageRequest pageRequest);
+
+    /**
+     * 根据实体查询
+     *
+     * @param illegal 筛选条件
+     * @return 查询结果
+     */
+    Page<Illegal> queryByIllegal(Illegal illegal);
 
     /**
      * 新增数据
