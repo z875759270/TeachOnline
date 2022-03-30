@@ -43,7 +43,10 @@ $("#replyForm").submit(function () {
             }, 5 * 1000)
         },
         error: function () {
-            error_noti("回复失败，出错了！");
+            warning_noti("回复失败，不可重复回复！");
+            setTimeout(function () {
+                $('#exampleModal').modal('hide');
+            }, 5 * 1000)
         }
     });
     return false;
