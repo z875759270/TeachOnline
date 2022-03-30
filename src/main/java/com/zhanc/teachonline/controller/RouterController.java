@@ -44,6 +44,10 @@ public class RouterController {
     private CourseTagService courseTagService;
     @Resource
     private TopicService topicService;
+    @Resource
+    private CourseFirstCommentService courseFirstCommentService;
+    @Resource
+    private CourseSecondCommentService courseSecondCommentService;
 
     //region 后台
 
@@ -137,7 +141,7 @@ public class RouterController {
     public String toSearch(String searchStr, String searchType, Integer page, Integer size, Model model) {
         PageRequest pageRequest = PageRequest.of(page, size);
         if ("course".equals(searchType)) {
-            Map<Integer, Object> tagList=new HashMap<>();
+            Map<Integer, Object> tagList = new HashMap<>();
             Page<Course> coursePage = this.courseService.queryBySearch(searchStr, pageRequest);
             for (Course tempCourse : coursePage.getContent()) {
                 ArrayList<Tag> tempTagList = new ArrayList<>();
@@ -145,9 +149,9 @@ public class RouterController {
                 for (CourseTag cTag : courseTags.getContent()) {
                     tempTagList.add(this.tagService.queryById(cTag.getTagId()));
                 }
-                tagList.put(tempCourse.getCourseId(),tempTagList);
+                tagList.put(tempCourse.getCourseId(), tempTagList);
             }
-            model.addAttribute("tagList",tagList);
+            model.addAttribute("tagList", tagList);
             model.addAttribute("resList", coursePage);
         } else if ("topic".equals(searchType)) {
             model.addAttribute("resList", this.topicService.queryBySearch(searchStr, pageRequest));
@@ -172,8 +176,36 @@ public class RouterController {
         return "/front/course-intro";
     }
 
-    @RequestMapping(value = {"/info"})
-    public String toCourseInfo() {
+    @RequestMapping(value = {"/course/info/{courseId}"})
+    public String toCourseInfo(@PathVariable Integer courseId, Model model) {
+        //获取课程
+        Course course = this.courseService.queryById(courseId);
+
+        //获取创建用户
+        User user = this.userService.queryById(course.getCourseCreater());
+
+        //获取标签
+        ArrayList<Tag> tagList = new ArrayList<>();
+        Page<CourseTag> courseTags = this.courseTagService.queryByCourseTag(new CourseTag(null, course.getCourseId()));
+        for (CourseTag cTag : courseTags.getContent()) {
+            tagList.add(this.tagService.queryById(cTag.getTagId()));
+        }
+
+        //获取一级评论
+        Page<CourseFirstComment> courseFirstComments = this.courseFirstCommentService.queryByCourseFirstComment(new CourseFirstComment(null, null, course.getCourseId(), null, null));
+
+        //获取二级评论
+        Map<Integer,Object> secondCommentList=new HashMap<>();
+        for(CourseFirstComment firstComment:courseFirstComments.getContent()){
+            secondCommentList.put(firstComment.getCommentId(),this.courseSecondCommentService.queryById(firstComment.getCommentId()));
+        }
+
+
+        model.addAttribute("course", course);
+        model.addAttribute("tagList", tagList);
+        model.addAttribute("user", user);
+        model.addAttribute("firstComments", courseFirstComments);
+        model.addAttribute("secondComments",secondCommentList);
         return "/front/course-info";
     }
 

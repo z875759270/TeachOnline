@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/widgets.css">
     <link rel="stylesheet" href="/assets/css/responsive.css">
+    <link rel="stylesheet" href="/plugins/notifications/css/css.css">
+    <link rel="stylesheet" href="/plugins/notifications/css/lobibox.min.css">
+    <link href="/css/icons.css" rel="stylesheet">
 </head>
 
 <body>
@@ -23,45 +26,36 @@
     <main class="bg-grey pb-30">
         <div class="container single-content">
             <div class="entry-header entry-header-style-1 mb-50 pt-50">
-                <h1 class="entry-title mb-50 font-weight-900">
-                    视频标题视频标题视频标题视频标题视频标题
+                <h1 class="entry-title mb-50 font-weight-900" th:text="${course.courseName}">
+                    课程标题
                 </h1>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="entry-meta align-items-center meta-2 font-small color-muted">
                             <p class="mb-5">
-                                <a class="author-avatar" href="single.html#"><img class="img-circle" src="assets/imgs/authors/author-3.jpg" alt=""></a>
-                                <a th:href="@{/profile}"><span class="author-name font-weight-bold">XXX老师</span></a>
+                                <a class="author-avatar" th:href="@{/profile/}+${course.courseCreater}"><img class="img-circle" th:src="'/media/user/img/'+${user.userImg}"></a>
+                                <a th:href="@{/profile/}+${course.courseCreater}"><span class="author-name font-weight-bold" th:text="${course.courseCreater}">XXX老师</span></a>
                             </p>
-                            <span class="mr-10"> 2022/3/16 </span>
+                            <span class="mr-10" th:text="${#dates.format(course.courseCreateTime,'yyyy-MM-dd HH:mm:ss')}"> 2022/3/16 10:10:15</span>
 <!--                            <span class="has-dot"> 8 mins read</span>-->
                         </div>
                     </div>
-                    <div class="col-md-6 text-right d-none d-md-inline">
-                        <ul class="header-social-network d-inline-block list-inline mr-15">
-                            <li class="list-inline-item text-muted"><span>Share this: </span></li>
-                            <li class="list-inline-item"><a class="social-icon fb text-xs-center" target="_blank" href="single.html#"><i class="elegant-icon social_facebook"></i></a></li>
-                            <li class="list-inline-item"><a class="social-icon tw text-xs-center" target="_blank" href="single.html#"><i class="elegant-icon social_twitter "></i></a></li>
-                            <li class="list-inline-item"><a class="social-icon pt text-xs-center" target="_blank" href="single.html#"><i class="elegant-icon social_pinterest "></i></a></li>
-                        </ul>
-                    </div>
+
                 </div>
             </div>
             <!--end single header-->
             <div class="image mb-30 m-auto text-center border-radius-10">
-                <video class="border-radius-10" src="/assets/video/heyyaduckonly.mp4" controls></video>
+                <video class="border-radius-10" th:src="'/media/course/video/'+${course.courseVideo}" src="/assets/video/heyyaduckonly.mp4" controls></video>
             </div>
             <!--figure-->
             <article class="entry-wraper mb-50">
                 <div class="entry-main-content wow fadeIn animated">
-                    <p>Yet more some certainly yet alas abandonedly whispered intriguingly well extensive one howled talkative admonishingly below a rethought overlaid dear gosh activated less however hawk yet oh scratched ostrich some outside crud irrespective lightheartedly and much far amenably that the elephant since when.</p>
+                    <p th:text="${course.courseDetail}">课程简介</p>
                 </div>
                 <div class="entry-bottom mt-50 mb-30 wow fadeIn animated">
                     <div class="tags">
                         <span>Tags: </span>
-                        <a href="category.html" rel="tag">deer</a>
-                        <a href="category.html" rel="tag">nature</a>
-                        <a href="category.html" rel="tag">conserve</a>
+                        <a href="category.html" th:each="tag : ${tagList}" th:text="${tag.tagName}">标签</a>
                     </div>
                 </div>
                 <div class="single-social-share clearfix wow fadeIn animated">
@@ -80,13 +74,13 @@
                 <!--author box-->
                 <div class="author-bio p-30 mt-50 border-radius-10 bg-white wow fadeIn animated">
                     <div class="author-image mb-30">
-                        <a href="#"><img src="assets/imgs/authors/author-3.jpg" alt="" class="avatar"></a>
+                        <a href="#"><img th:src="'/media/user/img/'+${user.userImg}" alt="" class="avatar"></a>
                     </div>
                     <div class="author-info">
-                        <h4 class="font-weight-bold mb-20"><span class="vcard author"><span class="fn"><a href="#">Username</a></span></span>
+                        <h4 class="font-weight-bold mb-20"><span class="vcard author"><span class="fn"><a th:href="@{/profile/}+${user.userName}" th:text="${user.userName}">用户名</a></span></span>
                         </h4>
                         <h6>课程公告：</h6>
-                        <div class="author-description text-muted">课程公告..... balabala</div>
+                        <div class="author-description text-muted" th:text="${course.courseNotice}">课程公告..... balabala</div>
 
                         <h6>相关课件：</h6>
                         <div class="author-description text-muted">文件名.txt&emsp;<a href="#" class="author-bio-link">下载</a></div>
@@ -140,70 +134,50 @@
                     <div class="widget-header-2 position-relative mb-30">
                         <h5 class="mt-5 mb-30">评论</h5>
                     </div>
-                    <div class="comment-list wow fadeIn animated">
-                        <div class="single-comment justify-content-between d-flex">
-                            <div class="user justify-content-between d-flex">
-                                <div class="thumb">
-                                    <img src="assets/imgs/authors/author-2.jpg" alt="">
-                                </div>
-                                <div class="desc">
-                                    <p class="comment">
-                                        评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容
-                                    </p>
-                                    <div class="d-flex justify-content-between">
-                                        <div class="d-flex align-items-center">
-                                            <h5>
-                                                <a href="single.html#">用户名</a>
-                                            </h5>
-                                            <p class="date">2022-03-16 17:02 </p>
-                                        </div>
-                                        <div class="reply-btn">
-                                            <a href="single.html#" class="btn-reply">回复</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="single-comment depth-2 justify-content-between d-flex mt-50">
-                            <div class="user justify-content-between d-flex">
-                                <div class="thumb">
-                                    <img src="assets/imgs/authors/author.jpg" alt="">
-                                </div>
-                                <div class="desc">
-                                    <p class="comment">
-                                        <a th:href="@{/profile}">@父评论用户</a>：评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容
-                                    </p>
-                                    <div class="d-flex justify-content-between">
-                                        <div class="d-flex align-items-center">
-                                            <h5>
-                                                <a href="single.html#">用户名</a>
-                                            </h5>
-                                            <p class="date">2022-03-16 17:05 </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
+                    <div class="comment-list wow fadeIn animated text-center" th:if="${firstComments.getNumberOfElements() eq 0}">
+                                暂无评论
                     </div>
-                    <div class="comment-list wow fadeIn animated">
+                    <div class="comment-list wow fadeIn animated" th:if="${firstComments.getNumberOfElements() ne 0}"
+                         th:each="firstComment : ${firstComments.getContent()}">
                         <div class="single-comment justify-content-between d-flex">
                             <div class="user justify-content-between d-flex">
                                 <div class="thumb">
-                                    <img src="assets/imgs/authors/author-3.jpg" alt="">
+                                    <img th:src="'/media/user/img/default.jpg'" alt="">
                                 </div>
                                 <div class="desc">
-                                    <p class="comment">
-                                        Donec in ullamcorper quam. Aenean vel nibh eu magna gravida fermentum. Praesent eget nisi pulvinar, sollicitudin eros vitae, tristique odio.
+                                    <p class="comment" th:text="${firstComment.commentContent}">
+                                        评论内容
                                     </p>
                                     <div class="d-flex justify-content-between">
                                         <div class="d-flex align-items-center">
                                             <h5>
-                                                <a href="single.html#">Danielle Steel</a>
+                                                <a th:href="@{/profile/}+${firstComment.userName}" th:text="${firstComment.userName}">用户名</a>
                                             </h5>
-                                            <p class="date">December 4, 2020 at 3:12 pm </p>
+                                            <p class="date" th:text="${#dates.format(firstComment.commentTime,'yyyy-MM-dd HH:mm:ss')}">2022-03-16 17:02:08 </p>
                                         </div>
                                         <div class="reply-btn">
-                                            <a href="single.html#" class="btn-reply">Reply</a>
+                                            <a href="javascript:void(0);" class="btn-reply" data-toggle="modal" data-target="#exampleModal" th:attr="data-whatever=${firstComment.commentId}">&nbsp;回复</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single-comment depth-2 justify-content-between d-flex mt-50" th:if="${secondComments.get(firstComment.commentId) ne null}" th:each="secondComment : ${secondComments.get(firstComment.commentId)}">
+                            <div class="user justify-content-between d-flex">
+                                <div class="thumb">
+                                    <img th:src="'/media/user/img/default.jpg'" alt="">
+                                </div>
+                                <div class="desc">
+                                    <p class="comment">
+                                        <a th:href="@{/profile/}+${firstComment.userName}">@[[${firstComment.userName}]]</a>：[[${secondComment.commentContent}]]
+                                    </p>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="d-flex align-items-center">
+                                            <h5>
+                                                <a th:href="@{/profile/}+${secondComment.userName}" th:text="${secondComment.userName}">用户名</a>
+                                            </h5>
+                                            <p class="date" th:text="${#dates.format(secondComment.commentTime,'yyyy-MM-dd HH:mm:ss')}">2022-03-16 17:05:56 </p>
                                         </div>
                                     </div>
                                 </div>
@@ -213,11 +187,12 @@
                 </div>
                 <!--comment form-->
                 <div class="comment-form wow fadeIn animated">
-                    <form class="form-contact comment_form" action="single.html#" id="commentForm">
+                    <form class="form-contact comment_form" id="commentForm">
                         <div class="row">
                             <div class="col-12">
+                                <input type="hidden" name="courseId" th:value="${course.courseId}">
                                 <div class="form-group">
-                                    <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9" placeholder="发表你的评论..."></textarea>
+                                    <textarea class="form-control w-100" name="commentContent" id="commentContent" cols="30" rows="9" placeholder="发表你的评论..." required></textarea>
                                 </div>
                             </div>
                         </div>
@@ -230,6 +205,32 @@
         </div>
         <!--container-->
     </main>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="replyForm">
+                        <div class="form-group">
+                            <input type="hidden" name="commentId" value="">
+                            <label class="col-form-label">回复内容：</label>
+                            <textarea class="form-control" name="commentContent"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" onclick="ConfirmReply()" class="btn btn-primary">回复</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!--site-bottom-->
     <div th:insert="~{common/menu-front::front-bottom}"></div>
@@ -255,8 +256,14 @@
     <script src="/assets/js/vendor/perfect-scrollbar.js"></script>
     <script src="/assets/js/vendor/waypoints.min.js"></script>
     <script src="/assets/js/vendor/jquery.theia.sticky.js"></script>
+    <!--notification js-->
+    <script src="/plugins/notifications/js/lobibox.min.js"></script>
+    <script src="/plugins/notifications/js/notifications.min.js"></script>
+    <script src="/plugins/notifications/js/notification-custom-script.js"></script>
     <!-- NewsBoard JS -->
     <script src="/assets/js/main.js"></script>
+    <script src="/js/config.js"></script>
+    <script src="/js/page/front/course-info.js"></script>
 </body>
 
 </html>

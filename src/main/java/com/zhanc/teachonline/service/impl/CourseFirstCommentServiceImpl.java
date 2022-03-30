@@ -9,12 +9,13 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 /**
  * (CourseFirstComment)表服务实现类
  *
  * @author Zhanc
- * @since 2022-03-29 14:32:00
+ * @since 2022-03-30 21:53:10
  */
 @Service("courseFirstCommentService")
 public class CourseFirstCommentServiceImpl implements CourseFirstCommentService {
@@ -66,6 +67,7 @@ public class CourseFirstCommentServiceImpl implements CourseFirstCommentService 
      */
     @Override
     public CourseFirstComment insert(CourseFirstComment courseFirstComment) {
+        courseFirstComment.setCommentTime(new Date());
         this.courseFirstCommentDao.insert(courseFirstComment);
         return courseFirstComment;
     }

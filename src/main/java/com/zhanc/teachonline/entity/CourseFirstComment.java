@@ -14,7 +14,7 @@ import java.io.Serializable;
  * (CourseFirstComment)实体类
  *
  * @author zhanc
- * @since 2022-03-29 14:32:00
+ * @since 2022-03-30 21:53:09
  */
 @Data
 @NoArgsConstructor
@@ -22,7 +22,7 @@ import java.io.Serializable;
 @Validated
 @Component
 public class CourseFirstComment implements Serializable {
-    private static final long serialVersionUID = -90129734607069828L;
+    private static final long serialVersionUID = -44993058886436171L;
     /**
      * 评论ID
      */
@@ -33,6 +33,11 @@ public class CourseFirstComment implements Serializable {
      */
     @ApiModelProperty(value = "用户名")
     private String userName;
+    /**
+     * 课程号
+     */
+    @ApiModelProperty(value = "课程号")
+    private Integer courseId;
     /**
      * 评论内容
      */

@@ -10,7 +10,7 @@ import java.util.List;
  * (CourseFirstComment)表数据库访问层
  *
  * @author Zhanc
- * @since 2022-03-29 14:32:00
+ * @since 2022-03-30 21:53:09
  */
 public interface CourseFirstCommentDao {
 

@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageRequest;
  * (CourseFirstComment)表服务接口
  *
  * @author Zhanc
- * @since 2022-03-29 14:32:00
+ * @since 2022-03-30 21:53:10
  */
 public interface CourseFirstCommentService {
 

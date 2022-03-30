@@ -5,6 +5,7 @@
     <resultMap type="com.zhanc.teachonline.entity.CourseFirstComment" id="CourseFirstCommentMap">
         <result property="commentId" column="comment_id" jdbcType="INTEGER"/>
         <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="courseId" column="course_id" jdbcType="INTEGER"/>
         <result property="commentContent" column="comment_content" jdbcType="VARCHAR"/>
         <result property="commentTime" column="comment_time" jdbcType="TIMESTAMP"/>
     </resultMap>
@@ -13,6 +14,7 @@
     <select id="queryById" resultMap="CourseFirstCommentMap">
         select comment_id,
                user_name,
+               course_id,
                comment_content,
                comment_time
         from course_first_comment
@@ -23,6 +25,7 @@
     <select id="queryAllByLimit" resultMap="CourseFirstCommentMap">
         select comment_id,
                user_name,
+               course_id,
                comment_content,
                comment_time
         from course_first_comment limit #{pageable.offset}, #{pageable.pageSize}
@@ -31,7 +34,7 @@
     <!--指定对象查询数据-->
     <select id="queryAllByCourseFirstComment" resultMap="CourseFirstCommentMap">
         select
-        comment_id, user_name, comment_content, comment_time
+        comment_id, user_name, course_id, comment_content, comment_time
         from course_first_comment
         <where>
             <if test="commentId != null">
@@ -39,6 +42,9 @@
             </if>
             <if test="userName != null and userName != ''">
                 and user_name = #{userName}
+            </if>
+            <if test="courseId != null">
+                and course_id = #{courseId}
             </if>
             <if test="commentContent != null and commentContent != ''">
                 and comment_content = #{commentContent}
@@ -60,6 +66,9 @@
             <if test="userName != null and userName != ''">
                 and user_name = #{userName}
             </if>
+            <if test="courseId != null">
+                and course_id = #{courseId}
+            </if>
             <if test="commentContent != null and commentContent != ''">
                 and comment_content = #{commentContent}
             </if>
@@ -71,26 +80,27 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="commentId" useGeneratedKeys="true">
-        insert into course_first_comment(user_name, comment_content, comment_time)
-        values (#{userName}, #{commentContent}, #{commentTime})
+        insert into course_first_comment(user_name, course_id, comment_content, comment_time)
+        values (#{userName}, #{courseId}, #{commentContent}, #{commentTime})
     </insert>
 
     <insert id="insertBatch" keyProperty="commentId" useGeneratedKeys="true">
-        insert into course_first_comment(user_name, comment_content, comment_time)
+        insert into course_first_comment(user_name, course_id, comment_content, comment_time)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.userName}, #{entity.commentContent}, #{entity.commentTime})
+            (#{entity.userName}, #{entity.courseId}, #{entity.commentContent}, #{entity.commentTime})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="commentId" useGeneratedKeys="true">
-        insert into course_first_comment(user_name, comment_content, comment_time)
+        insert into course_first_comment(user_name, course_id, comment_content, comment_time)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.userName}, #{entity.commentContent}, #{entity.commentTime})
+            (#{entity.userName}, #{entity.courseId}, #{entity.commentContent}, #{entity.commentTime})
         </foreach>
         on duplicate key update
         user_name = values(user_name),
+        course_id = values(course_id),
         comment_content = values(comment_content),
         comment_time = values(comment_time)
     </insert>
@@ -101,6 +111,9 @@
         <set>
             <if test="userName != null and userName != ''">
                 user_name = #{userName},
+            </if>
+            <if test="courseId != null">
+                course_id = #{courseId},
             </if>
             <if test="commentContent != null and commentContent != ''">
                 comment_content = #{commentContent},
