@@ -188,7 +188,7 @@
             </div>
             <div class="float-right header-tools text-muted font-small">
                 <button class="search-icon d-none d-md-inline"><span class="mr-15 text-muted font-small"><i
-                        class="elegant-icon icon_search mr-5"></i>Search</span></button>
+                        class="elegant-icon icon_search mr-5"></i>搜索</span></button>
                 <div class="off-canvas-toggle-cover d-inline-block">
                     <div class="off-canvas-toggle hidden d-inline-block" id="off-canvas-toggle">
                         <span></span>
@@ -206,9 +206,11 @@
             <div class="row mb-20">
                 <div class="col-12 align-self-center main-search-form-cover m-auto">
                     <p class="text-center"><span class="search-text-bg">Search</span></p>
-                    <form th:action="@{/search}" class="search-header">
+                    <form th:action="@{/search}" class="search-header" method="post">
                         <div class="input-group w-100">
                             <input type="text" class="form-control" name="searchStr" placeholder="在此处搜索..." required>
+                            <input type="hidden" name="page" value="0">
+                            <input type="hidden" name="size" value="8">
                             <div class="input-group-append">
                                 <select class="form-control" name="searchType">
                                     <option value="course" selected>课程</option>
@@ -589,6 +591,7 @@
         </div>
     </div>
 </footer>
+
 
 
 </html>

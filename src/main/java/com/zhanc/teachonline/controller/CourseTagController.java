@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 /**
  * (CourseTag)表控制层
@@ -58,6 +60,15 @@ public class CourseTagController {
     @GetMapping("find/{id}")
     public ResponseEntity<CourseTag> queryById(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(this.courseTagService.queryById(id));
+    }
+
+    /**
+     * 查询标签下的课程数量
+     * @return map
+     */
+    @PostMapping("count")
+    public ResponseEntity<List<Map<String, Object>>> queryTagGroup(){
+        return ResponseEntity.ok(this.courseTagService.queryTagGroup());
     }
 
     /**

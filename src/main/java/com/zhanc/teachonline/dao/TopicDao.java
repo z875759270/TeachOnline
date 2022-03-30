@@ -1,5 +1,6 @@
 package com.zhanc.teachonline.dao;
 
+import com.zhanc.teachonline.entity.Course;
 import com.zhanc.teachonline.entity.Topic;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;
@@ -38,6 +39,20 @@ public interface TopicDao {
      * @return 对象列表
      */
     List<Topic> queryAllByTopic(Topic topic);
+
+    /**
+     * 模糊查询
+     * @param searchStr 查询字符串
+     * @return 对象列表
+     */
+    List<Topic> queryAllBySearch(String searchStr, @Param("pageable") Pageable pageable);
+
+    /**
+     * 模糊查询行数
+     * @param searchStr 查询字符串
+     * @return 返回查询总行数
+     */
+    long countSearch(String searchStr);
 
     /**
      * 统计总行数

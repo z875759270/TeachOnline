@@ -101,12 +101,14 @@ public class CourseController {
             File dest = null;
             if ("mp4".equalsIgnoreCase(fileSuffix)) {
                 fileType = "course/video/";
-            } else if ("jpg".equalsIgnoreCase(fileSuffix) | "png".equalsIgnoreCase(fileSuffix) | "jpeg".equalsIgnoreCase(fileSuffix) | "gif".equalsIgnoreCase(fileType)) {
+            } else if ("jpg".equalsIgnoreCase(fileSuffix) | "png".equalsIgnoreCase(fileSuffix) | "jpeg".equalsIgnoreCase(fileSuffix) | "gif".equalsIgnoreCase(fileSuffix)) {
                 fileType = "course/img/";
             } else {
                 fileType = "course/file/";
             }
+            System.out.println(filePath + fileType + fileName);
             dest = new File(filePath + fileType + fileName);
+
             //OssUtils.upload(fileVirtualPath + fileType + fileName, multipartFile);
             try {
                 if (!dest.exists()) {

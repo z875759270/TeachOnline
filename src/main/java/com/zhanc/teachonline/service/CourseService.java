@@ -38,6 +38,14 @@ public interface CourseService {
     Page<Course> queryByCourse(Course course);
 
     /**
+     * 模糊查询
+     * @param searchStr 查询字符串
+     * @param pageRequest 分页对象
+     * @return 查询结果
+     */
+    Page<Course> queryBySearch(String searchStr, PageRequest pageRequest);
+
+    /**
      * 新增数据
      *
      * @param course 实例对象

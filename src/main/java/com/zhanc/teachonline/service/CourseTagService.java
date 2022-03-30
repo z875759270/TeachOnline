@@ -4,6 +4,9 @@ import com.zhanc.teachonline.entity.CourseTag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * (CourseTag)表服务接口
  *
@@ -36,6 +39,12 @@ public interface CourseTagService {
      * @return 查询结果
      */
     Page<CourseTag> queryByCourseTag(CourseTag courseTag);
+
+    /**
+     * 查询标签下的课程数量
+     * @return 查询结果
+     */
+    List<Map<String, Object>> queryTagGroup();
 
     /**
      * 新增数据

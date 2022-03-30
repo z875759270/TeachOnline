@@ -60,6 +60,12 @@ public class CourseServiceImpl implements CourseService {
         return new PageImpl<>(this.courseDao.queryAllByCourse(course), pageRequest, total);
     }
 
+    @Override
+    public Page<Course> queryBySearch(String searchStr, PageRequest pageRequest) {
+        long total = this.courseDao.countSearch(searchStr);
+        return new PageImpl<>(this.courseDao.queryAllBySearch(searchStr, pageRequest), pageRequest, total);
+    }
+
     /**
      * 新增数据
      *

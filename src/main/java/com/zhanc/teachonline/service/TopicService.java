@@ -1,5 +1,6 @@
 package com.zhanc.teachonline.service;
 
+import com.zhanc.teachonline.entity.Course;
 import com.zhanc.teachonline.entity.Topic;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -36,6 +37,14 @@ public interface TopicService {
      * @return 查询结果
      */
     Page<Topic> queryByTopic(Topic topic);
+
+    /**
+     * 模糊查询
+     * @param searchStr 查询字符串
+     * @param pageRequest 分页对象
+     * @return 查询结果
+     */
+    Page<Topic> queryBySearch(String searchStr, PageRequest pageRequest);
 
     /**
      * 新增数据

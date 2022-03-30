@@ -4,6 +4,7 @@ import com.zhanc.teachonline.entity.Tag;
 import com.zhanc.teachonline.service.TagService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -68,7 +69,13 @@ public class TagController {
      */
     @PostMapping("add")
     public ResponseEntity<Tag> add(Tag tag) {
-        return ResponseEntity.ok(this.tagService.insert(tag));
+        Page<Tag> tags = this.tagService.queryByTag(tag);
+        if(tags.getContent().size()==0){
+            return ResponseEntity.ok(this.tagService.insert(tag));
+        }else{
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }
+
     }
 
     /**

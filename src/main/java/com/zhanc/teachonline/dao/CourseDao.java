@@ -40,6 +40,20 @@ public interface CourseDao {
     List<Course> queryAllByCourse(Course course);
 
     /**
+     * 模糊查询
+     * @param searchStr 查询字符串
+     * @return 对象列表
+     */
+    List<Course> queryAllBySearch(String searchStr,@Param("pageable") Pageable pageable);
+
+    /**
+     * 模糊查询行数
+     * @param searchStr 查询字符串
+     * @return 返回查询总行数
+     */
+    long countSearch(String searchStr);
+
+    /**
      * 统计总行数
      *
      * @param course 查询条件

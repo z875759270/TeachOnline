@@ -59,6 +59,19 @@ public class TopicServiceImpl implements TopicService {
     }
 
     /**
+     * 模糊查询
+     *
+     * @param searchStr   查询字符串
+     * @param pageRequest 分页对象
+     * @return 查询结果
+     */
+    @Override
+    public Page<Topic> queryBySearch(String searchStr, PageRequest pageRequest) {
+        long total = this.topicDao.countSearch(searchStr);
+        return new PageImpl<>(this.topicDao.queryAllBySearch(searchStr, pageRequest), pageRequest, total);
+    }
+
+    /**
      * 新增数据
      *
      * @param topic 实例对象

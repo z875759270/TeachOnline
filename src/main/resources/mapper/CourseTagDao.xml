@@ -51,6 +51,14 @@
         </where>
     </select>
 
+    <!--查询标签下的课程数量-->
+    <select id="queryTagGroup" resultType="map">
+        select tag_id,count(course_id) as tag_count
+        from course_tag
+        group by tag_id
+        order by tag_count desc
+    </select>
+
     <!--新增所有列-->
     <insert id="insert" keyProperty="tagId" useGeneratedKeys="true">
         insert into course_tag(tag_id, course_id)
@@ -71,6 +79,7 @@
         from course_tag
         where tag_id = #{tagId}
     </delete>
+
 
 </mapper>
 

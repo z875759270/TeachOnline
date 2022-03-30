@@ -67,6 +67,21 @@
         </where>
     </select>
 
+    <!--模糊查询数据-->
+    <select id="queryAllBySearch" resultMap="TopicMap">
+        select
+            topic_id, topic_title, topic_detail, topic_category_id, topic_views, topic_create_time, topic_status
+        from topic
+        where topic_title like concat('%',#{searchStr},'%')
+            limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <select id="countSearch" resultType="java.lang.Long">
+        select count(1)
+        from topic
+        where topic_title like concat('%',#{searchStr},'%')
+    </select>
+
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)

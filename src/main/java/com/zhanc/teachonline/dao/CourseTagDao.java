@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * (CourseTag)表数据库访问层
@@ -38,6 +39,12 @@ public interface CourseTagDao {
      * @return 对象列表
      */
     List<CourseTag> queryAllByCourseTag(CourseTag courseTag);
+
+    /**
+     * 查询标签下的课程数量
+     * @return 对象列表
+     */
+    List<Map<String,Object>> queryTagGroup();
 
     /**
      * 统计总行数

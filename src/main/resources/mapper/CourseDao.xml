@@ -92,6 +92,22 @@
         </where>
     </select>
 
+    <!--模糊查询数据-->
+    <select id="queryAllBySearch" resultMap="CourseMap">
+        select
+        course_id, course_name, course_detail, course_category_id, course_creater, course_create_time, course_views,
+        course_img, course_video, course_notice, course_status
+        from course
+        where course_name like concat('%',#{searchStr},'%')
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <select id="countSearch" resultType="java.lang.Long">
+        select count(1)
+        from course
+        where course_name like concat('%',#{searchStr},'%')
+    </select>
+
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)

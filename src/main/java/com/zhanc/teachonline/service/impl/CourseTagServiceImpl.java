@@ -9,6 +9,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 /**
  * (CourseTag)表服务实现类
@@ -56,6 +58,16 @@ public class CourseTagServiceImpl implements CourseTagService {
         long total = this.courseTagDao.count(courseTag);
         PageRequest pageRequest = PageRequest.of(0, 1000);
         return new PageImpl<>(this.courseTagDao.queryAllByCourseTag(courseTag), pageRequest, total);
+    }
+
+    /**
+     * 查询标签下的课程数量
+     *
+     * @return 查询结果
+     */
+    @Override
+    public List<Map<String, Object>> queryTagGroup() {
+        return this.courseTagDao.queryTagGroup();
     }
 
     /**

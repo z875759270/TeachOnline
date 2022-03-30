@@ -8,7 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -40,10 +42,12 @@ public class RouterController {
     private TagService tagService;
     @Resource
     private CourseTagService courseTagService;
+    @Resource
+    private TopicService topicService;
 
     //region 后台
 
-    @RequestMapping(value = {"/back","/back/", "/back/index"})
+    @RequestMapping(value = {"/back", "/back/", "/back/index"})
     public String toBackIndex() {
         return "/back/index";
     }
@@ -101,7 +105,7 @@ public class RouterController {
     @RequestMapping(value = {"/back/course/upload"})
     public String toCourseUpload(Model model) {
         PageRequest pageRequest = PageRequest.of(0, 1000);
-        model.addAttribute("categories",courseCategoryService.queryByPage(new CourseCategory(),pageRequest));
+        model.addAttribute("categories", courseCategoryService.queryByPage(new CourseCategory(), pageRequest));
         return "/back/course-upload";
     }
 
@@ -129,24 +133,42 @@ public class RouterController {
         return "/front/register";
     }
 
-    @RequestMapping(value = {"/search"})
-    public String toSearch() {
+    @PostMapping(value = {"/search"})
+    public String toSearch(String searchStr, String searchType, Integer page, Integer size, Model model) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        if ("course".equals(searchType)) {
+            Map<Integer, Object> tagList=new HashMap<>();
+            Page<Course> coursePage = this.courseService.queryBySearch(searchStr, pageRequest);
+            for (Course tempCourse : coursePage.getContent()) {
+                ArrayList<Tag> tempTagList = new ArrayList<>();
+                Page<CourseTag> courseTags = this.courseTagService.queryByCourseTag(new CourseTag(null, tempCourse.getCourseId()));
+                for (CourseTag cTag : courseTags.getContent()) {
+                    tempTagList.add(this.tagService.queryById(cTag.getTagId()));
+                }
+                tagList.put(tempCourse.getCourseId(),tempTagList);
+            }
+            model.addAttribute("tagList",tagList);
+            model.addAttribute("resList", coursePage);
+        } else if ("topic".equals(searchType)) {
+            model.addAttribute("resList", this.topicService.queryBySearch(searchStr, pageRequest));
+        }
+        model.addAttribute("searchStr", searchStr);
+        model.addAttribute("searchType", searchType);
         return "/front/search";
     }
 
     @RequestMapping(value = {"/course/intro/{courseId}"})
-    public String toCourseIntro(@PathVariable Integer courseId,Model model) {
+    public String toCourseIntro(@PathVariable Integer courseId, Model model) {
         Course course = this.courseService.queryById(courseId);
 
-        //获取课程标签
-        ArrayList<Tag> tagList=new ArrayList<>();
+        ArrayList<Tag> tagList = new ArrayList<>();
         Page<CourseTag> courseTags = this.courseTagService.queryByCourseTag(new CourseTag(null, course.getCourseId()));
         for (CourseTag cTag : courseTags.getContent()) {
             tagList.add(this.tagService.queryById(cTag.getTagId()));
         }
 
-        model.addAttribute("course",course);
-        model.addAttribute("tagList",tagList);
+        model.addAttribute("course", course);
+        model.addAttribute("tagList", tagList);
         return "/front/course-intro";
     }
 
@@ -188,7 +210,7 @@ public class RouterController {
     @RequestMapping(value = {"/profile/{userName}"})
     public String toProfile(@PathVariable String userName, Model model) {
         User user = this.userService.queryById(userName);
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
         return "/front/profile";
     }
 
