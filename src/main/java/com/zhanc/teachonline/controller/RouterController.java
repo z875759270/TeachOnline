@@ -201,6 +201,9 @@ public class RouterController {
         }
         avgRate = avgRate/courseRateList.size();
 
+        //获取收藏数量
+        int collectNum = this.courseCollectionService.queryByCourseCollection(new CourseCollection(null, course.getCourseId())).getNumberOfElements();
+
         //获取当前用户评分
         int currentScore=-1;
         try{
@@ -210,7 +213,7 @@ public class RouterController {
             logger.info("当前用户无评分");
         }
 
-        //获取收藏
+        //获取当前用户是否收藏
         boolean isCollection = this.courseCollectionService.queryByCourseCollection(new CourseCollection(session.getAttribute("userName").toString(), courseId)).getNumberOfElements() != 0;
 
         //获取一级评论
@@ -227,6 +230,7 @@ public class RouterController {
         model.addAttribute("tagList", getTag(course));
         model.addAttribute("user", user);
         model.addAttribute("avgRate", avgRate);
+        model.addAttribute("collectNum", collectNum);
         model.addAttribute("currentRate", currentScore);
         model.addAttribute("isCollection", isCollection);
         model.addAttribute("firstComments", courseFirstComments);
