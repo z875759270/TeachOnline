@@ -1,6 +1,38 @@
 (function($) {
     'use strict';
 
+    var courseMenu = function () {
+        $.ajax({
+            url: Const.domain+"courseCategory/list",
+            type: "GET",
+            success:function(data){
+                let cList=data.content;
+                let str="";
+                for (let i = 0; i < cList.length; i++) {
+                    str = str.concat('<li><a href="/course/list/category/'+cList[i].categoryId+'">'+cList[i].categoryName+'</a></li>')
+                }
+                $("#courseCategoryMenu").html(str)
+            }
+        })
+    }
+
+    var getHotTags=function () {
+        $.ajax({
+            url: Const.domain+"tag/hot/6",
+            type: "POST",
+            success:function(data){
+                let footerStr="";
+                let searchStr="";
+                for (let i = 0; i < data.length; i++) {
+                    footerStr=footerStr.concat('<a class="tag-cloud-link" href="/course/list/tag/'+data[i].tagId+'">'+data[i].tagName+'</a>');
+                    searchStr = searchStr.concat('<li class="list-inline-item"><a href="/course/list/tag/'+data[i].tagId+'">'+data[i].tagName+'</a></li>')
+                }
+                $("#hotTagsFooter").html(footerStr);
+                $("#hotTagSearch").html(searchStr);
+            }
+        })
+    }
+
     // Page loading
     $(window).on('load', function() {
         $('.preloader').delay(450).fadeOut('slow');
@@ -414,6 +446,8 @@
         niceSelectBox();
         moreArticles();
         VSticker();
+        courseMenu();
+        getHotTags()
     });
 
 })(jQuery);

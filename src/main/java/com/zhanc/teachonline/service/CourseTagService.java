@@ -47,6 +47,13 @@ public interface CourseTagService {
     List<Map<String, Object>> queryTagGroup();
 
     /**
+     * 获取热门标签
+     * @param num 数量
+     * @return 标签ID列表
+     */
+    List<Integer> getHotTags(int num);
+
+    /**
      * 新增数据
      *
      * @param courseTag 实例对象

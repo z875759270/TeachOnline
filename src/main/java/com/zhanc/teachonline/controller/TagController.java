@@ -1,6 +1,7 @@
 package com.zhanc.teachonline.controller;
 
 import com.zhanc.teachonline.entity.Tag;
+import com.zhanc.teachonline.service.CourseTagService;
 import com.zhanc.teachonline.service.TagService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -9,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * (Tag)表控制层
@@ -24,6 +27,8 @@ public class TagController {
      */
     @Resource
     private TagService tagService;
+    @Resource
+    private CourseTagService courseTagService;
 
     /**
      * 分页查询
@@ -61,6 +66,16 @@ public class TagController {
         return ResponseEntity.ok(this.tagService.queryById(id));
     }
 
+    @PostMapping("hot/{num}")
+    public ResponseEntity<List<Tag>> getHotTag(@PathVariable int num){
+        List<Integer> hotTagsId = this.courseTagService.getHotTags(num);
+        List<Tag> hotTags=new ArrayList<>();
+        for (Integer tagId : hotTagsId) {
+            hotTags.add(this.tagService.queryById(tagId));
+        }
+        return ResponseEntity.ok(hotTags);
+    }
+
     /**
      * 新增数据
      *
@@ -69,13 +84,13 @@ public class TagController {
      */
     @PostMapping("add")
     public ResponseEntity<Tag> add(Tag tag) {
+        tag.setTagName(tag.getTagName().toLowerCase());
         Page<Tag> tags = this.tagService.queryByTag(tag);
         if(tags.getContent().size()==0){
             return ResponseEntity.ok(this.tagService.insert(tag));
         }else{
-            return ResponseEntity.status(HttpStatus.OK).build();
+            return ResponseEntity.ok(tags.getContent().get(0));
         }
-
     }
 
     /**

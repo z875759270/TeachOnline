@@ -31,10 +31,8 @@
                         <div class="col-md-8 text-md-right font-small align-self-center">
                             <p class="d-inline-block mr-5 mb-0"><i class="elegant-icon  icon_tag_alt mr-5 text-muted"></i>热门标签:</p>
                             <ul class="list-inline d-inline-block tags">
-                                <li class="list-inline-item"><a href="index.html#"># Python</a></li>
-                                <li class="list-inline-item"><a href="index.html#"># Excel</a></li>
-                                <li class="list-inline-item"><a href="index.html#"># 英语</a></li>
-                                <li class="list-inline-item"><a href="index.html#"># 数学</a></li>
+
+                                <li class="list-inline-item" th:each="tag : ${hotTags}"><a href="index.html#"># [[${tag.tagName}]]</a></li>
                             </ul>
                         </div>
                     </div>

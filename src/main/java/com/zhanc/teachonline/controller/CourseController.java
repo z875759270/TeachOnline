@@ -48,7 +48,7 @@ public class CourseController {
      * @param size   每页大小
      * @return 查询结果
      */
-    @GetMapping("list/{page}/{size}")
+    @PostMapping("list/{page}/{size}")
     public ResponseEntity<Page<Course>> queryByPage(Course course, @PathVariable("page") int page, @PathVariable("size") int size) {
         PageRequest pageRequest = PageRequest.of(page, size);
         return ResponseEntity.ok(this.courseService.queryByPage(course, pageRequest));
@@ -60,7 +60,7 @@ public class CourseController {
      * @param course 筛选条件
      * @return 查询结果
      */
-    @GetMapping("list")
+    @PostMapping("list")
     public ResponseEntity<Page<Course>> queryByCourse(Course course) {
         return ResponseEntity.ok(this.courseService.queryByCourse(course));
     }

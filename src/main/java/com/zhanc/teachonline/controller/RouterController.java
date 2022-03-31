@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 /**
  * @ClassName RouterController
@@ -123,7 +124,13 @@ public class RouterController {
 
     //region 前台
     @RequestMapping(value = {"/", "/index"})
-    public String toFrontIndex() {
+    public String toFrontIndex(Model model) {
+        List<Integer> hotTagsId = this.courseTagService.getHotTags(4);
+        List<Tag> hotTags = new ArrayList<>();
+        for (Integer tagId : hotTagsId) {
+            hotTags.add(this.tagService.queryById(tagId));
+        }
+        model.addAttribute("hotTags", hotTags);
         return "/front/index";
     }
 
@@ -195,9 +202,9 @@ public class RouterController {
         Page<CourseFirstComment> courseFirstComments = this.courseFirstCommentService.queryByCourseFirstComment(new CourseFirstComment(null, null, course.getCourseId(), null, null));
 
         //获取二级评论
-        Map<Integer,Object> secondCommentList=new HashMap<>();
-        for(CourseFirstComment firstComment:courseFirstComments.getContent()){
-            secondCommentList.put(firstComment.getCommentId(),this.courseSecondCommentService.queryById(firstComment.getCommentId()));
+        Map<Integer, Object> secondCommentList = new HashMap<>();
+        for (CourseFirstComment firstComment : courseFirstComments.getContent()) {
+            secondCommentList.put(firstComment.getCommentId(), this.courseSecondCommentService.queryById(firstComment.getCommentId()));
         }
 
 
@@ -205,7 +212,7 @@ public class RouterController {
         model.addAttribute("tagList", tagList);
         model.addAttribute("user", user);
         model.addAttribute("firstComments", courseFirstComments);
-        model.addAttribute("secondComments",secondCommentList);
+        model.addAttribute("secondComments", secondCommentList);
         return "/front/course-info";
     }
 
@@ -214,8 +221,41 @@ public class RouterController {
         return "/front/report";
     }
 
-    @RequestMapping(value = {"/course"})
-    public String toCourse() {
+    @GetMapping(value = {"/course/list/{type}/{id}"})
+    public String toCourseList(@PathVariable Integer id, @PathVariable String type, Model model) {
+        List<Course> courseList = new ArrayList<>();
+        if ("tag".equals(type)) {
+            CourseTag courseTag = new CourseTag();
+            courseTag.setTagId(id);
+            List<CourseTag> courseTagList = this.courseTagService.queryByCourseTag(courseTag).getContent();
+            for (CourseTag ct : courseTagList) {
+                courseList.add(this.courseService.queryById(ct.getCourseId()));
+            }
+            model.addAttribute("tagName", this.tagService.queryById(id).getTagName());
+        } else if ("category".equals(type)) {
+            Course course = new Course();
+            course.setCourseCategoryId(id);
+            courseList.addAll(this.courseService.queryByCourse(course).getContent());
+            model.addAttribute("categoryName", this.courseCategoryService.queryById(id).getCategoryName());
+        }
+
+        //获取标签
+        Map<Integer, List<Tag>> tagList = new HashMap<>();
+        for (Course c : courseList) {
+            ArrayList<Tag> tags = new ArrayList<>();
+            Page<CourseTag> courseTags = this.courseTagService.queryByCourseTag(new CourseTag(null, c.getCourseId()));
+            for (CourseTag cTag : courseTags.getContent()) {
+                tags.add(this.tagService.queryById(cTag.getTagId()));
+            }
+            tagList.put(c.getCourseId(), tags);
+        }
+        System.out.println("========" + courseList.size());
+        model.addAttribute("tagMap", tagList);
+        model.addAttribute("firstCourse", courseList.get(0));
+        courseList.remove(0);
+        model.addAttribute("resList", courseList);
+        model.addAttribute("searchType", type);
+
         return "/front/course-list";
     }
 

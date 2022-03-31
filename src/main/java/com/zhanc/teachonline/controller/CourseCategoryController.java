@@ -28,13 +28,11 @@ public class CourseCategoryController {
      * 分页查询
      *
      * @param courseCategory 筛选条件
-     * @param page           页数
-     * @param size           每页大小
      * @return 查询结果
      */
-    @GetMapping("list/{page}/{size}")
-    public ResponseEntity<Page<CourseCategory>> queryByPage(CourseCategory courseCategory, @PathVariable("page") int page, @PathVariable("size") int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
+    @GetMapping("list")
+    public ResponseEntity<Page<CourseCategory>> queryByPage(CourseCategory courseCategory) {
+        PageRequest pageRequest = PageRequest.of(0, 1000);
         return ResponseEntity.ok(this.courseCategoryService.queryByPage(courseCategory, pageRequest));
     }
 
@@ -44,7 +42,7 @@ public class CourseCategoryController {
      * @param courseCategory 筛选条件
      * @return 查询结果
      */
-    @GetMapping("list")
+    @PostMapping("list")
     public ResponseEntity<Page<CourseCategory>> queryByCourseCategory(CourseCategory courseCategory) {
         return ResponseEntity.ok(this.courseCategoryService.queryByCourseCategory(courseCategory));
     }

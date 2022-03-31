@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -68,6 +69,21 @@ public class CourseTagServiceImpl implements CourseTagService {
     @Override
     public List<Map<String, Object>> queryTagGroup() {
         return this.courseTagDao.queryTagGroup();
+    }
+
+    /**
+     * 获取热门标签
+     * @param num 数量
+     * @return 标签ID列表
+     */
+    @Override
+    public List<Integer> getHotTags(int num){
+        List<Map<String, Object>> tagGroup = this.queryTagGroup();
+        List<Integer> resList=new ArrayList<>();
+        for (int i = 0; i < num; i++) {
+            resList.add(Integer.parseInt(tagGroup.get(i).get("tag_id").toString()));
+        }
+        return resList;
     }
 
     /**

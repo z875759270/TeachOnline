@@ -135,11 +135,7 @@
                         <li><a th:href="@{/}"><i class="elegant-icon icon_house_alt mr-5"></i>首页</a></li>
                         <li class="menu-item-has-children">
                             <a th:href="@{/course}"> 课程</a>
-                            <ul class="sub-menu text-muted font-small">
-                                <li><a href="index.html">IT互联网</a></li>
-                                <li><a href="home-2.html">大学考试</a></li>
-                                <li><a href="home-3.html">兴趣技能</a></li>
-                                <li><a href="home-3.html">设计创作</a></li>
+                            <ul class="sub-menu text-muted font-small" id="courseCategoryMenu">
                                 <li><a href="home-3.html">职场提升</a></li>
                             </ul>
                         </li>
@@ -227,15 +223,8 @@
             <div class="row mt-80 text-center">
                 <div class="col-12 font-small suggested-area">
                     <h5 class="suggested font-heading mb-20 text-muted"><strong>大家都在搜：</strong></h5>
-                    <ul class="list-inline d-inline-block">
+                    <ul class="list-inline d-inline-block" id="hotTagSearch">
                         <li class="list-inline-item"><a href="category.html">标签1</a></li>
-                        <li class="list-inline-item"><a href="category.html">标签2</a></li>
-                        <li class="list-inline-item"><a href="category.html">标签3</a></li>
-                        <li class="list-inline-item"><a href="category.html">标签4</a></li>
-                        <li class="list-inline-item"><a href="category.html">标签5</a></li>
-                        <li class="list-inline-item"><a href="category.html">标签6</a></li>
-                        <li class="list-inline-item"><a href="category.html">标签7</a></li>
-                        <li class="list-inline-item"><a href="category.html">标签8</a></li>
                     </ul>
                 </div>
             </div>
@@ -557,7 +546,7 @@
                     <div class="widget-header-2 position-relative mb-30">
                         <h5 class="mt-5 mb-30">热门标签</h5>
                     </div>
-                    <div class="tagcloud mt-50">
+                    <div class="tagcloud mt-50" id="hotTagsFooter">
                         <a class="tag-cloud-link" href="category.html">beautiful</a>
                         <a class="tag-cloud-link" href="category.html">New York</a>
                         <a class="tag-cloud-link" href="category.html">droll</a>

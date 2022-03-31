@@ -28,7 +28,9 @@ public class GlobalConfig implements WebMvcConfigurer {
                         "/images/**",
                         "/js/**",
                         "/media/**",
-                        "/plugins/**"
+                        "/plugins/**",
+                        "/courseCategory/**",
+                        "/tag/hot/**"
                 );
         registry.addInterceptor(new BackLoginHandlerInterceptor())
                 .addPathPatterns("/back/**").excludePathPatterns("/back/login");
