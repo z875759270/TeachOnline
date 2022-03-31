@@ -270,18 +270,29 @@ public class RouterController {
         return "/front/course-list";
     }
 
-    @RequestMapping(value = {"/topic"})
-    public String toTopic() {
+    @RequestMapping(value = {"/topic/list/{type}/{id}"})
+    public String toTopicList(@PathVariable Integer id, @PathVariable String type) {
         return "/front/topic-list";
     }
 
-    @RequestMapping(value = {"/topic/info"})
-    public String toTopicInfo() {
+    @RequestMapping(value = {"/topic/info/{topicId}"})
+    public String toTopicInfo(@PathVariable Integer topicId) {
         return "/front/topic-info";
     }
 
-    @RequestMapping(value = {"/collection"})
-    public String toCollection() {
+    @RequestMapping(value = {"/user/collection/mine"})
+    public String toCollection(Model model,HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String userName = session.getAttribute("userName").toString();
+        //获取课程收藏
+        List<CourseCollection> courseCollections = this.courseCollectionService.queryByCourseCollection(new CourseCollection(userName, null)).getContent();
+        List<Course> courseList=new ArrayList<>();
+        for (CourseCollection courseCollection : courseCollections) {
+            courseList.add(this.courseService.queryById(courseCollection.getCourseId()));
+        }
+
+        model.addAttribute("courseList",courseList);
+        model.addAttribute("tagMap",getTagMap(courseList));
         return "/front/collection";
     }
 

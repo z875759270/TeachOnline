@@ -35,210 +35,32 @@
         <div class="container">
             <div class="loop-list loop-list-style-1">
                 <div class="row">
-                    <article class="col-md-6 mb-40 wow fadeInUp  animated">
+                    <article class="col-md-6 mb-40 wow fadeInUp  animated" th:each="course : ${courseList}">
                         <div class="post-card-1 border-radius-10 hover-up">
-                            <div class="post-thumb thumb-overlay img-hover-slide position-relative" style="background-image: url(/assets/imgs/news/news-6.jpg)">
-                                <a class="img-link" href="single.html"></a>
-                                <ul class="social-share">
-                                    <li><a href="category-big.html#"><i class="elegant-icon social_share"></i></a></li>
-                                    <li><a class="fb" href="category-big.html#" title="Share on Facebook" target="_blank"><i class="elegant-icon social_facebook"></i></a></li>
-                                    <li><a class="tw" href="category-big.html#" target="_blank" title="Tweet now"><i class="elegant-icon social_twitter"></i></a></li>
-                                    <li><a class="pt" href="category-big.html#" target="_blank" title="Pin it"><i class="elegant-icon social_pinterest"></i></a></li>
-                                </ul>
+                            <div class="post-thumb thumb-overlay img-hover-slide position-relative" th:style="'background-image: url(/media/course/img/'+${course.courseImg}+')'">
+                                <a class="img-link" th:href="@{/course/intro/}+${course.courseId}"></a>
                             </div>
                             <div class="post-content p-30">
                                 <div class="entry-meta meta-0 font-small mb-10">
-                                    <a href="category.html"><span class="post-cat text-info">标签1</span></a>
-                                    <a href="category.html"><span class="post-cat text-success">标签2</span></a>
+                                    <a th:href="@{/course/list/tag/}+${tag.tagId}" th:each="tag : ${tagMap.get(course.courseId)}"><span class="post-cat text-info text-capitalize" th:text="${tag.tagName}">标签1</span></a>
                                 </div>
                                 <div class="d-flex post-card-content">
                                     <h5 class="post-title mb-20 font-weight-900">
-                                        <a th:href="@{/course/info}">课程标题课程标题</a>
+                                        <a class="text-white" th:href="@{/course/intro/}+${course.courseId}" th:text="${course.courseName}">课程名称</a>
                                     </h5>
                                     <div class="post-excerpt mb-25 font-small text-muted">
-                                        <p>Graduating from a top accelerator or incubator can be as career-defining for a&nbsp;startup founder&nbsp;as an elite university diploma. The intensive programmes, which…</p>
+                                        <p>课程简介：[[${course.courseDetail}]]</p>
                                     </div>
                                     <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
-                                        <span class="post-on">27 August</span>
-                                        <span class="time-reading has-dot">12 mins read</span>
-                                        <span class="post-by has-dot">23k views</span>
+                                        <span class="post-on" th:text="${#dates.format(course.courseCreateTime,'yyyy-MM-dd')}">2022-03-17</span>
+                                        <span class="hit-count has-dot"><i class="elegant-icon arrow_triangle-right_alt2"></i> [[${course.courseViews}]]</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </article>
-                    <article class="col-md-6 mb-40 wow fadeInUp  animated">
-                        <div class="post-card-1 border-radius-10 hover-up">
-                            <div class="post-thumb thumb-overlay img-hover-slide position-relative" style="background-image: url(assets/imgs/news/news-8.jpg)">
-                                <a class="img-link" href="single.html"></a>
-                                <ul class="social-share">
-                                    <li><a href="category-big.html#"><i class="elegant-icon social_share"></i></a></li>
-                                    <li><a class="fb" href="category-big.html#" title="Share on Facebook" target="_blank"><i class="elegant-icon social_facebook"></i></a></li>
-                                    <li><a class="tw" href="category-big.html#" target="_blank" title="Tweet now"><i class="elegant-icon social_twitter"></i></a></li>
-                                    <li><a class="pt" href="category-big.html#" target="_blank" title="Pin it"><i class="elegant-icon social_pinterest"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="post-content p-30">
-                                <div class="entry-meta meta-0 font-small mb-10">
-                                    <a href="category.html"><span class="post-cat">Fashion</span></a>
-                                </div>
-                                <div class="d-flex post-card-content">
-                                    <h5 class="post-title mb-20 font-weight-900">
-                                        <a href="single.html">Tips for Growing Healthy, Longer Hair</a>
-                                    </h5>
-                                    <div class="post-excerpt mb-25 font-small text-muted">
-                                        <p>Proin vitae placerat quam. Ut sodales eleifend urna, in condimentum tortor ultricies eu. Nunc auctor iaculis dolorProin vitae placerat quam. Proin vitae placerat quam.</p>
-                                    </div>
-                                    <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
-                                        <span class="post-on">12 August</span>
-                                        <span class="time-reading has-dot">6 mins read</span>
-                                        <span class="post-by has-dot">3k views</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="col-md-6 mb-40 wow fadeInUp  animated">
-                        <div class="post-card-1 border-radius-10 hover-up">
-                            <div class="post-thumb thumb-overlay img-hover-slide position-relative" style="background-image: url(assets/imgs/news/news-10.jpg)">
-                                <a class="img-link" href="single.html"></a>
-                                <span class="top-right-icon bg-secondary"><i class="elegant-icon icon_heart_alt"></i></span>
-                                <ul class="social-share">
-                                    <li><a href="category-big.html#"><i class="elegant-icon social_share"></i></a></li>
-                                    <li><a class="fb" href="category-big.html#" title="Share on Facebook" target="_blank"><i class="elegant-icon social_facebook"></i></a></li>
-                                    <li><a class="tw" href="category-big.html#" target="_blank" title="Tweet now"><i class="elegant-icon social_twitter"></i></a></li>
-                                    <li><a class="pt" href="category-big.html#" target="_blank" title="Pin it"><i class="elegant-icon social_pinterest"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="post-content p-30">
-                                <div class="entry-meta meta-0 font-small mb-10">
-                                    <a href="category.html"><span class="post-cat text-success">Lifestyle</span></a>
-                                </div>
-                                <div class="d-flex post-card-content">
-                                    <h5 class="post-title mb-20 font-weight-900">
-                                        <a href="single.html">Project Ideas Around the House</a>
-                                    </h5>
-                                    <div class="post-excerpt mb-25 font-small text-muted">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor condimentum metus non tempor. Maecenas non augue aliquam, facilisis lectus quis, lacinia risus.</p>
-                                    </div>
-                                    <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
-                                        <span class="post-on">27 August</span>
-                                        <span class="time-reading has-dot">12 mins read</span>
-                                        <span class="post-by has-dot">23k views</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="col-md-6 mb-40 wow fadeInUp  animated">
-                        <div class="post-card-1 border-radius-10 hover-up">
-                            <div class="post-thumb thumb-overlay img-hover-slide position-relative" style="background-image: url(assets/imgs/news/news-12.jpg)">
-                                <a class="img-link" href="single.html"></a>
-                                <ul class="social-share">
-                                    <li><a href="category-big.html#"><i class="elegant-icon social_share"></i></a></li>
-                                    <li><a class="fb" href="category-big.html#" title="Share on Facebook" target="_blank"><i class="elegant-icon social_facebook"></i></a></li>
-                                    <li><a class="tw" href="category-big.html#" target="_blank" title="Tweet now"><i class="elegant-icon social_twitter"></i></a></li>
-                                    <li><a class="pt" href="category-big.html#" target="_blank" title="Pin it"><i class="elegant-icon social_pinterest"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="post-content p-30">
-                                <div class="entry-meta meta-0 font-small mb-10">
-                                    <a href="category.html"><span class="post-cat text-danger">Hotels</span></a>
-                                </div>
-                                <div class="d-flex post-card-content">
-                                    <h5 class="post-title mb-20 font-weight-900">
-                                        <a href="single.html">How to Give Yourself a Spa Day from Home</a>
-                                    </h5>
-                                    <div class="post-excerpt mb-25 font-small text-muted">
-                                        <p>Graduating from a top accelerator or incubator can be as career-defining for a&nbsp;startup founder&nbsp;as an elite university diploma. The intensive programmes, which…</p>
-                                    </div>
-                                    <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
-                                        <span class="post-on">18 August</span>
-                                        <span class="time-reading has-dot">14 mins read</span>
-                                        <span class="post-by has-dot">25k views</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="col-md-6 mb-40 wow fadeInUp  animated">
-                        <div class="post-card-1 border-radius-10 hover-up">
-                            <div class="post-thumb thumb-overlay img-hover-slide position-relative" style="background-image: url(assets/imgs/news/news-7.jpg)">
-                                <a class="img-link" href="single.html"></a>
-                                <span class="top-right-icon bg-secondary"><i class="elegant-icon icon_heart_alt"></i></span>
-                                <ul class="social-share">
-                                    <li><a href="category-big.html#"><i class="elegant-icon social_share"></i></a></li>
-                                    <li><a class="fb" href="category-big.html#" title="Share on Facebook" target="_blank"><i class="elegant-icon social_facebook"></i></a></li>
-                                    <li><a class="tw" href="category-big.html#" target="_blank" title="Tweet now"><i class="elegant-icon social_twitter"></i></a></li>
-                                    <li><a class="pt" href="category-big.html#" target="_blank" title="Pin it"><i class="elegant-icon social_pinterest"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="post-content p-30">
-                                <div class="entry-meta meta-0 font-small mb-10">
-                                    <a href="category.html"><span class="post-cat text-success">Lifestyle</span></a>
-                                </div>
-                                <div class="d-flex post-card-content">
-                                    <h5 class="post-title mb-20 font-weight-900">
-                                        <a href="single.html">How to See Alberta: A 10-Day Suggested Driving Itinerary</a>
-                                    </h5>
-                                    <div class="post-excerpt mb-25 font-small text-muted">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor condimentum metus non tempor. Maecenas non augue aliquam, facilisis lectus quis, lacinia risus.</p>
-                                    </div>
-                                    <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
-                                        <span class="post-on">27 August</span>
-                                        <span class="time-reading has-dot">12 mins read</span>
-                                        <span class="post-by has-dot">23k views</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="col-md-6 mb-40 wow fadeInUp  animated">
-                        <div class="post-card-1 border-radius-10 hover-up">
-                            <div class="post-thumb thumb-overlay img-hover-slide position-relative" style="background-image: url(assets/imgs/news/news-13.jpg)">
-                                <a class="img-link" href="single.html"></a>
-                                <ul class="social-share">
-                                    <li><a href="category-big.html#"><i class="elegant-icon social_share"></i></a></li>
-                                    <li><a class="fb" href="category-big.html#" title="Share on Facebook" target="_blank"><i class="elegant-icon social_facebook"></i></a></li>
-                                    <li><a class="tw" href="category-big.html#" target="_blank" title="Tweet now"><i class="elegant-icon social_twitter"></i></a></li>
-                                    <li><a class="pt" href="category-big.html#" target="_blank" title="Pin it"><i class="elegant-icon social_pinterest"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="post-content p-30">
-                                <div class="entry-meta meta-0 font-small mb-10">
-                                    <a href="category.html"><span class="post-cat text-danger">Hotels</span></a>
-                                </div>
-                                <div class="d-flex post-card-content">
-                                    <h5 class="post-title mb-20 font-weight-900">
-                                        <a href="single.html">My 6 Favorite Hostels in Panama City, Panama</a>
-                                    </h5>
-                                    <div class="post-excerpt mb-25 font-small text-muted">
-                                        <p>Graduating from a top accelerator or incubator can be as career-defining for a&nbsp;startup founder&nbsp;as an elite university diploma. The intensive programmes, which…</p>
-                                    </div>
-                                    <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
-                                        <span class="post-on">18 August</span>
-                                        <span class="time-reading has-dot">14 mins read</span>
-                                        <span class="post-by has-dot">25k views</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-            </div>
-            <div class="row mt-50">
-                <div class="col-12">
-                    <div class="pagination-area mb-30 wow fadeInUp animated">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination justify-content-start">
-                                <li class="page-item"><a class="page-link" href="category-big.html#"><i class="elegant-icon arrow_left"></i></a></li>
-                                <li class="page-item active"><a class="page-link" href="category-big.html#">01</a></li>
-                                <li class="page-item"><a class="page-link" href="category-big.html#">02</a></li>
-                                <li class="page-item"><a class="page-link" href="category-big.html#">03</a></li>
-                                <li class="page-item"><a class="page-link" href="category-big.html#">04</a></li>
-                                <li class="page-item"><a class="page-link" href="category-big.html#"><i class="elegant-icon arrow_right"></i></a></li>
-                            </ul>
-                        </nav>
+                    <div class="col-md-12 text-center" th:if="${courseList.size() eq 0}">
+                        <h5>您还未收藏任何课程！</h5>
                     </div>
                 </div>
             </div>
