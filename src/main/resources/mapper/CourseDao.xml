@@ -102,6 +102,13 @@
         limit #{pageable.offset}, #{pageable.pageSize}
     </select>
 
+    <!--根据浏览量排序课程-->
+    <select id="getHotCourse" resultMap="CourseMap">
+        select *
+        from course
+        order by course_views desc limit 0,#{num}
+    </select>
+    <!--获取模糊查询的条数-->
     <select id="countSearch" resultType="java.lang.Long">
         select count(1)
         from course

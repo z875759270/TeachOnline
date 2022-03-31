@@ -34,19 +34,18 @@
                     <div class="post-content">
                         <div class="entry-meta meta-0 mb-15 font-small">
                             <a href="category.html" th:each="tag:${tagList}"><span
-                                    class="post-cat position-relative text-info" th:text="${tag.tagName}">标签1</span></a>
+                                    class="post-cat position-relative text-info text-capitalize" th:text="${tag.tagName}">标签1</span></a>
                         </div>
                         <h1 class="entry-title mb-30 font-weight-900" th:text="${course.courseName}">
                             课程标题
                         </h1>
-                        <p class="excerpt mb-30" th:text="${course.courseDetail}">
-                            课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介
+                        <p class="excerpt mb-30">
+                            课程简介： [[${course.courseDetail}]]
                         </p>
                         <div class="entry-meta align-items-center meta-2 font-small color-muted">
                             <p class="mb-5">
-                                <a class="author-avatar" href="single-3.html#"><img class="img-circle"
-                                                                                    src="assets/imgs/authors/author-3.jpg"
-                                                                                    alt=""></a>
+                                <a class="author-avatar" th:href="@{/profile/}+${course.courseCreater}">
+                                    <img class="img-circle" th:src="'/media/user/img/'+${course.courseImg}" alt=""></a>
                                 By <a th:href="@{/profile/}+${course.courseCreater}"><span
                                     class="author-name font-weight-bold"
                                     th:text="${course.courseCreater}">创建者</span></a>
@@ -95,6 +94,7 @@
 <script src="/assets/js/vendor/waypoints.min.js"></script>
 <script src="/assets/js/vendor/jquery.theia.sticky.js"></script>
 <!-- NewsBoard JS -->
+<script src="/js/config.js"></script>
 <script src="/assets/js/main.js"></script>
 <script th:inline="javascript">
     function toInfo() {

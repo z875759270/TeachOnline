@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 /**
  * (Course)表服务实现类
@@ -64,6 +65,17 @@ public class CourseServiceImpl implements CourseService {
     public Page<Course> queryBySearch(String searchStr, PageRequest pageRequest) {
         long total = this.courseDao.countSearch(searchStr);
         return new PageImpl<>(this.courseDao.queryAllBySearch(searchStr, pageRequest), pageRequest, total);
+    }
+
+    /**
+     * 获取热门课程
+     *
+     * @param num 数量
+     * @return 课程列表
+     */
+    @Override
+    public List<Course> getHotCourse(int num) {
+        return this.courseDao.getHotCourse(num);
     }
 
     /**

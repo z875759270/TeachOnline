@@ -13,257 +13,316 @@
     <link rel="stylesheet" href="/plugins/notifications/css/css.css">
     <link rel="stylesheet" href="/plugins/notifications/css/lobibox.min.css">
     <link href="/css/icons.css" rel="stylesheet">
+
 </head>
 
 <body>
-    <!--Offcanvas sidebar-->
-    <aside th:insert="~{common/menu-front::front-sidebar}"></aside>
-    <!-- Start Header -->
-    <header th:insert="~{common/menu-front::front-header}"></header>
-    <!--Start search form-->
-    <div th:insert="~{common/menu-front::front-search}"></div>
+<!--Offcanvas sidebar-->
+<aside th:insert="~{common/menu-front::front-sidebar}"></aside>
+<!-- Start Header -->
+<header th:insert="~{common/menu-front::front-header}"></header>
+<!--Start search form-->
+<div th:insert="~{common/menu-front::front-search}"></div>
 
-    <main class="bg-grey pb-30">
-        <div class="container single-content">
-            <div class="entry-header entry-header-style-1 mb-50 pt-50">
-                <h1 class="entry-title mb-50 font-weight-900" th:text="${course.courseName}">
-                    课程标题
-                </h1>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="entry-meta align-items-center meta-2 font-small color-muted">
-                            <p class="mb-5">
-                                <a class="author-avatar" th:href="@{/profile/}+${course.courseCreater}"><img class="img-circle" th:src="'/media/user/img/'+${user.userImg}"></a>
-                                <a th:href="@{/profile/}+${course.courseCreater}"><span class="author-name font-weight-bold" th:text="${course.courseCreater}">XXX老师</span></a>
-                            </p>
-                            <span class="mr-10" th:text="${#dates.format(course.courseCreateTime,'yyyy-MM-dd HH:mm:ss')}"> 2022/3/16 10:10:15</span>
-<!--                            <span class="has-dot"> 8 mins read</span>-->
-                        </div>
+<main class="bg-grey pb-30">
+    <div class="container single-content">
+        <div class="entry-header entry-header-style-1 mb-50 pt-50">
+            <h1 class="entry-title mb-50 font-weight-900" th:text="${course.courseName}">
+                课程标题
+            </h1>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="entry-meta align-items-center meta-2 font-small color-muted">
+                        <p class="mb-5">
+                            <a class="author-avatar" th:href="@{/profile/}+${course.courseCreater}"><img
+                                    class="img-circle" th:src="'/media/user/img/'+${user.userImg}"></a>
+                            <a th:href="@{/profile/}+${course.courseCreater}"><span class="author-name font-weight-bold"
+                                                                                    th:text="${course.courseCreater}">XXX老师</span></a>
+                        </p>
+                        <span class="mr-10" th:text="${#dates.format(course.courseCreateTime,'yyyy-MM-dd HH:mm:ss')}"> 2022/3/16 10:10:15</span>
+                        <!--                            <span class="has-dot"> 8 mins read</span>-->
                     </div>
+                </div>
 
+            </div>
+        </div>
+        <!--end single header-->
+        <div class="image mb-30 m-auto text-center border-radius-10">
+            <video class="border-radius-10" th:src="'/media/course/video/'+${course.courseVideo}"
+                   src="/assets/video/heyyaduckonly.mp4" controls></video>
+        </div>
+        <!--figure-->
+        <article class="entry-wraper mb-50">
+            <div class="entry-main-content wow fadeIn animated">
+                <p th:text="${course.courseDetail}">课程简介</p>
+            </div>
+            <div class="entry-bottom mt-50 mb-30 wow fadeIn animated">
+                <div class="tags">
+                    <span>Tags: </span>
+                    <a class="text-capitalize" th:href="@{/course/list/tag/}+${tag.tagId}" th:each="tag : ${tagList}"
+                       th:text="${tag.tagName}">标签</a>
                 </div>
             </div>
-            <!--end single header-->
-            <div class="image mb-30 m-auto text-center border-radius-10">
-                <video class="border-radius-10" th:src="'/media/course/video/'+${course.courseVideo}" src="/assets/video/heyyaduckonly.mp4" controls></video>
+            <div class="single-social-share clearfix wow fadeIn animated">
+                <div class="entry-meta meta-1 font-small color-grey float-left mt-10">
+                    <span class="hit-count mr-15"><i class="elegant-icon icon_comment_alt mr-5"></i>182</span>
+                    <span class="hit-count mr-15"><i class="elegant-icon icon_like mr-5"></i>268</span>
+                    <span class="hit-count" th:if="${avgRate.isNaN()}"><i class="elegant-icon icon_star-half_alt mr-5"></i>暂无评分/10</span>
+                    <span class="hit-count" th:if="${!avgRate.isNaN()}"><i class="elegant-icon icon_star-half_alt mr-5"></i>[[${#numbers.formatDecimal(avgRate,1,'COMMA',1,'POINT')}]]/10</span>
+                </div>
+                <ul class="header-social-network d-inline-block list-inline float-md-right mt-md-0 mt-4">
+                    <li class="list-inline-item"><a class="social-icon tw text-xs-center" target="_blank"
+                                                    href="single.html#"><i class="elegant-icon icon_star_alt "></i></a>
+                    </li>
+                    <li class="list-inline-item"><a class="social-icon pt text-xs-center" target="_blank"
+                                                    href="single.html#"><i
+                            class="elegant-icon social_pinterest "></i></a></li>
+                </ul>
             </div>
-            <!--figure-->
-            <article class="entry-wraper mb-50">
-                <div class="entry-main-content wow fadeIn animated">
-                    <p th:text="${course.courseDetail}">课程简介</p>
+            <!--author box-->
+            <div class="author-bio p-30 mt-50 border-radius-10 bg-white wow fadeIn animated">
+                <div class="author-image mb-30">
+                    <a href="#"><img th:src="'/media/user/img/'+${user.userImg}" alt="" class="avatar"></a>
                 </div>
-                <div class="entry-bottom mt-50 mb-30 wow fadeIn animated">
-                    <div class="tags">
-                        <span>Tags: </span>
-                        <a href="category.html" th:each="tag : ${tagList}" th:text="${tag.tagName}">标签</a>
+                <div class="author-info">
+                    <h4 class="font-weight-bold mb-20"><span class="vcard author"><span class="fn"><a
+                            th:href="@{/profile/}+${user.userName}" th:text="${user.userName}">用户名</a></span></span>
+                    </h4>
+                    <h6>课程公告：</h6>
+                    <div class="author-description text-muted" th:text="${course.courseNotice}">课程公告..... balabala</div>
+
+                    <h6>相关课件：</h6>
+                    <div class="author-description text-muted">文件名.txt&emsp;<a href="#" class="author-bio-link">下载</a>
                     </div>
                 </div>
-                <div class="single-social-share clearfix wow fadeIn animated">
-                    <div class="entry-meta meta-1 font-small color-grey float-left mt-10">
-                        <span class="hit-count mr-15"><i class="elegant-icon icon_comment_alt mr-5"></i>182</span>
-                        <span class="hit-count mr-15"><i class="elegant-icon icon_like mr-5"></i>268</span>
-                        <span class="hit-count"><i class="elegant-icon icon_star-half_alt mr-5"></i>9/10</span>
-                    </div>
-                    <ul class="header-social-network d-inline-block list-inline float-md-right mt-md-0 mt-4">
-                        <li class="list-inline-item text-muted"><span>Share this: </span></li>
-                        <li class="list-inline-item"><a class="social-icon fb text-xs-center" target="_blank" href="single.html#"><i class="elegant-icon social_facebook"></i></a></li>
-                        <li class="list-inline-item"><a class="social-icon tw text-xs-center" target="_blank" href="single.html#"><i class="elegant-icon social_twitter "></i></a></li>
-                        <li class="list-inline-item"><a class="social-icon pt text-xs-center" target="_blank" href="single.html#"><i class="elegant-icon social_pinterest "></i></a></li>
+            </div>
+            <!--More posts-->
+            <div class="single-more-articles border-radius-5 single-more-articles--visible">
+                <div class="widget-header-2 position-relative mb-30">
+                    <h5 class="mt-5 mb-30">在线指导</h5>
+                    <button class="single-more-articles-close"><i class="elegant-icon icon_close"></i></button>
+                </div>
+                <div class="post-block-list post-module-1 post-module-5">
+                    <ul class="list-post">
+                        <li class="mb-30">
+                            <div class="d-flex hover-up-2 transition-normal">
+                                <div class="post-thumb post-thumb-80 d-flex mr-15 border-radius-5 img-hover-scale overflow-hidden">
+                                    <a class="color-white" href="single.html">
+                                        <img src="assets/imgs/news/thumb-1.jpg" alt="">
+                                    </a>
+                                </div>
+                                <div class="post-content media-body">
+                                    <h6 class="post-title mb-15 text-limit-2-row font-medium"><a href="single.html">The
+                                        Best Time to Travel to Cambodia</a></h6>
+                                    <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
+                                        <span class="post-on">27 Jan</span>
+                                        <span class="post-by has-dot">13k views</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="mb-10">
+                            <div class="d-flex hover-up-2 transition-normal">
+                                <div class="post-thumb post-thumb-80 d-flex mr-15 border-radius-5 img-hover-scale overflow-hidden">
+                                    <a class="color-white" href="single.html">
+                                        <img src="assets/imgs/news/thumb-2.jpg" alt="">
+                                    </a>
+                                </div>
+                                <div class="post-content media-body">
+                                    <h6 class="post-title mb-15 text-limit-2-row font-medium"><a href="single.html">20
+                                        Photos to Inspire You to Visit Cambodia</a></h6>
+                                    <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
+                                        <span class="post-on">27 August</span>
+                                        <span class="post-by has-dot">14k views</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                 </div>
-                <!--author box-->
-                <div class="author-bio p-30 mt-50 border-radius-10 bg-white wow fadeIn animated">
-                    <div class="author-image mb-30">
-                        <a href="#"><img th:src="'/media/user/img/'+${user.userImg}" alt="" class="avatar"></a>
-                    </div>
-                    <div class="author-info">
-                        <h4 class="font-weight-bold mb-20"><span class="vcard author"><span class="fn"><a th:href="@{/profile/}+${user.userName}" th:text="${user.userName}">用户名</a></span></span>
-                        </h4>
-                        <h6>课程公告：</h6>
-                        <div class="author-description text-muted" th:text="${course.courseNotice}">课程公告..... balabala</div>
+            </div>
+            <!--Rate-->
+            <div class="p-30 mt-50 border-radius-10 bg-white wow fadeIn animated">
 
-                        <h6>相关课件：</h6>
-                        <div class="author-description text-muted">文件名.txt&emsp;<a href="#" class="author-bio-link">下载</a></div>
-                    </div>
-                </div>
-                <!--More posts-->
-                <div class="single-more-articles border-radius-5 single-more-articles--visible">
-                    <div class="widget-header-2 position-relative mb-30">
-                        <h5 class="mt-5 mb-30">在线指导</h5>
-                        <button class="single-more-articles-close"><i class="elegant-icon icon_close"></i></button>
-                    </div>
-                    <div class="post-block-list post-module-1 post-module-5">
-                        <ul class="list-post">
-                            <li class="mb-30">
-                                <div class="d-flex hover-up-2 transition-normal">
-                                    <div class="post-thumb post-thumb-80 d-flex mr-15 border-radius-5 img-hover-scale overflow-hidden">
-                                        <a class="color-white" href="single.html">
-                                            <img src="assets/imgs/news/thumb-1.jpg" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="post-content media-body">
-                                        <h6 class="post-title mb-15 text-limit-2-row font-medium"><a href="single.html">The Best Time to Travel to Cambodia</a></h6>
-                                        <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
-                                            <span class="post-on">27 Jan</span>
-                                            <span class="post-by has-dot">13k views</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="mb-10">
-                                <div class="d-flex hover-up-2 transition-normal">
-                                    <div class="post-thumb post-thumb-80 d-flex mr-15 border-radius-5 img-hover-scale overflow-hidden">
-                                        <a class="color-white" href="single.html">
-                                            <img src="assets/imgs/news/thumb-2.jpg" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="post-content media-body">
-                                        <h6 class="post-title mb-15 text-limit-2-row font-medium"><a href="single.html">20 Photos to Inspire You to Visit Cambodia</a></h6>
-                                        <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
-                                            <span class="post-on">27 August</span>
-                                            <span class="post-by has-dot">14k views</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!--Comments-->
-                <div class="comments-area">
-                    <div class="widget-header-2 position-relative mb-30">
-                        <h5 class="mt-5 mb-30">评论</h5>
+                <h4 class="col-md-12">评分</h4>
+                <form class="form-group mx-auto" id="rateForm">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <input type="range" class="form-control"
+                                   style="padding: 0;margin-left: 20px;margin-right: 20px"
+                                   id="score" name="score"
+                                   min="1" step="1" max="10" value="8" onchange="RangeOnChange()"
+                                   th:if="${-1 eq currentRate}">
+                            <input type="range" class="form-control" name="score"
+                                   style="padding: 0;margin-left: 20px;margin-right: 20px"
+                                   min="1" step="1" max="10" th:value="${currentRate}" onchange="RangeOnChange()"
+                                   th:if="${-1 ne currentRate}" disabled>
+                            <input type="hidden" name="courseId" th:value="${course.courseId}">
+
+                        </div>
+                        <div class="col-md-1 text-center" id="scoreLabel">
+                            <p class="align-items-center mt-3" th:if="${-1 eq currentRate}"><strong>8</strong>/10</p>
+                            <p class="align-items-center mt-3" th:if="${-1 ne currentRate}"><strong>[[${currentRate}]]</strong>/10</p>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="submit" class="btn btn-primary px-5 radius-30" th:if="${-1 eq currentRate}">
+                                <i class="bx bx-star mr-1"></i>投票
+                            </button>
+                            <button type="button" class="btn btn-info px-5 radius-30" th:if="${-1 ne currentRate}" disabled><i
+                                    class="bx bx-star mr-1"></i>已投票
+                            </button>
+                        </div>
                     </div>
 
-                    <div class="comment-list wow fadeIn animated text-center" th:if="${firstComments.getNumberOfElements() eq 0}">
-                                暂无评论
-                    </div>
-                    <div class="comment-list wow fadeIn animated" th:if="${firstComments.getNumberOfElements() ne 0}"
-                         th:each="firstComment : ${firstComments.getContent()}">
-                        <div class="single-comment justify-content-between d-flex">
-                            <div class="user justify-content-between d-flex">
-                                <div class="thumb">
-                                    <img th:src="'/media/user/img/default.jpg'" alt="">
-                                </div>
-                                <div class="desc">
-                                    <p class="comment" th:text="${firstComment.commentContent}">
-                                        评论内容
-                                    </p>
-                                    <div class="d-flex justify-content-between">
-                                        <div class="d-flex align-items-center">
-                                            <h5>
-                                                <a th:href="@{/profile/}+${firstComment.userName}" th:text="${firstComment.userName}">用户名</a>
-                                            </h5>
-                                            <p class="date" th:text="${#dates.format(firstComment.commentTime,'yyyy-MM-dd HH:mm:ss')}">2022-03-16 17:02:08 </p>
-                                        </div>
-                                        <div class="reply-btn">
-                                            <a href="javascript:void(0);" class="btn-reply" data-toggle="modal" data-target="#exampleModal" th:attr="data-whatever=${firstComment.commentId}">&nbsp;回复</a>
-                                        </div>
+                </form>
+            </div>
+            <!--Comments-->
+            <div class="comments-area">
+                <div class="widget-header-2 position-relative mb-30">
+                    <h5 class="mt-5 mb-30">评论</h5>
+                </div>
+
+                <div class="comment-list wow fadeIn animated text-center"
+                     th:if="${firstComments.getNumberOfElements() eq 0}">
+                    暂无评论
+                </div>
+                <div class="comment-list wow fadeIn animated" th:if="${firstComments.getNumberOfElements() ne 0}"
+                     th:each="firstComment : ${firstComments.getContent()}">
+                    <div class="single-comment justify-content-between d-flex">
+                        <div class="user justify-content-between d-flex">
+                            <div class="thumb">
+                                <img th:src="'/media/user/img/default.jpg'" alt="">
+                            </div>
+                            <div class="desc">
+                                <p class="comment" th:text="${firstComment.commentContent}">
+                                    评论内容
+                                </p>
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex align-items-center">
+                                        <h5>
+                                            <a th:href="@{/profile/}+${firstComment.userName}"
+                                               th:text="${firstComment.userName}">用户名</a>
+                                        </h5>
+                                        <p class="date"
+                                           th:text="${#dates.format(firstComment.commentTime,'yyyy-MM-dd HH:mm:ss')}">
+                                            2022-03-16 17:02:08 </p>
+                                    </div>
+                                    <div class="reply-btn">
+                                        <a href="javascript:void(0);" class="btn-reply" data-toggle="modal"
+                                           data-target="#exampleModal"
+                                           th:attr="data-whatever=${firstComment.commentId}">&nbsp;回复</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="single-comment depth-2 justify-content-between d-flex mt-50" th:if="${secondComments.get(firstComment.commentId) ne null}" th:each="secondComment : ${secondComments.get(firstComment.commentId)}">
-                            <div class="user justify-content-between d-flex">
-                                <div class="thumb">
-                                    <img th:src="'/media/user/img/default.jpg'" alt="">
-                                </div>
-                                <div class="desc">
-                                    <p class="comment">
-                                        <a th:href="@{/profile/}+${firstComment.userName}">@[[${firstComment.userName}]]</a>：[[${secondComment.commentContent}]]
-                                    </p>
-                                    <div class="d-flex justify-content-between">
-                                        <div class="d-flex align-items-center">
-                                            <h5>
-                                                <a th:href="@{/profile/}+${secondComment.userName}" th:text="${secondComment.userName}">用户名</a>
-                                            </h5>
-                                            <p class="date" th:text="${#dates.format(secondComment.commentTime,'yyyy-MM-dd HH:mm:ss')}">2022-03-16 17:05:56 </p>
-                                        </div>
+                    </div>
+                    <div class="single-comment depth-2 justify-content-between d-flex mt-50"
+                         th:if="${secondComments.get(firstComment.commentId) ne null}"
+                         th:each="secondComment : ${secondComments.get(firstComment.commentId)}">
+                        <div class="user justify-content-between d-flex">
+                            <div class="thumb">
+                                <img th:src="'/media/user/img/default.jpg'" alt="">
+                            </div>
+                            <div class="desc">
+                                <p class="comment">
+                                    <a th:href="@{/profile/}+${firstComment.userName}">@[[${firstComment.userName}]]</a>：[[${secondComment.commentContent}]]
+                                </p>
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex align-items-center">
+                                        <h5>
+                                            <a th:href="@{/profile/}+${secondComment.userName}"
+                                               th:text="${secondComment.userName}">用户名</a>
+                                        </h5>
+                                        <p class="date"
+                                           th:text="${#dates.format(secondComment.commentTime,'yyyy-MM-dd HH:mm:ss')}">
+                                            2022-03-16 17:05:56 </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!--comment form-->
-                <div class="comment-form wow fadeIn animated">
-                    <form class="form-contact comment_form" id="commentForm">
-                        <div class="row">
-                            <div class="col-12">
-                                <input type="hidden" name="courseId" th:value="${course.courseId}">
-                                <div class="form-group">
-                                    <textarea class="form-control w-100" name="commentContent" id="commentContent" cols="30" rows="9" placeholder="发表你的评论..." required></textarea>
-                                </div>
+            </div>
+            <!--comment form-->
+            <div class="comment-form wow fadeIn animated">
+                <form class="form-contact comment_form" id="commentForm">
+                    <div class="row">
+                        <div class="col-12">
+                            <input type="hidden" name="courseId" th:value="${course.courseId}">
+                            <div class="form-group">
+                                <textarea class="form-control w-100" name="commentContent" id="commentContent" cols="30"
+                                          rows="9" placeholder="发表你的评论..." required></textarea>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn button button-contactForm">评论</button>
-                        </div>
-                    </form>
-                </div>
-            </article>
-        </div>
-        <!--container-->
-    </main>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn button button-contactForm">评论</button>
+                    </div>
+                </form>
+            </div>
+        </article>
+    </div>
+    <!--container-->
+</main>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="replyForm">
-                        <div class="form-group">
-                            <input type="hidden" name="commentId" value="">
-                            <label class="col-form-label">回复内容：</label>
-                            <textarea class="form-control" name="commentContent"></textarea>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                    <button type="button" onclick="ConfirmReply()" class="btn btn-primary">回复</button>
-                </div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="replyForm">
+                    <div class="form-group">
+                        <input type="hidden" name="commentId" value="">
+                        <label class="col-form-label">回复内容：</label>
+                        <textarea class="form-control" name="commentContent"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                <button type="button" onclick="ConfirmReply()" class="btn btn-primary">回复</button>
             </div>
         </div>
     </div>
+</div>
 
-    <!--site-bottom-->
-    <div th:insert="~{common/menu-front::front-bottom}"></div>
-    <!--end site-bottom-->
-    <!-- Footer Start-->
-    <footer th:insert="~{common/menu-front::front-footer}"></footer>
-    <!-- End Footer -->
-    <div class="dark-mark"></div>
-    <!-- Vendor JS-->
-    <script src="/assets/js/vendor/modernizr-3.5.0.min.js"></script>
-    <script src="/assets/js/vendor/jquery-1.12.4.min.js"></script>
-    <script src="/assets/js/vendor/popper.min.js"></script>
-    <script src="/assets/js/vendor/bootstrap.min.js"></script>
-    <script src="/assets/js/vendor/jquery.slicknav.js"></script>
-    <script src="/assets/js/vendor/slick.min.js"></script>
-    <script src="/assets/js/vendor/wow.min.js"></script>
-    <script src="/assets/js/vendor/jquery.ticker.js"></script>
-    <script src="/assets/js/vendor/jquery.vticker-min.js"></script>
-    <script src="/assets/js/vendor/jquery.scrollUp.min.js"></script>
-    <script src="/assets/js/vendor/jquery.nice-select.min.js"></script>
-    <script src="/assets/js/vendor/jquery.magnific-popup.js"></script>
-    <script src="/assets/js/vendor/jquery.sticky.js"></script>
-    <script src="/assets/js/vendor/perfect-scrollbar.js"></script>
-    <script src="/assets/js/vendor/waypoints.min.js"></script>
-    <script src="/assets/js/vendor/jquery.theia.sticky.js"></script>
-    <!--notification js-->
-    <script src="/plugins/notifications/js/lobibox.min.js"></script>
-    <script src="/plugins/notifications/js/notifications.min.js"></script>
-    <script src="/plugins/notifications/js/notification-custom-script.js"></script>
-    <!-- NewsBoard JS -->
-    <script src="/assets/js/main.js"></script>
-    <script src="/js/config.js"></script>
-    <script src="/js/page/front/course-info.js"></script>
+<!--site-bottom-->
+<div th:insert="~{common/menu-front::front-bottom}"></div>
+<!--end site-bottom-->
+<!-- Footer Start-->
+<footer th:insert="~{common/menu-front::front-footer}"></footer>
+<!-- End Footer -->
+<div class="dark-mark"></div>
+<!-- Vendor JS-->
+<script src="/assets/js/vendor/modernizr-3.5.0.min.js"></script>
+<script src="/assets/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="/assets/js/vendor/popper.min.js"></script>
+<script src="/assets/js/vendor/bootstrap.min.js"></script>
+<script src="/assets/js/vendor/jquery.slicknav.js"></script>
+<script src="/assets/js/vendor/slick.min.js"></script>
+<script src="/assets/js/vendor/wow.min.js"></script>
+<script src="/assets/js/vendor/jquery.ticker.js"></script>
+<script src="/assets/js/vendor/jquery.vticker-min.js"></script>
+<script src="/assets/js/vendor/jquery.scrollUp.min.js"></script>
+<script src="/assets/js/vendor/jquery.nice-select.min.js"></script>
+<script src="/assets/js/vendor/jquery.magnific-popup.js"></script>
+<script src="/assets/js/vendor/jquery.sticky.js"></script>
+<script src="/assets/js/vendor/perfect-scrollbar.js"></script>
+<script src="/assets/js/vendor/waypoints.min.js"></script>
+<script src="/assets/js/vendor/jquery.theia.sticky.js"></script>
+<!--notification js-->
+<script src="/plugins/notifications/js/lobibox.min.js"></script>
+<script src="/plugins/notifications/js/notifications.min.js"></script>
+<script src="/plugins/notifications/js/notification-custom-script.js"></script>
+<!-- NewsBoard JS -->
+<script src="/assets/js/main.js"></script>
+<script src="/js/config.js"></script>
+<script src="/js/page/front/course-info.js"></script>
 </body>
 
 </html>

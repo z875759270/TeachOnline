@@ -1,6 +1,7 @@
 (function($) {
     'use strict';
 
+    //顶部分类菜单 - 获取分类
     var courseMenu = function () {
         $.ajax({
             url: Const.domain+"courseCategory/list",
@@ -16,6 +17,7 @@
         })
     }
 
+    //获取热门标签
     var getHotTags=function () {
         $.ajax({
             url: Const.domain+"tag/hot/6",
@@ -24,14 +26,47 @@
                 let footerStr="";
                 let searchStr="";
                 for (let i = 0; i < data.length; i++) {
-                    footerStr=footerStr.concat('<a class="tag-cloud-link" href="/course/list/tag/'+data[i].tagId+'">'+data[i].tagName+'</a>');
-                    searchStr = searchStr.concat('<li class="list-inline-item"><a href="/course/list/tag/'+data[i].tagId+'">'+data[i].tagName+'</a></li>')
+                    footerStr=footerStr.concat('<a class="tag-cloud-link text-capitalize" href="/course/list/tag/'+data[i].tagId+'">'+data[i].tagName+'</a>');
+                    searchStr = searchStr.concat('<li class="list-inline-item text-capitalize"><a href="/course/list/tag/'+data[i].tagId+'">'+data[i].tagName+'</a></li>')
                 }
                 $("#hotTagsFooter").html(footerStr);
                 $("#hotTagSearch").html(searchStr);
             }
         })
     }
+
+    //获取热门课程
+    var getHotCourse=function () {
+        $.ajax({
+            url: Const.domain+"course/hot/3",
+            type: "GET",
+            success:function(res){
+                let footerStr="";
+                for (let i = 0; i <3; i++) {
+                    footerStr=footerStr.concat("<li class=\"mb-30\">\n" +
+                        "                                <div class=\"d-flex hover-up-2 transition-normal\">\n" +
+                        "                                    <div class=\"post-thumb post-thumb-80 d-flex mr-15 border-radius-5 img-hover-scale overflow-hidden\">\n" +
+                        "                                        <a class=\"color-white\" href=\"/course/intro/"+res[i].courseId+"\">\n" +
+                        "                                            <img src=\"/media/course/img/"+res[i].courseImg+"\" alt=\"\">\n" +
+                        "                                        </a>\n" +
+                        "                                    </div>\n" +
+                        "                                    <div class=\"post-content media-body\">\n" +
+                        "                                        <h6 class=\"post-title mb-15 text-limit-2-row font-medium\"><a href=\"/course/intro/"+res[i].courseId+"\">\n" +
+                        "                                            "+res[i].courseName+"</a></h6>\n" +
+                        "                                        <div class=\"entry-meta meta-1 float-left font-x-small text-uppercase\">\n" +
+                        "                                            <span class=\"post-on\">"+ res[i].courseCreateTime.substring(0,10)+"</span>\n" +
+                        "                                            <span class=\"post-by has-dot\"><i class=\"elegant-icon arrow_triangle-right_alt2\"></i> "+res[i].courseViews+"</span>\n" +
+                        "                                        </div>\n" +
+                        "                                    </div>\n" +
+                        "                                </div>\n" +
+                        "                            </li>")
+                }
+                $("#hotCourseFooter").html(footerStr);
+            }
+        })
+    }
+
+
 
     // Page loading
     $(window).on('load', function() {
@@ -448,6 +483,7 @@
         VSticker();
         courseMenu();
         getHotTags()
+        getHotCourse();
     });
 
 })(jQuery);

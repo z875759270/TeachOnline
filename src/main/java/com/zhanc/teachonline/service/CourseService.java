@@ -4,6 +4,8 @@ import com.zhanc.teachonline.entity.Course;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+
 /**
  * (Course)表服务接口
  *
@@ -44,6 +46,13 @@ public interface CourseService {
      * @return 查询结果
      */
     Page<Course> queryBySearch(String searchStr, PageRequest pageRequest);
+
+    /**
+     * 获取热门课程
+     * @param num 数量
+     * @return 课程列表
+     */
+    List<Course> getHotCourse(int num);
 
     /**
      * 新增数据

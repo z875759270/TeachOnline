@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * (CourseRate)表控制层
@@ -16,7 +18,7 @@ import javax.annotation.Resource;
  * @since 2022-03-29 14:31:58
  */
 @RestController
-@RequestMapping("courseRate")
+@RequestMapping("rate")
 public class CourseRateController {
     /**
      * 服务对象
@@ -67,7 +69,9 @@ public class CourseRateController {
      * @return 新增结果
      */
     @PostMapping("add")
-    public ResponseEntity<CourseRate> add(CourseRate courseRate) {
+    public ResponseEntity<CourseRate> add(CourseRate courseRate, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        courseRate.setUserName(session.getAttribute("userName").toString());
         return ResponseEntity.ok(this.courseRateService.insert(courseRate));
     }
 

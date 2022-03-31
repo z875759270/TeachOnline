@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -74,6 +75,11 @@ public class CourseController {
     @GetMapping("find/{id}")
     public ResponseEntity<Course> queryById(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(this.courseService.queryById(id));
+    }
+
+    @GetMapping("hot/{num}")
+    public ResponseEntity<List<Course>> getHotCourse(@PathVariable("num") int num) {
+        return ResponseEntity.ok(this.courseService.getHotCourse(num));
     }
 
     /**

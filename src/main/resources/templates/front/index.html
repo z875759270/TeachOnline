@@ -32,7 +32,7 @@
                             <p class="d-inline-block mr-5 mb-0"><i class="elegant-icon  icon_tag_alt mr-5 text-muted"></i>热门标签:</p>
                             <ul class="list-inline d-inline-block tags">
 
-                                <li class="list-inline-item" th:each="tag : ${hotTags}"><a href="index.html#"># [[${tag.tagName}]]</a></li>
+                                <li class="list-inline-item text-capitalize" th:each="tag : ${hotTags}"><a th:href="@{/course/list/tag/}+${tag.tagId}"># [[${tag.tagName}]]</a></li>
                             </ul>
                         </div>
                     </div>
@@ -42,41 +42,22 @@
                 <div class="row">
                     <div class="col-lg-8 mb-30">
                         <div class="carausel-post-1 hover-up border-radius-10 overflow-hidden transition-normal position-relative wow fadeInUp animated">
-                            <div class="arrow-cover"></div>
                             <div class="slide-fade">
                                 <div class="position-relative post-thumb">
-                                    <div class="thumb-overlay img-hover-slide position-relative" style="background-image: url(/assets/imgs/news/news-4.jpg)">
-                                        <a class="img-link" th:href="@{/intro}"></a>
-                                        <span class="top-left-icon bg-warning"><i class="elegant-icon icon_star_alt"></i></span>
-                                        <div class="post-content-overlay text-white ml-30 mr-30 pb-30">
-                                            <div class="entry-meta meta-0 font-small mb-20">
-                                                <a href="category.html"><span class="post-cat text-info text-uppercase">标签1</span></a>
-                                                <a href="category.html"><span class="post-cat text-success text-uppercase">标签2</span></a>
-                                            </div>
-                                            <h3 class="post-title font-weight-900 mb-20">
-                                                <a class="text-white" href="single.html">视频标题视频标题视频标题视频标题</a>
-                                            </h3>
-                                            <div class="entry-meta meta-1 font-small text-white mt-10 pr-5 pl-5">
-                                                <span class="post-on">2022-03-14</span>
-                                                <span class="hit-count has-dot"><i class="elegant-icon arrow_triangle-right_alt2"></i> 2222</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="position-relative post-thumb">
-                                    <div class="thumb-overlay img-hover-slide position-relative" style="background-image: url(/assets/imgs/news/news-6.jpg)">
-                                        <a class="img-link" th:href="@{/intro}"></a>
-                                        <span class="top-left-icon bg-danger"><i class="elegant-icon icon_image"></i></span>
-                                        <div class="post-content-overlay text-white ml-30 mr-30 pb-30">
-                                            <div class="entry-meta meta-0 font-small mb-20">
-                                                <a href="category.html"><span class="post-cat text-info text-uppercase">Lifestyle</span></a>
-                                            </div>
-                                            <h3 class="post-title font-weight-900 mb-20">
-                                                <a class="text-white" href="single.html">This genius photo experiment shows we are all just sheeple in the consumer matrix</a>
-                                            </h3>
-                                            <div class="entry-meta meta-1 font-small text-white mt-10 pr-5 pl-5">
-                                                <span class="post-on">26 August 2020</span>
-                                                <span class="hit-count has-dot">18k Views</span>
+                                    <div class="position-relative post-thumb">
+                                        <div class="thumb-overlay img-hover-slide position-relative" th:style="'background-image: url(/media/course/img/'+${firstCourse.courseImg}+')'">
+                                            <a class="img-link" th:href="@{/course/intro/}+${firstCourse.courseId}"></a>
+                                            <div class="post-content-overlay text-white ml-30 mr-30 pb-50">
+                                                <div class="entry-meta meta-0 font-small mb-20">
+                                                    <a th:href="@{/course/list/tag/}+${tag.tagId}" th:each="tag : ${tagMap.get(firstCourse.courseId)}"><span class="post-cat text-info text-uppercase" th:text="${tag.tagName}">标签1</span></a>
+                                                </div>
+                                                <h3 class="post-title font-weight-900 mb-20">
+                                                    <a class="text-white" th:href="@{/course/intro/}+${firstCourse.courseId}" th:text="${firstCourse.courseName}">查询出来的第一个课程</a>
+                                                </h3>
+                                                <div class="entry-meta meta-1 font-small text-white mt-10 pr-5 pl-5">
+                                                    <span class="post-on" th:text="${#dates.format(firstCourse.courseCreateTime,'yyyy-MM-dd')}">2022-03-17</span>
+                                                    <span class="hit-count has-dot"><i class="elegant-icon arrow_triangle-right_alt2"></i> [[${firstCourse.courseViews}]]</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -84,116 +65,23 @@
                             </div>
                         </div>
                     </div>
-                    <article class="col-lg-4 col-md-6 mb-30 wow fadeInUp animated" data-wow-delay="0.2s">
+                    <article class="col-lg-4 col-md-6 mb-30 wow fadeInUp animated" data-wow-delay="0.2s" th:each="course : ${hotCourseByViews}">
                         <div class="post-card-1 border-radius-10 hover-up">
-                            <div class="post-thumb thumb-overlay img-hover-slide position-relative" style="background-image: url(/assets/imgs/news/news-1.jpg)">
-                                <a class="img-link" href="single.html"></a>
-                                <span class="top-right-icon bg-success"><i class="elegant-icon icon_camera_alt"></i></span>
-                                <ul class="social-share">
-                                    <li><a href="index.html#"><i class="elegant-icon social_share"></i></a></li>
-                                    <li><a class="fb" href="index.html#" title="Share on Facebook" target="_blank"><i class="elegant-icon social_facebook"></i></a></li>
-                                    <li><a class="tw" href="index.html#" target="_blank" title="Tweet now"><i class="elegant-icon social_twitter"></i></a></li>
-                                    <li><a class="pt" href="index.html#" target="_blank" title="Pin it"><i class="elegant-icon social_pinterest"></i></a></li>
-                                </ul>
+                            <div class="post-thumb thumb-overlay img-hover-slide position-relative" th:style="'background-image: url(/media/course/img/'+${course.courseImg}+')'">
+                                <a class="img-link" th:href="@{/course/intro/}+${course.courseId}"></a>
                             </div>
                             <div class="post-content p-30">
                                 <div class="entry-meta meta-0 font-small mb-10">
-                                    <a href="category.html"><span class="post-cat text-info">Travel</span></a>
-                                    <a href="category.html"><span class="post-cat text-success">Food</span></a>
+                                    <a th:href="@{/course/list/tag/}+${tag.tagId}" th:each="tag : ${tagMap.get(course.courseId)}"><span class="post-cat text-info text-uppercase" th:text="${tag.tagName}">标签1</span></a>
                                 </div>
                                 <div class="d-flex post-card-content">
                                     <h5 class="post-title mb-20 font-weight-900">
-                                        <a href="single.html">视频标题</a>
+                                        <a  th:href="@{/course/intro/}+${course.courseId}" th:text="${course.courseName}">课程标题</a>
                                     </h5>
                                     <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
-                                        <span class="post-on">2022-03-14</span>
+                                        <span class="post-on" th:text="${#dates.format(course.courseCreateTime,'yyyy-MM-dd')}">2022-03-17</span>
+                                        <span class="hit-count has-dot"><i class="elegant-icon arrow_triangle-right_alt2"></i> [[${course.courseViews}]]</span>
                                         <span class="time-reading has-dot"><i class="elegant-icon icon_star"></i> 555</span>
-                                        <span class="post-by has-dot"><i class="elegant-icon arrow_triangle-right_alt2"></i> 2222</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="col-lg-4 col-md-6 mb-30 wow fadeInUp animated">
-                        <div class="post-card-1 border-radius-10 hover-up">
-                            <div class="post-thumb thumb-overlay img-hover-slide position-relative" style="background-image: url(/assets/imgs/news/news-7.jpg)">
-                                <a class="img-link" href="single.html"></a>
-                                <ul class="social-share">
-                                    <li><a href="index.html#"><i class="elegant-icon social_share"></i></a></li>
-                                    <li><a class="fb" href="index.html#" title="Share on Facebook" target="_blank"><i class="elegant-icon social_facebook"></i></a></li>
-                                    <li><a class="tw" href="index.html#" target="_blank" title="Tweet now"><i class="elegant-icon social_twitter"></i></a></li>
-                                    <li><a class="pt" href="index.html#" target="_blank" title="Pin it"><i class="elegant-icon social_pinterest"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="post-content p-30">
-                                <div class="entry-meta meta-0 font-small mb-10">
-                                    <a href="category.html"><span class="post-cat text-warning">标签1</span></a>
-                                </div>
-                                <div class="d-flex post-card-content">
-                                    <h5 class="post-title mb-20 font-weight-900">
-                                        <a href="single.html">视频标题</a>
-                                    </h5>
-                                    <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
-                                        <span class="post-on">17 July</span>
-                                        <span class="time-reading has-dot">8 mins read</span>
-                                        <span class="post-by has-dot">12k views</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="col-lg-4 col-md-6 mb-30 wow fadeInUp animated" data-wow-delay="0.2s">
-                        <div class="post-card-1 border-radius-10 hover-up">
-                            <div class="post-thumb thumb-overlay img-hover-slide position-relative" style="background-image: url(/assets/imgs/news/news-9.jpg)">
-                                <a class="img-link" href="single.html"></a>
-                                <ul class="social-share">
-                                    <li><a href="index.html#"><i class="elegant-icon social_share"></i></a></li>
-                                    <li><a class="fb" href="index.html#" title="Share on Facebook" target="_blank"><i class="elegant-icon social_facebook"></i></a></li>
-                                    <li><a class="tw" href="index.html#" target="_blank" title="Tweet now"><i class="elegant-icon social_twitter"></i></a></li>
-                                    <li><a class="pt" href="index.html#" target="_blank" title="Pin it"><i class="elegant-icon social_pinterest"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="post-content p-30">
-                                <div class="entry-meta meta-0 font-small mb-10">
-                                    <a href="category.html"><span class="post-cat text-danger">Travel</span></a>
-                                </div>
-                                <div class="d-flex post-card-content">
-                                    <h5 class="post-title mb-20 font-weight-900">
-                                        <a href="single.html">Life and Death in the Empire of the Tiger</a>
-                                    </h5>
-                                    <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
-                                        <span class="post-on">7 August</span>
-                                        <span class="time-reading has-dot">15 mins read</span>
-                                        <span class="post-by has-dot">500 views</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="col-lg-4 col-md-6 mb-30 wow fadeInUp animated" data-wow-delay="0.4s">
-                        <div class="post-card-1 border-radius-10 hover-up">
-                            <div class="post-thumb thumb-overlay img-hover-slide position-relative" style="background-image: url(/assets/imgs/news/news-11.jpg)">
-                                <a class="img-link" href="single.html"></a>
-                                <span class="top-right-icon bg-info"><i class="elegant-icon icon_headphones"></i></span>
-                                <ul class="social-share">
-                                    <li><a href="index.html#"><i class="elegant-icon social_share"></i></a></li>
-                                    <li><a class="fb" href="index.html#" title="Share on Facebook" target="_blank"><i class="elegant-icon social_facebook"></i></a></li>
-                                    <li><a class="tw" href="index.html#" target="_blank" title="Tweet now"><i class="elegant-icon social_twitter"></i></a></li>
-                                    <li><a class="pt" href="index.html#" target="_blank" title="Pin it"><i class="elegant-icon social_pinterest"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="post-content p-30">
-                                <div class="entry-meta meta-0 font-small mb-10">
-                                    <a href="category.html"><span class="post-cat text-success">Lifestyle</span></a>
-                                </div>
-                                <div class="d-flex post-card-content">
-                                    <h5 class="post-title mb-20 font-weight-900">
-                                        <a href="single.html">When Two Wheels Are Better Than Four</a>
-                                    </h5>
-                                    <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
-                                        <span class="post-on">15 Jun</span>
-                                        <span class="time-reading has-dot">9 mins read</span>
-                                        <span class="post-by has-dot">1.2k views</span>
                                     </div>
                                 </div>
                             </div>
@@ -208,7 +96,7 @@
                     <div class="col-lg-8">
                         <div class="post-module-2">
                             <div class="widget-header-1 position-relative mb-30  wow fadeInUp animated">
-                                <h5 class="mt-5 mb-30">Travel tips</h5>
+                                <h5 class="mt-5 mb-30">热门收藏</h5>
                             </div>
                             <div class="loop-list loop-list-style-1">
                                 <div class="row">
@@ -343,7 +231,7 @@
                         </div>
                         <div class="post-module-3">
                             <div class="widget-header-1 position-relative mb-30">
-                                <h5 class="mt-5 mb-30">Latest posts</h5>
+                                <h5 class="mt-5 mb-30">最新课程</h5>
                             </div>
                             <div class="loop-list loop-list-style-1">
                                 <article class="hover-up-2 transition-normal wow fadeInUp animated">
@@ -492,17 +380,6 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="widget-area">
-                            <div class="sidebar-widget widget-about mb-50 pt-30 pr-30 pb-30 pl-30 bg-white border-radius-5 has-border  wow fadeInUp animated">
-                                <img class="about-author-img mb-25" src="/assets/imgs/authors/author.jpg" alt="">
-                                <h5 class="mb-20">Hello, I'm Steven</h5>
-                                <p class="font-medium text-muted">Hi, I’m Stenven, a Florida native, who left my career in corporate wealth management six years ago to embark on a summer of soul searching that would change the course of my life forever.</p>
-                                <strong>Follow me: </strong>
-                                <ul class="header-social-network d-inline-block list-inline color-white mb-20">
-                                    <li class="list-inline-item"><a class="fb" href="index.html#" target="_blank" title="Facebook"><i class="elegant-icon social_facebook"></i></a></li>
-                                    <li class="list-inline-item"><a class="tw" href="index.html#" target="_blank" title="Tweet now"><i class="elegant-icon social_twitter"></i></a></li>
-                                    <li class="list-inline-item"><a class="pt" href="index.html#" target="_blank" title="Pin it"><i class="elegant-icon social_pinterest"></i></a></li>
-                                </ul>
-                            </div>
                             <div class="sidebar-widget widget-latest-posts mb-50 wow fadeInUp animated">
                                 <div class="widget-header-1 position-relative mb-30">
                                     <h5 class="mt-5 mb-30">Most popular</h5>
@@ -691,7 +568,6 @@
     <!-- NewsBoard JS -->
     <script src="/assets/js/main.js"></script>
     <script src="/js/config.js"></script>
-    <script src="/js/page/front/menu-front.js"></script>
 </body>
 
 </html>

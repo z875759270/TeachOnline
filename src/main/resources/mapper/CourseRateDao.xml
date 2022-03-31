@@ -62,26 +62,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="userName" useGeneratedKeys="true">
-        insert into course_rate(score)
-        values (#{score})
-    </insert>
-
-    <insert id="insertBatch" keyProperty="userName" useGeneratedKeys="true">
-        insert into course_rate(score)
-        values
-        <foreach collection="entities" item="entity" separator=",">
-            (#{entity.score})
-        </foreach>
-    </insert>
-
-    <insert id="insertOrUpdateBatch" keyProperty="userName" useGeneratedKeys="true">
-        insert into course_rate(score)
-        values
-        <foreach collection="entities" item="entity" separator=",">
-            (#{entity.score})
-        </foreach>
-        on duplicate key update
-        score = values(score)
+        insert into course_rate(user_name,course_id,score)
+        values (#{userName},#{courseId},#{score})
     </insert>
 
     <!--通过主键修改数据-->

@@ -57,6 +57,31 @@ function ConfirmReply() {
     $("#replyForm").submit()
 }
 
+function RangeOnChange(){
+    let val = $("#score").val();
+    $("#scoreLabel p strong").html(val);
+}
+
+$("#rateForm").submit(function () {
+    $.ajax({
+        url: Const.domain + "rate/add",
+        type: "POST",
+        dataType: "json",
+        contentType: false,
+        processData: false,
+        data: new FormData($("#rateForm")[0]),
+        success: function (res) {
+            console.log(res);
+            success_noti("评分成功！")
+        },
+        error: function () {
+            error_noti("评分出错了！");
+        }
+    });
+    return false;
+})
+
+
 $(function () {
 
 })
