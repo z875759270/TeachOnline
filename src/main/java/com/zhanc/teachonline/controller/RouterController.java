@@ -53,6 +53,8 @@ public class RouterController {
     private CourseFirstCommentService courseFirstCommentService;
     @Resource
     private CourseSecondCommentService courseSecondCommentService;
+    @Resource
+    private CourseCollectionService courseCollectionService;
 
     //region 后台
 
@@ -208,6 +210,8 @@ public class RouterController {
             logger.info("当前用户无评分");
         }
 
+        //获取收藏
+        boolean isCollection = this.courseCollectionService.queryByCourseCollection(new CourseCollection(session.getAttribute("userName").toString(), courseId)).getNumberOfElements() != 0;
 
         //获取一级评论
         Page<CourseFirstComment> courseFirstComments = this.courseFirstCommentService.queryByCourseFirstComment(new CourseFirstComment(null, null, course.getCourseId(), null, null));
@@ -224,6 +228,7 @@ public class RouterController {
         model.addAttribute("user", user);
         model.addAttribute("avgRate", avgRate);
         model.addAttribute("currentRate", currentScore);
+        model.addAttribute("isCollection", isCollection);
         model.addAttribute("firstComments", courseFirstComments);
         model.addAttribute("secondComments", secondCommentList);
         return "/front/course-info";

@@ -85,11 +85,12 @@ public class CourseCollectionServiceImpl implements CourseCollectionService {
     /**
      * 通过主键删除数据
      *
-     * @param userName 主键
+     * @param userName 用户名
+     * @param courseId 课程号
      * @return 是否成功
      */
     @Override
-    public boolean deleteById(String userName) {
-        return this.courseCollectionDao.deleteById(userName) > 0;
+    public boolean deleteById(String userName,Integer courseId) {
+        return this.courseCollectionDao.deleteById(userName,courseId) > 0;
     }
 }

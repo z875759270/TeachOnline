@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * (CourseCollection)表控制层
@@ -16,7 +18,7 @@ import javax.annotation.Resource;
  * @since 2022-03-29 14:32:00
  */
 @RestController
-@RequestMapping("courseCollection")
+@RequestMapping("course/collection")
 public class CourseCollectionController {
     /**
      * 服务对象
@@ -67,7 +69,9 @@ public class CourseCollectionController {
      * @return 新增结果
      */
     @PostMapping("add")
-    public ResponseEntity<CourseCollection> add(CourseCollection courseCollection) {
+    public ResponseEntity<CourseCollection> add(CourseCollection courseCollection, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        courseCollection.setUserName(session.getAttribute("userName").toString());
         return ResponseEntity.ok(this.courseCollectionService.insert(courseCollection));
     }
 
@@ -85,12 +89,13 @@ public class CourseCollectionController {
     /**
      * 删除数据
      *
-     * @param id 主键
+     * @param courseId 课程号
      * @return 删除是否成功
      */
-    @DeleteMapping("delete/{id}")
-    public ResponseEntity<Boolean> deleteById(@PathVariable("id") String id) {
-        return ResponseEntity.ok(this.courseCollectionService.deleteById(id));
+    @DeleteMapping("delete")
+    public ResponseEntity<Boolean> deleteById(Integer courseId, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        return ResponseEntity.ok(this.courseCollectionService.deleteById(session.getAttribute("userName").toString(), courseId));
     }
 
 }

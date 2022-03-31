@@ -53,27 +53,10 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="userName" useGeneratedKeys="true">
-        insert into course_collection()
-        values ()
+        insert into course_collection(user_name,course_id)
+        values (#{userName},#{courseId})
     </insert>
 
-    <insert id="insertBatch" keyProperty="userName" useGeneratedKeys="true">
-        insert into course_collection()
-        values
-        <foreach collection="entities" item="entity" separator=",">
-            ()
-        </foreach>
-    </insert>
-
-    <insert id="insertOrUpdateBatch" keyProperty="userName" useGeneratedKeys="true">
-        insert into course_collection()
-        values
-        <foreach collection="entities" item="entity" separator=",">
-            ()
-        </foreach>
-        on duplicate key update
-
-    </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
@@ -88,6 +71,7 @@
         delete
         from course_collection
         where user_name = #{userName}
+        and course_id = #{courseId}
     </delete>
 
 </mapper>

@@ -65,19 +65,25 @@
             </div>
             <div class="single-social-share clearfix wow fadeIn animated">
                 <div class="entry-meta meta-1 font-small color-grey float-left mt-10">
-                    <span class="hit-count mr-15"><i class="elegant-icon icon_comment_alt mr-5"></i>182</span>
-                    <span class="hit-count mr-15"><i class="elegant-icon icon_like mr-5"></i>268</span>
-                    <span class="hit-count" th:if="${avgRate.isNaN()}"><i class="elegant-icon icon_star-half_alt mr-5"></i>暂无评分/10</span>
-                    <span class="hit-count" th:if="${!avgRate.isNaN()}"><i class="elegant-icon icon_star-half_alt mr-5"></i>[[${#numbers.formatDecimal(avgRate,1,'COMMA',1,'POINT')}]]/10</span>
+                    <span class="hit-count mr-15"><i class="elegant-icon icon_comment_alt mr-5"></i>[[${firstComments.getNumberOfElements()}]]</span>
+                    <span class="hit-count mr-15"><i class="elegant-icon icon_star_alt mr-5"></i>268</span>
+                    <span class="hit-count" th:if="${avgRate.isNaN()}"><i
+                            class="elegant-icon icon_star-half_alt mr-5"></i>暂无评分/10</span>
+                    <span class="hit-count" th:if="${!avgRate.isNaN()}"><i
+                            class="elegant-icon icon_star-half_alt mr-5"></i>[[${#numbers.formatDecimal(avgRate,1,'COMMA',1,'POINT')}]]/10</span>
                 </div>
-                <ul class="header-social-network d-inline-block list-inline float-md-right mt-md-0 mt-4">
-                    <li class="list-inline-item"><a class="social-icon tw text-xs-center" target="_blank"
-                                                    href="single.html#"><i class="elegant-icon icon_star_alt "></i></a>
+                <div class="header-social-network d-inline-block list-inline float-md-right mt-md-0 mt-4" id="collectionDiv">
+                    <li class="list-inline-item" th:if="${isCollection}">
+                        <button type="button" class="btn btn-info px-5 radius-30" onclick="delCollection()">
+                            <i class="bx bx-heart mr-1"></i>已收藏
+                        </button>
                     </li>
-                    <li class="list-inline-item"><a class="social-icon pt text-xs-center" target="_blank"
-                                                    href="single.html#"><i
-                            class="elegant-icon social_pinterest "></i></a></li>
-                </ul>
+                    <li class="list-inline-item" th:if="${!isCollection}">
+                        <button type="button" class="btn btn-primary px-5 radius-30" onclick="addCollection()">
+                            <i class="bx bx-heart mr-1"></i>收藏
+                        </button>
+                    </li>
+                </div>
             </div>
             <!--author box-->
             <div class="author-bio p-30 mt-50 border-radius-10 bg-white wow fadeIn animated">
@@ -162,14 +168,16 @@
                         </div>
                         <div class="col-md-1 text-center" id="scoreLabel">
                             <p class="align-items-center mt-3" th:if="${-1 eq currentRate}"><strong>8</strong>/10</p>
-                            <p class="align-items-center mt-3" th:if="${-1 ne currentRate}"><strong>[[${currentRate}]]</strong>/10</p>
+                            <p class="align-items-center mt-3" th:if="${-1 ne currentRate}">
+                                <strong>[[${currentRate}]]</strong>/10</p>
                         </div>
                         <div class="col-md-3">
                             <button type="submit" class="btn btn-primary px-5 radius-30" th:if="${-1 eq currentRate}">
-                                <i class="bx bx-star mr-1"></i>投票
+                                <i class="bx bx-star mr-1"></i>评分
                             </button>
-                            <button type="button" class="btn btn-info px-5 radius-30" th:if="${-1 ne currentRate}" disabled><i
-                                    class="bx bx-star mr-1"></i>已投票
+                            <button type="button" class="btn btn-info px-5 radius-30" th:if="${-1 ne currentRate}"
+                                    disabled><i
+                                    class="bx bx-star mr-1"></i>已评分
                             </button>
                         </div>
                     </div>
@@ -322,7 +330,7 @@
 <!-- NewsBoard JS -->
 <script src="/assets/js/main.js"></script>
 <script src="/js/config.js"></script>
-<script src="/js/page/front/course-info.js"></script>
+<script src="/js/page/front/course-info.js" id="courseInfoScript" th:data="${course.courseId}"></script>
 </body>
 
 </html>

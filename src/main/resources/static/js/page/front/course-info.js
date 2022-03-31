@@ -57,10 +57,47 @@ function ConfirmReply() {
     $("#replyForm").submit()
 }
 
-function RangeOnChange(){
+function RangeOnChange() {
     let val = $("#score").val();
     $("#scoreLabel p strong").html(val);
 }
+
+function addCollection() {
+    $.ajax({
+        url: Const.domain + "course/collection/add",
+        type: "POST",
+        data: {
+            courseId: $("#courseInfoScript").attr("data")
+        },
+        success: function () {
+            success_noti("收藏成功！")
+            $("#collectionDiv").html("<li class=\"list-inline-item\">\n" +
+                "                        <button type=\"button\" class=\"btn btn-info px-5 radius-30\" onclick=\"delCollection()\">\n" +
+                "                            <i class=\"bx bx-heart mr-1\"></i>已收藏\n" +
+                "                        </button>\n" +
+                "                    </li>")
+        }
+    })
+}
+
+function delCollection() {
+    $.ajax({
+        url: Const.domain + "course/collection/delete",
+        type: "DELETE",
+        data: {
+            courseId: $("#courseInfoScript").attr("data")
+        },
+        success: function () {
+            success_noti("取消收藏成功！");
+            $("#collectionDiv").html("<li class=\"list-inline-item\" th:if=\"${!isCollection}\">\n" +
+                "                        <button type=\"button\" class=\"btn btn-primary px-5 radius-30\" onclick=\"addCollection()\">\n" +
+                "                            <i class=\"bx bx-heart mr-1\"></i>收藏\n" +
+                "                        </button>\n" +
+                "                    </li>")
+        }
+    })
+}
+
 
 $("#rateForm").submit(function () {
     $.ajax({
@@ -73,6 +110,9 @@ $("#rateForm").submit(function () {
         success: function (res) {
             console.log(res);
             success_noti("评分成功！")
+            setTimeout(function () {
+                location.reload();
+            }, 5 * 1000)
         },
         error: function () {
             error_noti("评分出错了！");

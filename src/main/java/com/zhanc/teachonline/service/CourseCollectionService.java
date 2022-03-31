@@ -56,9 +56,10 @@ public interface CourseCollectionService {
     /**
      * 通过主键删除数据
      *
-     * @param userName 主键
+     * @param userName 用户名
+     * @param courseId 课程号
      * @return 是否成功
      */
-    boolean deleteById(String userName);
+    boolean deleteById(String userName,Integer courseId);
 
 }
