@@ -66,7 +66,7 @@
         })
     }
 
-    //获取热门课程
+    //获取热门收藏课程
     var getColectionCourse = function () {
         $.ajax({
             url: Const.domain + "course/collection/hot/3",
@@ -83,6 +83,46 @@
                         success: function (res) {
                             let footerHtml = $("#hotCollectionFooter").html()
                             $("#hotCollectionFooter").html(footerHtml.concat("<li class=\"mb-30\">\n" +
+                                "                                <div class=\"d-flex hover-up-2 transition-normal\">\n" +
+                                "                                    <div class=\"post-thumb post-thumb-80 d-flex mr-15 border-radius-5 img-hover-scale overflow-hidden\">\n" +
+                                "                                        <a class=\"color-white\" href=\"/course/intro/" + res.courseId + "\">\n" +
+                                "                                            <img src=\"/media/course/img/" + res.courseImg + "\" alt=\"\">\n" +
+                                "                                        </a>\n" +
+                                "                                    </div>\n" +
+                                "                                    <div class=\"post-content media-body\">\n" +
+                                "                                        <h6 class=\"post-title mb-15 text-limit-2-row font-medium\"><a href=\"/course/intro/" + res.courseId + "\">\n" +
+                                "                                            " + res.courseName + "</a></h6>\n" +
+                                "                                        <div class=\"entry-meta meta-1 float-left font-x-small text-uppercase\">\n" +
+                                "                                            <span class=\"post-on\">" + res.courseCreateTime.substring(0, 10) + "</span>\n" +
+                                "                                            <span class=\"post-by has-dot\"><i class=\"elegant-icon arrow_triangle-right_alt2\"></i> " + res.courseViews + "</span>\n" +
+                                "                                        </div>\n" +
+                                "                                    </div>\n" +
+                                "                                </div>\n" +
+                                "                            </li>"))
+                        }
+                    })
+                }
+            }
+        })
+    }
+
+    //获取热门学习课程
+    var getLearningCourse=function () {
+        $.ajax({
+            url: "courseUser/hot/3",
+            type: "GET",
+            success:function(res){
+                let courseIdList = []
+                for (let i = 0; i < res.length; i++) {
+                    courseIdList.push(res[i].course_id);
+                }
+                for (let i = 0; i < courseIdList.length; i++) {
+                    $.ajax({
+                        url: "course/find/" + courseIdList[i],
+                        type: "GET",
+                        success: function (res) {
+                            let footerHtml = $("#hotLearningFooter").html()
+                            $("#hotLearningFooter").html(footerHtml.concat("<li class=\"mb-30\">\n" +
                                 "                                <div class=\"d-flex hover-up-2 transition-normal\">\n" +
                                 "                                    <div class=\"post-thumb post-thumb-80 d-flex mr-15 border-radius-5 img-hover-scale overflow-hidden\">\n" +
                                 "                                        <a class=\"color-white\" href=\"/course/intro/" + res.courseId + "\">\n" +
@@ -507,6 +547,7 @@
         getHotTags()
         getHotCourse();
         getColectionCourse();
+        getLearningCourse();
     });
 
 })(jQuery);

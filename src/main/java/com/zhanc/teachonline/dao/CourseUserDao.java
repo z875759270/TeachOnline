@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * (CourseUser)表数据库访问层
@@ -38,6 +39,13 @@ public interface CourseUserDao {
      * @return 对象列表
      */
     List<CourseUser> queryAllByCourseUser(CourseUser courseUser);
+
+    /**
+     * 根据课程学习人数排序
+     * @param num 需要的行数
+     * @return 对象列表
+     */
+    List<Map<String, Object>> getHotCourse(@Param("num")int num);
 
     /**
      * 统计总行数

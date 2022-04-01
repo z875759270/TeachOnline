@@ -4,6 +4,9 @@ import com.zhanc.teachonline.entity.CourseUser;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * (CourseUser)表服务接口
  *
@@ -36,6 +39,13 @@ public interface CourseUserService {
      * @return 查询结果
      */
     Page<CourseUser> queryByCourseUser(CourseUser courseUser);
+
+    /**
+     * 根据课程学习人数排序
+     * @param num 需要的行数
+     * @return 对象列表
+     */
+    List<Map<String, Object>> getHotCourse(int num);
 
     /**
      * 新增数据

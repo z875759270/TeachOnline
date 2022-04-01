@@ -9,6 +9,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 /**
  * (CourseUser)表服务实现类
@@ -56,6 +58,17 @@ public class CourseUserServiceImpl implements CourseUserService {
         long total = this.courseUserDao.count(courseUser);
         PageRequest pageRequest = PageRequest.of(0, 1000);
         return new PageImpl<>(this.courseUserDao.queryAllByCourseUser(courseUser), pageRequest, total);
+    }
+
+    /**
+     * 根据课程学习人数排序
+     *
+     * @param num 需要的行数
+     * @return 对象列表
+     */
+    @Override
+    public List<Map<String, Object>> getHotCourse(int num) {
+        return this.courseUserDao.getHotCourse(num);
     }
 
     /**

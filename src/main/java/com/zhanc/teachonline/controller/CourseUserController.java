@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 /**
  * (CourseUser)表控制层
@@ -58,6 +60,11 @@ public class CourseUserController {
     @GetMapping("find/{id}")
     public ResponseEntity<CourseUser> queryById(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(this.courseUserService.queryById(id));
+    }
+
+    @GetMapping("hot/{num}")
+    public ResponseEntity<List<Map<String, Object>>> getHotCourse(@PathVariable("num") Integer num) {
+        return ResponseEntity.ok(this.courseUserService.getHotCourse(num));
     }
 
     /**
