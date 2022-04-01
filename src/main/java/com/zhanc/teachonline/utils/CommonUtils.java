@@ -1,5 +1,7 @@
 package com.zhanc.teachonline.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -15,6 +17,8 @@ import java.util.Date;
  * @Description TODO
  **/
 public class CommonUtils {
+
+    static Logger logger = LoggerFactory.getLogger(CommonUtils.class);
 
     /**
      * 获取文件后缀名
@@ -47,10 +51,10 @@ public class CommonUtils {
         File file = new File(filePath);
         if (file.exists()) {
             file.delete();
-            System.out.println("===========删除[" + filePath + "]成功==============");
+            logger.info("文件[" + filePath + "]删除成功");
             return true;
         } else {
-            System.out.println("===========删除[" + filePath + "]失败==============");
+            logger.info("文件[" + filePath + "]删除失败");
             return false;
         }
     }

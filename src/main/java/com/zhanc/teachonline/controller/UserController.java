@@ -2,17 +2,26 @@ package com.zhanc.teachonline.controller;
 
 import com.zhanc.teachonline.entity.User;
 import com.zhanc.teachonline.service.UserService;
+import com.zhanc.teachonline.utils.CommonUtils;
+import com.zhanc.teachonline.utils.OssUtils;
 import io.swagger.annotations.ApiParam;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * (User)表控制层
@@ -23,11 +32,17 @@ import javax.servlet.http.HttpSession;
 @RestController
 @RequestMapping("user")
 public class UserController {
+    static Logger logger = LoggerFactory.getLogger(UserController.class);
     /**
      * 服务对象
      */
     @Resource
     private UserService userService;
+
+    @Value("${file.upload.path}")
+    private String filePath;
+    @Value("${file.upload.virtual-path}")
+    private String fileVirtualPath;
 
     /**
      * 分页查询
@@ -87,8 +102,37 @@ public class UserController {
      * @return 编辑结果
      */
     @PutMapping("edit")
-    public ResponseEntity<User> edit(User user) {
-        return ResponseEntity.ok(this.userService.update(user));
+    public ResponseEntity<User> edit(@RequestParam("file")MultipartFile file, User user,HttpServletRequest request) {
+        //检测是否本人修改
+        HttpSession session = request.getSession();
+        if(!session.getAttribute("userName").toString().equals(user.getUserName())){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+        if (file.isEmpty()) {
+            return ResponseEntity.ok(this.userService.update(user));
+        }
+
+        String fileName = "user"+ CommonUtils.setFileName(file.getOriginalFilename());
+        File dest = new File(filePath +"user/img/"+ fileName);
+        try {
+            if (!dest.exists()){
+                dest.createNewFile();
+            }
+            file.transferTo(dest);
+            OssUtils.upload(fileVirtualPath + "user/img/" + fileName, file);
+            logger.info("文件["+fileName+"]上传成功");
+            //判断是否为默认图片，如果不是就删除该图片并重新赋值
+            if(!user.getUserImg().contains("default")) {
+                CommonUtils.deleteFile(filePath +"user/img/"+ user.getUserImg());
+                OssUtils.delete(fileVirtualPath + "user/img/"+user.getUserImg());
+            }
+            user.setUserImg(fileName);
+            return ResponseEntity.ok(this.userService.update(user));
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
     /**
