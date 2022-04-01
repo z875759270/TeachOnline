@@ -108,6 +108,13 @@
         from course
         order by course_views desc limit 0,#{num}
     </select>
+
+    <!--根据创建时间排序课程-->
+    <select id="getNewestCourse" resultMap="CourseMap">
+        select *
+        from course
+        order by course_create_time desc limit 0,#{num}
+    </select>
     <!--获取模糊查询的条数-->
     <select id="countSearch" resultType="java.lang.Long">
         select count(1)

@@ -20,10 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Stream;
 
 /**
@@ -146,12 +143,28 @@ public class RouterController {
         //获取热门课程（浏览量）
         List<Course> hotCourseByViews = new ArrayList<>(this.courseService.getHotCourse(5));
 
+        //获取热门课程（收藏）
+        List<Course> hotCourseByCollection = new ArrayList<>(this.getHotCollectionCourseList(4));
+
+        //获取最新课程
+        List<Course> newestCourseList=new ArrayList<>(this.courseService.getNewestCourse(4));
+
+
+        //不重复的课程集合（标签、收藏数查询使用）
+        Set<Course> courseSet=new HashSet<>();
+        courseSet.addAll(hotCourseByViews);
+        courseSet.addAll(hotCourseByCollection);
+        courseSet.addAll(newestCourseList);
+
 
         model.addAttribute("hotTags", hotTags);
-        model.addAttribute("tagMap", getTagMap(hotCourseByViews));
+        model.addAttribute("tagMap", getTagMap(courseSet));
+        model.addAttribute("collectionNumMap", getCourseListCollectionNum(courseSet));
         model.addAttribute("firstCourse", hotCourseByViews.get(0));
         hotCourseByViews.remove(0);
         model.addAttribute("hotCourseByViews", hotCourseByViews);
+        model.addAttribute("hotCourseByCollection", hotCourseByCollection);
+        model.addAttribute("newestCourseList", newestCourseList);
         return "/front/index";
     }
 
@@ -171,12 +184,15 @@ public class RouterController {
         if ("course".equals(searchType)) {
             Page<Course> coursePage = this.courseService.queryBySearch(searchStr, pageRequest);
             model.addAttribute("tagList", getTagMap(coursePage.getContent()));
+            model.addAttribute("collectionNumMap", getCourseListCollectionNum(coursePage.getContent()));
             model.addAttribute("resList", coursePage);
         } else if ("topic".equals(searchType)) {
             model.addAttribute("resList", this.topicService.queryBySearch(searchStr, pageRequest));
         }
+
         model.addAttribute("searchStr", searchStr);
         model.addAttribute("searchType", searchType);
+
         return "/front/search";
     }
 
@@ -192,15 +208,15 @@ public class RouterController {
         String createrImg = this.userService.queryById(userName).getUserImg();
 
         //获取学习此课程的人数
-        int courseLearningNum = this.courseUserService.queryByCourseUser(new CourseUser(course.getCourseId(),null)).getNumberOfElements();
+        int courseLearningNum = this.courseUserService.queryByCourseUser(new CourseUser(course.getCourseId(), null)).getNumberOfElements();
 
         //获取是否已学习此课程
         boolean isLearning = this.courseUserService.queryByCourseUser(new CourseUser(course.getCourseId(), userName)).getNumberOfElements() != 0;
 
         model.addAttribute("course", course);
-        model.addAttribute("isLearning",isLearning);
-        model.addAttribute("createrImg",createrImg);
-        model.addAttribute("courseLearningNum",courseLearningNum);
+        model.addAttribute("isLearning", isLearning);
+        model.addAttribute("createrImg", createrImg);
+        model.addAttribute("courseLearningNum", courseLearningNum);
         model.addAttribute("tagList", this.getTag(course));
         return "/front/course-intro";
     }
@@ -298,6 +314,7 @@ public class RouterController {
         }
 
         model.addAttribute("tagMap", this.getTagMap(courseList));
+        model.addAttribute("collectionNumMap", getCourseListCollectionNum(courseList));
         model.addAttribute("firstCourse", courseList.get(0));
         courseList.remove(0);
         model.addAttribute("resList", courseList);
@@ -364,13 +381,14 @@ public class RouterController {
      * @param courseList 课程列表
      * @return map{key:课程号,value:Tag列表}
      */
-    private Map<Integer, List<Tag>> getTagMap(List<Course> courseList) {
+    private Map<Integer, List<Tag>> getTagMap(Collection<Course> courseList) {
         Map<Integer, List<Tag>> tagMap = new HashMap<>();
         for (Course c : courseList) {
             tagMap.put(c.getCourseId(), getTag(c));
         }
         return tagMap;
     }
+
 
     /**
      * 获取标签
@@ -387,5 +405,39 @@ public class RouterController {
         return tags;
     }
 
+    /**
+     * 获取热门收藏的课程
+     * @param num 个数
+     * @return 课程列表
+     */
+    private List<Course> getHotCollectionCourseList(int num) {
+        List<Course> courseList = new ArrayList<>();
+        List<Map<String, Integer>> hotCollectionCourse = this.courseCollectionService.getHotCollectionCourse(num);
+        for (Map<String, Integer> courseCollectionMap : hotCollectionCourse) {
+            courseList.add(this.courseService.queryById(courseCollectionMap.get("course_id")));
+        }
+        return courseList;
+    }
 
+    /**
+     * 获取课程的收藏数
+     * @param course 课程
+     * @return 收藏数量
+     */
+    private Integer getCourseCollectionNum(Course course){
+        return this.courseCollectionService.queryByCourseCollection(new CourseCollection(null,course.getCourseId())).getNumberOfElements();
+    }
+
+    /**
+     * 获取课程列表的收藏数
+     * @param courses 课程列表
+     * @return Map(courseId,num)
+     */
+    private Map<Integer,Integer> getCourseListCollectionNum(Collection<Course> courses){
+        Map<Integer, Integer> resMap=new HashMap<>();
+        for (Course c : courses){
+            resMap.put(c.getCourseId(),getCourseCollectionNum(c));
+        }
+        return resMap;
+    }
 }

@@ -55,6 +55,13 @@ public interface CourseService {
     List<Course> getHotCourse(int num);
 
     /**
+     * 根据创建时间排序课程
+     * @param num 数量
+     * @return 课程列表
+     */
+    List<Course> getNewestCourse(int num);
+
+    /**
      * 新增数据
      *
      * @param course 实例对象

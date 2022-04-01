@@ -79,6 +79,16 @@ public class CourseServiceImpl implements CourseService {
     }
 
     /**
+     * 根据创建时间排序课程
+     * @param num 数量
+     * @return 课程列表
+     */
+    @Override
+    public List<Course> getNewestCourse(int num){
+        return this.courseDao.getNewestCourse(num);
+    }
+
+    /**
      * 新增数据
      *
      * @param course 实例对象

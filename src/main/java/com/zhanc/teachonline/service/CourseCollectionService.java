@@ -4,6 +4,9 @@ import com.zhanc.teachonline.entity.CourseCollection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * (CourseCollection)表服务接口
  *
@@ -36,6 +39,13 @@ public interface CourseCollectionService {
      * @return 查询结果
      */
     Page<CourseCollection> queryByCourseCollection(CourseCollection courseCollection);
+
+    /**
+     * 根据课程收藏人数排序
+     * @param num 需要的行数
+     * @return 对象列表
+     */
+    List<Map<String, Integer>> getHotCollectionCourse(int num);
 
     /**
      * 新增数据

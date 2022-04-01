@@ -51,6 +51,15 @@
         </where>
     </select>
 
+    <!--查询标签下的课程数量-->
+    <select id="queryCollectionGroup" resultType="map">
+        select course_id,count(user_name) as user_count
+        from course_collection
+        group by course_id
+        order by user_count desc
+        limit 0,#{num}
+    </select>
+
     <!--新增所有列-->
     <insert id="insert" keyProperty="userName" useGeneratedKeys="true">
         insert into course_collection(user_name,course_id)

@@ -54,6 +54,13 @@ public interface CourseDao {
     List<Course> getHotCourse(int num);
 
     /**
+     * 根据创建时间排序课程
+     * @param num 数量
+     * @return 课程列表
+     */
+    List<Course> getNewestCourse(int num);
+
+    /**
      * 模糊查询行数
      * @param searchStr 查询字符串
      * @return 返回查询总行数

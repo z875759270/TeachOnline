@@ -9,6 +9,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 /**
  * (CourseCollection)表服务实现类
@@ -59,6 +61,18 @@ public class CourseCollectionServiceImpl implements CourseCollectionService {
     }
 
     /**
+     * 根据课程收藏人数排序
+     *
+     * @param num 需要的行数
+     * @return 对象列表
+     */
+    @Override
+    public List<Map<String, Integer>> getHotCollectionCourse(int num) {
+        return this.courseCollectionDao.queryCollectionGroup(num);
+    }
+
+
+    /**
      * 新增数据
      *
      * @param courseCollection 实例对象
@@ -90,7 +104,7 @@ public class CourseCollectionServiceImpl implements CourseCollectionService {
      * @return 是否成功
      */
     @Override
-    public boolean deleteById(String userName,Integer courseId) {
-        return this.courseCollectionDao.deleteById(userName,courseId) > 0;
+    public boolean deleteById(String userName, Integer courseId) {
+        return this.courseCollectionDao.deleteById(userName, courseId) > 0;
     }
 }

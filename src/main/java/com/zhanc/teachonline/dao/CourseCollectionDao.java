@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * (CourseCollection)表数据库访问层
@@ -38,6 +39,13 @@ public interface CourseCollectionDao {
      * @return 对象列表
      */
     List<CourseCollection> queryAllByCourseCollection(CourseCollection courseCollection);
+
+    /**
+     * 根据课程收藏人数排序
+     * @param num 需要的行数
+     * @return 对象列表
+     */
+    List<Map<String, Integer>> queryCollectionGroup(@Param("num")int num);
 
     /**
      * 统计总行数
