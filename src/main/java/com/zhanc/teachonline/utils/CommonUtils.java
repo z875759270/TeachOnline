@@ -5,7 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.util.Date;
 
@@ -61,6 +63,7 @@ public class CommonUtils {
 
     /**
      * 获取Request
+     *
      * @return request
      */
     public static HttpServletRequest getHttpServletRequest() {
@@ -69,6 +72,7 @@ public class CommonUtils {
 
     /**
      * 获取IP地址
+     *
      * @param request 请求
      * @return IP地址
      */
@@ -95,5 +99,13 @@ public class CommonUtils {
         }
 
         return ip;
+    }
+
+
+    public static void setCookie(String key, String value, int second, HttpServletRequest request, HttpServletResponse response) {
+        Cookie cookie_isView = new Cookie(key,value);
+        cookie_isView.setMaxAge(second); //单位：秒
+        cookie_isView.setPath(request.getContextPath());
+        response.addCookie(cookie_isView);
     }
 }

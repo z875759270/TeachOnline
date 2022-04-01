@@ -2,6 +2,7 @@ package com.zhanc.teachonline.controller;
 
 import com.zhanc.teachonline.entity.*;
 import com.zhanc.teachonline.service.*;
+import com.zhanc.teachonline.utils.CommonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.util.ArrayList;
@@ -33,7 +36,7 @@ import java.util.stream.Stream;
 @Controller
 public class RouterController {
 
-    Logger logger= LoggerFactory.getLogger(RouterController.class);
+    Logger logger = LoggerFactory.getLogger(RouterController.class);
 
     @Resource
     private UserService userService;
@@ -185,31 +188,46 @@ public class RouterController {
     }
 
     @RequestMapping(value = {"/course/info/{courseId}"})
-    public String toCourseInfo(@PathVariable Integer courseId, Model model, HttpServletRequest request) {
+    public String toCourseInfo(@PathVariable Integer courseId, Model model, HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         //获取课程
         Course course = this.courseService.queryById(courseId);
+
+        //浏览量+1
+        Cookie[] cookies = request.getCookies();
+        boolean isView=false;
+        for (Cookie cookie:cookies){
+            if(("course_"+courseId).equals(cookie.getName()))
+                isView=true;
+        }
+        if(!isView){
+            Course tmpCourse = new Course();
+            tmpCourse.setCourseId(course.getCourseId());
+            tmpCourse.setCourseViews(course.getCourseViews()+1);
+            this.courseService.update(tmpCourse);
+        }
+        CommonUtils.setCookie("course_"+courseId,"true",30 * 60,request,response);
 
         //获取创建用户
         User user = this.userService.queryById(course.getCourseCreater());
 
         //获取平均评分
         List<CourseRate> courseRateList = this.courseRateService.queryByCourseRate(new CourseRate(null, course.getCourseId(), null)).getContent();
-        Double avgRate= (double) 0;
+        Double avgRate = (double) 0;
         for (CourseRate courseRate : courseRateList) {
             avgRate += courseRate.getScore();
         }
-        avgRate = avgRate/courseRateList.size();
+        avgRate = avgRate / courseRateList.size();
 
         //获取收藏数量
         int collectNum = this.courseCollectionService.queryByCourseCollection(new CourseCollection(null, course.getCourseId())).getNumberOfElements();
 
         //获取当前用户评分
-        int currentScore=-1;
-        try{
+        int currentScore = -1;
+        try {
             CourseRate currentRate = this.courseRateService.queryByCourseRate(new CourseRate(session.getAttribute("userName").toString(), course.getCourseId(), null)).getContent().get(0);
-            currentScore=currentRate.getScore();
-        }catch (IndexOutOfBoundsException e){
+            currentScore = currentRate.getScore();
+        } catch (IndexOutOfBoundsException e) {
             logger.info("当前用户无评分");
         }
 
@@ -281,18 +299,18 @@ public class RouterController {
     }
 
     @RequestMapping(value = {"/user/collection/mine"})
-    public String toCollection(Model model,HttpServletRequest request) {
+    public String toCollection(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
         String userName = session.getAttribute("userName").toString();
         //获取课程收藏
         List<CourseCollection> courseCollections = this.courseCollectionService.queryByCourseCollection(new CourseCollection(userName, null)).getContent();
-        List<Course> courseList=new ArrayList<>();
+        List<Course> courseList = new ArrayList<>();
         for (CourseCollection courseCollection : courseCollections) {
             courseList.add(this.courseService.queryById(courseCollection.getCourseId()));
         }
 
-        model.addAttribute("courseList",courseList);
-        model.addAttribute("tagMap",getTagMap(courseList));
+        model.addAttribute("courseList", courseList);
+        model.addAttribute("tagMap", getTagMap(courseList));
         return "/front/collection";
     }
 

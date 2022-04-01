@@ -115,7 +115,7 @@ public class CourseController {
             System.out.println(filePath + fileType + fileName);
             dest = new File(filePath + fileType + fileName);
 
-            //OssUtils.upload(fileVirtualPath + fileType + fileName, multipartFile);
+            OssUtils.upload(fileVirtualPath + fileType + fileName, multipartFile);
             try {
                 if (!dest.exists()) {
                     dest.createNewFile();
