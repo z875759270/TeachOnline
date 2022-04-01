@@ -1,6 +1,5 @@
 package com.zhanc.teachonline.dao;
 
-import com.zhanc.teachonline.entity.Course;
 import com.zhanc.teachonline.entity.Topic;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;
@@ -11,7 +10,7 @@ import java.util.List;
  * (Topic)表数据库访问层
  *
  * @author Zhanc
- * @since 2022-03-29 14:32:00
+ * @since 2022-04-01 23:30:48
  */
 public interface TopicDao {
 

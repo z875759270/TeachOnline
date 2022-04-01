@@ -1,6 +1,5 @@
 package com.zhanc.teachonline.service;
 
-import com.zhanc.teachonline.entity.Course;
 import com.zhanc.teachonline.entity.Topic;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -9,7 +8,7 @@ import org.springframework.data.domain.PageRequest;
  * (Topic)表服务接口
  *
  * @author Zhanc
- * @since 2022-03-29 14:32:00
+ * @since 2022-04-01 23:30:49
  */
 public interface TopicService {
 

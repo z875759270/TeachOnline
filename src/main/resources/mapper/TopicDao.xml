@@ -6,7 +6,6 @@
         <result property="topicId" column="topic_id" jdbcType="INTEGER"/>
         <result property="topicTitle" column="topic_title" jdbcType="VARCHAR"/>
         <result property="topicDetail" column="topic_detail" jdbcType="VARCHAR"/>
-        <result property="topicCategoryId" column="topic_category_id" jdbcType="INTEGER"/>
         <result property="topicViews" column="topic_views" jdbcType="INTEGER"/>
         <result property="topicCreateTime" column="topic_create_time" jdbcType="TIMESTAMP"/>
         <result property="topicStatus" column="topic_status" jdbcType="INTEGER"/>
@@ -17,7 +16,6 @@
         select topic_id,
                topic_title,
                topic_detail,
-               topic_category_id,
                topic_views,
                topic_create_time,
                topic_status
@@ -30,7 +28,6 @@
         select topic_id,
                topic_title,
                topic_detail,
-               topic_category_id,
                topic_views,
                topic_create_time,
                topic_status
@@ -40,7 +37,7 @@
     <!--指定对象查询数据-->
     <select id="queryAllByTopic" resultMap="TopicMap">
         select
-        topic_id, topic_title, topic_detail, topic_category_id, topic_views, topic_create_time, topic_status
+        topic_id, topic_title, topic_detail, topic_views, topic_create_time, topic_status
         from topic
         <where>
             <if test="topicId != null">
@@ -52,9 +49,6 @@
             <if test="topicDetail != null and topicDetail != ''">
                 and topic_detail = #{topicDetail}
             </if>
-            <if test="topicCategoryId != null">
-                and topic_category_id = #{topicCategoryId}
-            </if>
             <if test="topicViews != null">
                 and topic_views = #{topicViews}
             </if>
@@ -65,21 +59,6 @@
                 and topic_status = #{topicStatus}
             </if>
         </where>
-    </select>
-
-    <!--模糊查询数据-->
-    <select id="queryAllBySearch" resultMap="TopicMap">
-        select
-            topic_id, topic_title, topic_detail, topic_category_id, topic_views, topic_create_time, topic_status
-        from topic
-        where topic_title like concat('%',#{searchStr},'%')
-            limit #{pageable.offset}, #{pageable.pageSize}
-    </select>
-
-    <select id="countSearch" resultType="java.lang.Long">
-        select count(1)
-        from topic
-        where topic_title like concat('%',#{searchStr},'%')
     </select>
 
     <!--统计总行数-->
@@ -96,9 +75,6 @@
             <if test="topicDetail != null and topicDetail != ''">
                 and topic_detail = #{topicDetail}
             </if>
-            <if test="topicCategoryId != null">
-                and topic_category_id = #{topicCategoryId}
-            </if>
             <if test="topicViews != null">
                 and topic_views = #{topicViews}
             </if>
@@ -113,30 +89,29 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="topicId" useGeneratedKeys="true">
-        insert into topic(topic_title, topic_detail, topic_category_id, topic_views, topic_create_time, topic_status)
-        values (#{topicTitle}, #{topicDetail}, #{topicCategoryId}, #{topicViews}, #{topicCreateTime}, #{topicStatus})
+        insert into topic(topic_title, topic_detail, topic_views, topic_create_time, topic_status)
+        values (#{topicTitle}, #{topicDetail}, #{topicViews}, #{topicCreateTime}, #{topicStatus})
     </insert>
 
     <insert id="insertBatch" keyProperty="topicId" useGeneratedKeys="true">
-        insert into topic(topic_title, topic_detail, topic_category_id, topic_views, topic_create_time, topic_status)
+        insert into topic(topic_title, topic_detail, topic_views, topic_create_time, topic_status)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.topicTitle}, #{entity.topicDetail}, #{entity.topicCategoryId}, #{entity.topicViews},
-            #{entity.topicCreateTime}, #{entity.topicStatus})
+            (#{entity.topicTitle}, #{entity.topicDetail}, #{entity.topicViews}, #{entity.topicCreateTime},
+            #{entity.topicStatus})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="topicId" useGeneratedKeys="true">
-        insert into topic(topic_title, topic_detail, topic_category_id, topic_views, topic_create_time, topic_status)
+        insert into topic(topic_title, topic_detail, topic_views, topic_create_time, topic_status)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.topicTitle}, #{entity.topicDetail}, #{entity.topicCategoryId}, #{entity.topicViews},
-            #{entity.topicCreateTime}, #{entity.topicStatus})
+            (#{entity.topicTitle}, #{entity.topicDetail}, #{entity.topicViews}, #{entity.topicCreateTime},
+            #{entity.topicStatus})
         </foreach>
         on duplicate key update
         topic_title = values(topic_title),
         topic_detail = values(topic_detail),
-        topic_category_id = values(topic_category_id),
         topic_views = values(topic_views),
         topic_create_time = values(topic_create_time),
         topic_status = values(topic_status)
@@ -151,9 +126,6 @@
             </if>
             <if test="topicDetail != null and topicDetail != ''">
                 topic_detail = #{topicDetail},
-            </if>
-            <if test="topicCategoryId != null">
-                topic_category_id = #{topicCategoryId},
             </if>
             <if test="topicViews != null">
                 topic_views = #{topicViews},
