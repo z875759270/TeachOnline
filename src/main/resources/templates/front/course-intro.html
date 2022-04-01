@@ -34,7 +34,8 @@
                     <div class="post-content">
                         <div class="entry-meta meta-0 mb-15 font-small">
                             <a href="category.html" th:each="tag:${tagList}"><span
-                                    class="post-cat position-relative text-info text-capitalize" th:text="${tag.tagName}">标签1</span></a>
+                                    class="post-cat position-relative text-info text-capitalize"
+                                    th:text="${tag.tagName}">标签1</span></a>
                         </div>
                         <h1 class="entry-title mb-30 font-weight-900" th:text="${course.courseName}">
                             课程标题
@@ -45,17 +46,22 @@
                         <div class="entry-meta align-items-center meta-2 font-small color-muted">
                             <p class="mb-5">
                                 <a class="author-avatar" th:href="@{/profile/}+${course.courseCreater}">
-                                    <img class="img-circle" th:src="'/media/user/img/'+${course.courseImg}" alt=""></a>
+                                    <img class="img-circle" th:src="'/media/user/img/'+${createrImg}" alt=""></a>
                                 By <a th:href="@{/profile/}+${course.courseCreater}"><span
                                     class="author-name font-weight-bold"
                                     th:text="${course.courseCreater}">创建者</span></a>
                             </p>
                             <span class="mr-10" th:text="${#dates.format(course.courseCreateTime,'yyyy-MM-dd')}"> 2022-03-17 </span>
-                            <span class="has-dot"> <strong>123</strong>人正在学习</span>
+                            <span class="has-dot"> <strong th:text="${courseLearningNum}">0</strong>人正在学习</span>
                         </div>
                         <div class="form-group mt-30">
-                            <button type="button" class="button button-contactForm btn-block" onclick="toInfo()">
+                            <button type="button" class="button button-contactForm btn-block" onclick="toInfo()"
+                                    th:if="${isLearning}">
                                 进入学习
+                            </button>
+                            <button type="button" class="button button-contactForm btn-block" onclick="addCourseUser()"
+                                    th:if="${!isLearning}">
+                                开始学习
                             </button>
                         </div>
                     </div>
@@ -96,9 +102,26 @@
 <!-- NewsBoard JS -->
 <script src="/js/config.js"></script>
 <script src="/assets/js/main.js"></script>
+<script src="/js/config.js"></script>
 <script th:inline="javascript">
+    var courseId = /*[[${course.courseId}]]*/ 1;
+    var userName = /*[[${session.userName}]]*/ "";
+
+    function addCourseUser() {
+        $.ajax({
+            url: Const.domain + "courseUser/add",
+            type: "POST",
+            data: {
+                userName: userName,
+                courseId: courseId
+            },
+            success: function (res) {
+                toInfo();
+            }
+        })
+    }
+
     function toInfo() {
-        var courseId = /*[[${course.courseId}]]*/ 1
         window.location.href = "/course/info/" + courseId;
     }
 </script>

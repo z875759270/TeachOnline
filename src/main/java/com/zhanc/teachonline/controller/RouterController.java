@@ -58,6 +58,8 @@ public class RouterController {
     private CourseSecondCommentService courseSecondCommentService;
     @Resource
     private CourseCollectionService courseCollectionService;
+    @Resource
+    private CourseUserService courseUserService;
 
     //region 后台
 
@@ -179,10 +181,26 @@ public class RouterController {
     }
 
     @RequestMapping(value = {"/course/intro/{courseId}"})
-    public String toCourseIntro(@PathVariable Integer courseId, Model model) {
+    public String toCourseIntro(@PathVariable Integer courseId, Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String userName = session.getAttribute("userName").toString();
+
+        //获取课程
         Course course = this.courseService.queryById(courseId);
 
+        //获取创建者头像
+        String createrImg = this.userService.queryById(userName).getUserImg();
+
+        //获取学习此课程的人数
+        int courseLearningNum = this.courseUserService.queryByCourseUser(new CourseUser(course.getCourseId(),null)).getNumberOfElements();
+
+        //获取是否已学习此课程
+        boolean isLearning = this.courseUserService.queryByCourseUser(new CourseUser(course.getCourseId(), userName)).getNumberOfElements() != 0;
+
         model.addAttribute("course", course);
+        model.addAttribute("isLearning",isLearning);
+        model.addAttribute("createrImg",createrImg);
+        model.addAttribute("courseLearningNum",courseLearningNum);
         model.addAttribute("tagList", this.getTag(course));
         return "/front/course-intro";
     }
@@ -195,18 +213,18 @@ public class RouterController {
 
         //浏览量+1
         Cookie[] cookies = request.getCookies();
-        boolean isView=false;
-        for (Cookie cookie:cookies){
-            if(("course_"+courseId).equals(cookie.getName()))
-                isView=true;
+        boolean isView = false;
+        for (Cookie cookie : cookies) {
+            if (("course_" + courseId).equals(cookie.getName()))
+                isView = true;
         }
-        if(!isView){
+        if (!isView) {
             Course tmpCourse = new Course();
             tmpCourse.setCourseId(course.getCourseId());
-            tmpCourse.setCourseViews(course.getCourseViews()+1);
+            tmpCourse.setCourseViews(course.getCourseViews() + 1);
             this.courseService.update(tmpCourse);
         }
-        CommonUtils.setCookie("course_"+courseId,"true",30 * 60,request,response);
+        CommonUtils.setCookie("course_" + courseId, "true", 30 * 60, request, response);
 
         //获取创建用户
         User user = this.userService.queryById(course.getCourseCreater());
@@ -315,7 +333,18 @@ public class RouterController {
     }
 
     @RequestMapping(value = {"/course/mine"})
-    public String toMyCourse() {
+    public String toMyCourse(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String userName = session.getAttribute("userName").toString();
+        //获取课程收藏
+        List<CourseUser> courseUsers = this.courseUserService.queryByCourseUser(new CourseUser(null, userName)).getContent();
+        List<Course> courseList = new ArrayList<>();
+        for (CourseUser courseUser : courseUsers) {
+            courseList.add(this.courseService.queryById(courseUser.getCourseId()));
+        }
+
+        model.addAttribute("courseList", courseList);
+        model.addAttribute("tagMap", getTagMap(courseList));
         return "/front/course-mine";
     }
 

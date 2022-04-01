@@ -42,7 +42,9 @@
                             </div>
                             <div class="post-content p-30">
                                 <div class="entry-meta meta-0 font-small mb-10">
-                                    <a th:href="@{/course/list/tag/}+${tag.tagId}" th:each="tag : ${tagMap.get(course.courseId)}"><span class="post-cat text-info text-capitalize" th:text="${tag.tagName}">标签1</span></a>
+                                    <a th:href="@{/course/list/tag/}+${tag.tagId}" th:each="tag : ${tagMap.get(course.courseId)}">
+                                        <span class="post-cat text-info text-capitalize" th:text="${tag.tagName}">标签1</span>
+                                    </a>
                                 </div>
                                 <div class="d-flex post-card-content">
                                     <h5 class="post-title mb-20 font-weight-900">
