@@ -78,7 +78,7 @@
                 }
                 for (let i = 0; i < courseIdList.length; i++) {
                     $.ajax({
-                        url: "course/find/" + courseIdList[i],
+                        url: Const.domain + "course/find/" + courseIdList[i],
                         type: "GET",
                         success: function (res) {
                             let footerHtml = $("#hotCollectionFooter").html()
@@ -107,18 +107,18 @@
     }
 
     //获取热门学习课程
-    var getLearningCourse=function () {
+    var getLearningCourse = function () {
         $.ajax({
-            url: "courseUser/hot/3",
+            url: Const.domain+"courseUser/hot/3",
             type: "GET",
-            success:function(res){
+            success: function (res) {
                 let courseIdList = []
                 for (let i = 0; i < res.length; i++) {
                     courseIdList.push(res[i].course_id);
                 }
                 for (let i = 0; i < courseIdList.length; i++) {
                     $.ajax({
-                        url: "course/find/" + courseIdList[i],
+                        url: Const.domain + "course/find/" + courseIdList[i],
                         type: "GET",
                         success: function (res) {
                             let footerHtml = $("#hotLearningFooter").html()

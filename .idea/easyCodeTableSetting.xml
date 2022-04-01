@@ -459,6 +459,26 @@
                     <option name="name" value="topicStatus" />
                     <option name="type" value="java.lang.Integer" />
                   </ColumnInfoDTO>
+                  <ColumnInfoDTO>
+                    <option name="comment" value="创建者" />
+                    <option name="custom" value="false" />
+                    <option name="ext">
+                      <map>
+                        <entry key="jdbcType">
+                          <value>
+                            <Object />
+                          </value>
+                        </entry>
+                        <entry key="sqlType">
+                          <value>
+                            <Object />
+                          </value>
+                        </entry>
+                      </map>
+                    </option>
+                    <option name="name" value="topicCreater" />
+                    <option name="type" value="java.lang.String" />
+                  </ColumnInfoDTO>
                 </list>
               </option>
               <option name="name" value="Topic" />

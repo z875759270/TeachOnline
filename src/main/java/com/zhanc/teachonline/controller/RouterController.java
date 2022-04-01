@@ -323,8 +323,9 @@ public class RouterController {
         return "/front/course-list";
     }
 
-    @RequestMapping(value = {"/topic/list/{type}/{id}"})
-    public String toTopicList(@PathVariable Integer id, @PathVariable String type) {
+    @RequestMapping(value = {"/topic/list/all"})
+    public String toTopicList(Model model) {
+        model.addAttribute("topicPage",this.topicService.queryByTopic(new Topic()));
         return "/front/topic-list";
     }
 

@@ -14,7 +14,7 @@ import java.io.Serializable;
  * (Topic)实体类
  *
  * @author zhanc
- * @since 2022-04-01 23:30:49
+ * @since 2022-04-02 00:35:58
  */
 @Data
 @NoArgsConstructor
@@ -22,37 +22,35 @@ import java.io.Serializable;
 @Validated
 @Component
 public class Topic implements Serializable {
-    private static final long serialVersionUID = 342317141342073927L;
+    private static final long serialVersionUID = 564302294931254973L;
     /**
      * 话题ID
-     */
-    @ApiModelProperty(value = "话题ID")
+     */    @ApiModelProperty(value = "话题ID")
     private Integer topicId;
     /**
      * 标题
-     */
-    @ApiModelProperty(value = "标题")
+     */    @ApiModelProperty(value = "标题")
     private String topicTitle;
     /**
      * 详情
-     */
-    @ApiModelProperty(value = "详情")
+     */    @ApiModelProperty(value = "详情")
     private String topicDetail;
     /**
      * 浏览量
-     */
-    @ApiModelProperty(value = "浏览量")
+     */    @ApiModelProperty(value = "浏览量")
     private Integer topicViews;
     /**
      * 创建时间
-     */
-    @ApiModelProperty(value = "创建时间")
+     */    @ApiModelProperty(value = "创建时间")
     private Date topicCreateTime;
     /**
      * 状态
-     */
-    @ApiModelProperty(value = "状态")
+     */    @ApiModelProperty(value = "状态")
     private Integer topicStatus;
+    /**
+     * 创建者
+     */    @ApiModelProperty(value = "创建者")
+    private String topicCreater;
 
 
 }

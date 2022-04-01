@@ -1610,158 +1610,174 @@ user_name</ColNames>
       <Comment>浏览量</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <column id="408" parent="305" name="topic_create_time">
+    <column id="408" parent="305" name="topic_creater">
       <Position>5</Position>
+      <Comment>创建者</Comment>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="409" parent="305" name="topic_create_time">
+      <Position>6</Position>
       <Comment>创建时间</Comment>
       <DataType>timestamp|0s</DataType>
     </column>
-    <column id="409" parent="305" name="topic_status">
-      <Position>6</Position>
+    <column id="410" parent="305" name="topic_status">
+      <Position>7</Position>
       <Comment>状态</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <key id="410" parent="305" name="PRIMARY">
+    <index id="411" parent="305" name="fk_topic_user">
+      <ColNames>topic_creater</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="412" parent="305" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>topic_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="411" parent="306" name="comment_id">
+    <foreign-key id="413" parent="305" name="fk_topic_user">
+      <ColNames>topic_creater</ColNames>
+      <RefTableName>user</RefTableName>
+      <RefColNames>user_name</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="414" parent="306" name="comment_id">
       <Position>1</Position>
       <Comment>评论ID</Comment>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="412" parent="306" name="user_name">
+    <column id="415" parent="306" name="user_name">
       <Position>2</Position>
       <Comment>用户名</Comment>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="413" parent="306" name="comment_content">
+    <column id="416" parent="306" name="comment_content">
       <Position>3</Position>
       <Comment>评论内容</Comment>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="414" parent="306" name="comment_time">
+    <column id="417" parent="306" name="comment_time">
       <Position>4</Position>
       <Comment>评论时间</Comment>
       <DataType>timestamp|0s</DataType>
     </column>
-    <index id="415" parent="306" name="fk_t_first_comment_user">
+    <index id="418" parent="306" name="fk_t_first_comment_user">
       <ColNames>user_name</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="416" parent="306" name="PRIMARY">
+    <key id="419" parent="306" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>comment_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="417" parent="306" name="fk_t_first_comment_user">
+    <foreign-key id="420" parent="306" name="fk_t_first_comment_user">
       <ColNames>user_name</ColNames>
       <RefTableName>user</RefTableName>
       <RefColNames>user_name</RefColNames>
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="418" parent="307" name="comment_id">
+    <column id="421" parent="307" name="comment_id">
       <Position>1</Position>
       <Comment>父评论ID</Comment>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="419" parent="307" name="user_name">
+    <column id="422" parent="307" name="user_name">
       <Position>2</Position>
       <Comment>用户名</Comment>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="420" parent="307" name="comment_content">
+    <column id="423" parent="307" name="comment_content">
       <Position>3</Position>
       <Comment>评论内容</Comment>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="421" parent="307" name="comment_time">
+    <column id="424" parent="307" name="comment_time">
       <Position>4</Position>
       <Comment>评论时间</Comment>
       <DataType>timestamp|0s</DataType>
     </column>
-    <index id="422" parent="307" name="fk_t_second_user">
+    <index id="425" parent="307" name="fk_t_second_user">
       <ColNames>user_name</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="423" parent="307" name="PRIMARY">
+    <key id="426" parent="307" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>comment_id
 user_name</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="424" parent="307" name="fk_t_second_comment">
+    <foreign-key id="427" parent="307" name="fk_t_second_comment">
       <ColNames>comment_id</ColNames>
       <RefTableName>topic_first_comment</RefTableName>
       <RefColNames>comment_id</RefColNames>
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="425" parent="307" name="fk_t_second_user">
+    <foreign-key id="428" parent="307" name="fk_t_second_user">
       <ColNames>user_name</ColNames>
       <RefTableName>user</RefTableName>
       <RefColNames>user_name</RefColNames>
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="426" parent="308" name="user_name">
+    <column id="429" parent="308" name="user_name">
       <Position>1</Position>
       <Comment>用户名</Comment>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="427" parent="308" name="user_pwd">
+    <column id="430" parent="308" name="user_pwd">
       <Position>2</Position>
       <Comment>密码</Comment>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="428" parent="308" name="user_salt">
+    <column id="431" parent="308" name="user_salt">
       <Position>3</Position>
       <Comment>salt</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="429" parent="308" name="user_role">
+    <column id="432" parent="308" name="user_role">
       <Position>4</Position>
       <Comment>角色</Comment>
       <DataType>enum(&apos;ROLE_ADMIN&apos;, &apos;ROLE_TEACHER&apos;, &apos;ROLE_USER&apos;)|0e</DataType>
       <DefaultExpression>&apos;ROLE_USER&apos;</DefaultExpression>
     </column>
-    <column id="430" parent="308" name="user_email">
+    <column id="433" parent="308" name="user_email">
       <Position>5</Position>
       <Comment>邮箱</Comment>
       <DataType>varchar(50)|0s</DataType>
     </column>
-    <column id="431" parent="308" name="user_qq">
+    <column id="434" parent="308" name="user_qq">
       <Position>6</Position>
       <Comment>qq</Comment>
       <DataType>varchar(20)|0s</DataType>
     </column>
-    <column id="432" parent="308" name="user_img">
+    <column id="435" parent="308" name="user_img">
       <Position>7</Position>
       <Comment>头像</Comment>
       <DataType>varchar(255)|0s</DataType>
       <DefaultExpression>&apos;default.jpg&apos;</DefaultExpression>
     </column>
-    <column id="433" parent="308" name="user_intro">
+    <column id="436" parent="308" name="user_intro">
       <Position>8</Position>
       <Comment>个人简介</Comment>
       <DataType>text|0s</DataType>
     </column>
-    <column id="434" parent="308" name="user_status">
+    <column id="437" parent="308" name="user_status">
       <Position>9</Position>
       <Comment>账号状态</Comment>
       <DataType>int|0s</DataType>
     </column>
-    <key id="435" parent="308" name="PRIMARY">
+    <key id="438" parent="308" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>user_name</ColNames>
       <Primary>1</Primary>
