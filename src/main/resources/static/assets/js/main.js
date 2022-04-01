@@ -68,7 +68,6 @@
 
     //获取热门课程
     var getColectionCourse = function () {
-
         $.ajax({
             url: Const.domain + "course/collection/hot/3",
             type: "GET",
