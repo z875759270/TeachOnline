@@ -412,9 +412,9 @@ public class RouterController {
      */
     private List<Course> getHotCollectionCourseList(int num) {
         List<Course> courseList = new ArrayList<>();
-        List<Map<String, Integer>> hotCollectionCourse = this.courseCollectionService.getHotCollectionCourse(num);
-        for (Map<String, Integer> courseCollectionMap : hotCollectionCourse) {
-            courseList.add(this.courseService.queryById(courseCollectionMap.get("course_id")));
+        List<Map<String, Object>> hotCollectionCourse = this.courseCollectionService.getHotCollectionCourse(num);
+        for (Map<String, Object> courseCollectionMap : hotCollectionCourse) {
+            courseList.add(this.courseService.queryById((Integer) courseCollectionMap.get("course_id")));
         }
         return courseList;
     }

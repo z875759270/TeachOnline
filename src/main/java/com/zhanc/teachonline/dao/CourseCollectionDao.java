@@ -45,7 +45,7 @@ public interface CourseCollectionDao {
      * @param num 需要的行数
      * @return 对象列表
      */
-    List<Map<String, Integer>> queryCollectionGroup(@Param("num")int num);
+    List<Map<String, Object>> queryCollectionGroup(@Param("num")int num);
 
     /**
      * 统计总行数

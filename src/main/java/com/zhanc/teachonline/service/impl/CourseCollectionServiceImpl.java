@@ -67,7 +67,7 @@ public class CourseCollectionServiceImpl implements CourseCollectionService {
      * @return 对象列表
      */
     @Override
-    public List<Map<String, Integer>> getHotCollectionCourse(int num) {
+    public List<Map<String, Object>> getHotCollectionCourse(int num) {
         return this.courseCollectionDao.queryCollectionGroup(num);
     }
 

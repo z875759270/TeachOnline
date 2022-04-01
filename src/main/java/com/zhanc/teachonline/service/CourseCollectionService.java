@@ -45,7 +45,7 @@ public interface CourseCollectionService {
      * @param num 需要的行数
      * @return 对象列表
      */
-    List<Map<String, Integer>> getHotCollectionCourse(int num);
+    List<Map<String, Object>> getHotCollectionCourse(int num);
 
     /**
      * 新增数据

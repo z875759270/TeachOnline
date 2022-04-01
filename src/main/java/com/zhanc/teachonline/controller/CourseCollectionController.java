@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Map;
 
 /**
  * (CourseCollection)表控制层
@@ -60,6 +62,11 @@ public class CourseCollectionController {
     @GetMapping("find/{id}")
     public ResponseEntity<CourseCollection> queryById(@PathVariable("id") String id) {
         return ResponseEntity.ok(this.courseCollectionService.queryById(id));
+    }
+
+    @GetMapping("hot/{num}")
+    public ResponseEntity<List<Map<String, Object>>> queryByCollectionNum(@PathVariable Integer num) {
+        return ResponseEntity.ok(this.courseCollectionService.getHotCollectionCourse(num));
     }
 
     /**
