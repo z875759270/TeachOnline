@@ -47,6 +47,13 @@ public interface TopicDao {
     List<Topic> queryAllBySearch(String searchStr, @Param("pageable") Pageable pageable);
 
     /**
+     * 根据浏览量排序
+     * @param num 行数
+     * @return 热门话题列表
+     */
+    List<Topic> getHotTopicByView(int num);
+
+    /**
      * 模糊查询行数
      * @param searchStr 查询字符串
      * @return 返回查询总行数

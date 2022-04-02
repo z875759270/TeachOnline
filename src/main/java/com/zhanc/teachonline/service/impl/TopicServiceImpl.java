@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 /**
  * (Topic)表服务实现类
@@ -71,6 +72,17 @@ public class TopicServiceImpl implements TopicService {
     public Page<Topic> queryBySearch(String searchStr, PageRequest pageRequest) {
         long total = this.topicDao.countSearch(searchStr);
         return new PageImpl<>(this.topicDao.queryAllBySearch(searchStr, pageRequest), pageRequest, total);
+    }
+
+    /**
+     * 根据浏览量排序
+     *
+     * @param num 行数
+     * @return 热门话题列表
+     */
+    @Override
+    public List<Topic> getHotTopicByView(int num) {
+        return this.topicDao.getHotTopicByView(num);
     }
 
     /**

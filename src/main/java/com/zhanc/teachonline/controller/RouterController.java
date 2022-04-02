@@ -327,6 +327,7 @@ public class RouterController {
     @RequestMapping(value = {"/topic/list/all"})
     public String toTopicList(Model model) {
         model.addAttribute("topicPage", this.topicService.queryByTopic(new Topic()));
+        model.addAttribute("hotTopicList",this.topicService.getHotTopicByView(4));
         return "/front/topic-list";
     }
 

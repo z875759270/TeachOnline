@@ -4,6 +4,8 @@ import com.zhanc.teachonline.entity.Topic;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+
 /**
  * (Topic)表服务接口
  *
@@ -44,6 +46,13 @@ public interface TopicService {
      * @return 查询结果
      */
     Page<Topic> queryBySearch(String searchStr, PageRequest pageRequest);
+
+    /**
+     * 根据浏览量排序
+     * @param num 行数
+     * @return 热门话题列表
+     */
+    List<Topic> getHotTopicByView(int num);
 
     /**
      * 新增数据
