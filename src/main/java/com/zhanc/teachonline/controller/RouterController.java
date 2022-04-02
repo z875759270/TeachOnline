@@ -157,7 +157,8 @@ public class RouterController {
         courseSet.addAll(hotCourseByCollection);
         courseSet.addAll(newestCourseList);
 
-
+        //获取热门讨论
+        model.addAttribute("hotTopicList",this.topicService.getHotTopicByView(4));
         model.addAttribute("hotTags", hotTags);
         model.addAttribute("tagMap", getTagMap(courseSet));
         model.addAttribute("collectionNumMap", getCourseListCollectionNum(courseSet));
