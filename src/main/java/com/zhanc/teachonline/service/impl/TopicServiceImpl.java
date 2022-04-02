@@ -3,12 +3,14 @@ package com.zhanc.teachonline.service.impl;
 import com.zhanc.teachonline.entity.Topic;
 import com.zhanc.teachonline.dao.TopicDao;
 import com.zhanc.teachonline.service.TopicService;
+import com.zhanc.teachonline.utils.Const;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 /**
  * (Topic)表服务实现类
@@ -79,6 +81,9 @@ public class TopicServiceImpl implements TopicService {
      */
     @Override
     public Topic insert(Topic topic) {
+        topic.setTopicCreateTime(new Date());
+        topic.setTopicViews(0);
+        topic.setTopicStatus(Const.STATUS_CHECK);
         this.topicDao.insert(topic);
         return topic;
     }

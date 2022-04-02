@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * (Topic)表控制层
@@ -67,7 +69,9 @@ public class TopicController {
      * @return 新增结果
      */
     @PostMapping("add")
-    public ResponseEntity<Topic> add(Topic topic) {
+    public ResponseEntity<Topic> add(Topic topic, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        topic.setTopicCreater(session.getAttribute("userName").toString());
         return ResponseEntity.ok(this.topicService.insert(topic));
     }
 
