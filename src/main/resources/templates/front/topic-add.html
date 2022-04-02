@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>发起讨论 - 线上教学平台</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- NewsBoard CSS  -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/widgets.css">
+    <link rel="stylesheet" href="/assets/css/responsive.css">
+    <link rel="stylesheet" href="/plugins/editormd/css/editormd.css">
+    <link rel="stylesheet" href="/plugins/notifications/css/css.css">
+    <link rel="stylesheet" href="/plugins/notifications/css/lobibox.min.css">
+</head>
+
+<body>
+    <!--Offcanvas sidebar-->
+    <aside th:insert="~{common/menu-front::front-sidebar}"></aside>
+    <!-- Start Header -->
+    <header th:insert="~{common/menu-front::front-header}"></header>
+    <!--Start search form-->
+    <div th:insert="~{common/menu-front::front-search}"></div>
+
+    <main class="pt-80 pb-50">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-12 col-md-23">
+                    <div class="login_wrap widget-taber-content p-30 bg-white border-radius-10">
+                        <div class="padding_eight_all bg-white">
+                            <div class="heading_s1 text-center">
+                                <h3 class="mb-30 font-weight-900">发起讨论</h3>
+                            </div>
+                            <form class="row" id="topicAddForm">
+                                <div class="col-md-12 mb-30">
+                                    <input type="text" class="form-control" placeholder="在此输入讨论标题..." name="topicTitle" required/>
+                                </div>
+                                <div class="col-md-12 md-30">
+                                    <div id="test-editormd">
+                                        <textarea style="display:none;" name="topicDetail"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="submit" class="button button-contactForm btn-block">提交</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!--site-bottom-->
+    <div th:insert="~{common/menu-front::front-bottom}"></div>
+    <!--end site-bottom-->
+    <!-- Footer Start-->
+    <footer th:insert="~{common/menu-front::front-footer}"></footer>
+    <!-- End Footer -->
+    <div class="dark-mark"></div>
+    <!-- Vendor JS-->
+    <script src="/assets/js/vendor/modernizr-3.5.0.min.js"></script>
+    <script src="/assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="/assets/js/vendor/popper.min.js"></script>
+    <script src="/assets/js/vendor/bootstrap.min.js"></script>
+    <script src="/assets/js/vendor/jquery.slicknav.js"></script>
+    <script src="/assets/js/vendor/slick.min.js"></script>
+    <script src="/assets/js/vendor/wow.min.js"></script>
+    <script src="/assets/js/vendor/jquery.ticker.js"></script>
+    <script src="/assets/js/vendor/jquery.vticker-min.js"></script>
+    <script src="/assets/js/vendor/jquery.scrollUp.min.js"></script>
+    <script src="/assets/js/vendor/jquery.nice-select.min.js"></script>
+    <script src="/assets/js/vendor/jquery.magnific-popup.js"></script>
+    <script src="/assets/js/vendor/jquery.sticky.js"></script>
+    <script src="/assets/js/vendor/perfect-scrollbar.js"></script>
+    <script src="/assets/js/vendor/waypoints.min.js"></script>
+    <script src="/assets/js/vendor/jquery.theia.sticky.js"></script>
+    <!--editormd js-->
+    <script src="/plugins/editormd/js/editormd.min.js"></script>
+    <!--notification js-->
+    <script src="/plugins/notifications/js/lobibox.min.js"></script>
+    <script src="/plugins/notifications/js/notifications.min.js"></script>
+    <script src="/plugins/notifications/js/notification-custom-script.js"></script>
+    <!-- NewsBoard JS -->
+    <script src="/assets/js/main.js"></script>
+    <script src="/js/config.js"></script>
+    <script src="/js/page/front/topic-add.js"></script>
+</body>
+
+</html>

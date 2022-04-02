@@ -1,5 +1,6 @@
 package com.zhanc.teachonline.controller;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.zhanc.teachonline.entity.*;
 import com.zhanc.teachonline.service.*;
 import com.zhanc.teachonline.utils.CommonUtils;
@@ -147,11 +148,11 @@ public class RouterController {
         List<Course> hotCourseByCollection = new ArrayList<>(this.getHotCollectionCourseList(4));
 
         //获取最新课程
-        List<Course> newestCourseList=new ArrayList<>(this.courseService.getNewestCourse(4));
+        List<Course> newestCourseList = new ArrayList<>(this.courseService.getNewestCourse(4));
 
 
         //不重复的课程集合（标签、收藏数查询使用）
-        Set<Course> courseSet=new HashSet<>();
+        Set<Course> courseSet = new HashSet<>();
         courseSet.addAll(hotCourseByViews);
         courseSet.addAll(hotCourseByCollection);
         courseSet.addAll(newestCourseList);
@@ -325,12 +326,25 @@ public class RouterController {
 
     @RequestMapping(value = {"/topic/list/all"})
     public String toTopicList(Model model) {
-        model.addAttribute("topicPage",this.topicService.queryByTopic(new Topic()));
+        model.addAttribute("topicPage", this.topicService.queryByTopic(new Topic()));
         return "/front/topic-list";
     }
 
+    @RequestMapping(value = {"/topic/add"})
+    public String toTopicAdd() {
+        return "/front/topic-add";
+    }
+
     @RequestMapping(value = {"/topic/info/{topicId}"})
-    public String toTopicInfo(@PathVariable Integer topicId) {
+    public String toTopicInfo(@PathVariable Integer topicId, Model model) {
+        //获取课程
+        Topic topic = this.topicService.queryById(topicId);
+
+        //获取创建者信息
+        User user = this.userService.queryById(topic.getTopicCreater());
+
+        model.addAttribute("topic", topic);
+        model.addAttribute("creater",user);
         return "/front/topic-info";
     }
 
@@ -407,6 +421,7 @@ public class RouterController {
 
     /**
      * 获取热门收藏的课程
+     *
      * @param num 个数
      * @return 课程列表
      */
@@ -421,22 +436,24 @@ public class RouterController {
 
     /**
      * 获取课程的收藏数
+     *
      * @param course 课程
      * @return 收藏数量
      */
-    private Integer getCourseCollectionNum(Course course){
-        return this.courseCollectionService.queryByCourseCollection(new CourseCollection(null,course.getCourseId())).getNumberOfElements();
+    private Integer getCourseCollectionNum(Course course) {
+        return this.courseCollectionService.queryByCourseCollection(new CourseCollection(null, course.getCourseId())).getNumberOfElements();
     }
 
     /**
      * 获取课程列表的收藏数
+     *
      * @param courses 课程列表
-     * @return Map(courseId,num)
+     * @return Map(courseId, num)
      */
-    private Map<Integer,Integer> getCourseListCollectionNum(Collection<Course> courses){
-        Map<Integer, Integer> resMap=new HashMap<>();
-        for (Course c : courses){
-            resMap.put(c.getCourseId(),getCourseCollectionNum(c));
+    private Map<Integer, Integer> getCourseListCollectionNum(Collection<Course> courses) {
+        Map<Integer, Integer> resMap = new HashMap<>();
+        for (Course c : courses) {
+            resMap.put(c.getCourseId(), getCourseCollectionNum(c));
         }
         return resMap;
     }
