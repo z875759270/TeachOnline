@@ -94,7 +94,7 @@ $(function () {
             field: "courseImg",
             title: "封面",
             formatter: function (value) {
-                return "<img src='" + Const.oss + "course/img/" + value + "' class=\"product-img-2\">"
+                return "<img src='" + "/media/" + "course/img/" + value + "' class=\"product-img-2\">"
             }
         }, {
             field: "courseStatus",

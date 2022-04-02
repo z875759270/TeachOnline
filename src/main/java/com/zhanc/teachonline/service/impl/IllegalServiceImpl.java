@@ -3,12 +3,14 @@ package com.zhanc.teachonline.service.impl;
 import com.zhanc.teachonline.entity.Illegal;
 import com.zhanc.teachonline.dao.IllegalDao;
 import com.zhanc.teachonline.service.IllegalService;
+import com.zhanc.teachonline.utils.Const;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 /**
  * (Illegal)表服务实现类
@@ -66,6 +68,8 @@ public class IllegalServiceImpl implements IllegalService {
      */
     @Override
     public Illegal insert(Illegal illegal) {
+        illegal.setIllegalTime(new Date());
+        illegal.setIllegalStatus(Const.STATUS_CHECK);
         this.illegalDao.insert(illegal);
         return illegal;
     }

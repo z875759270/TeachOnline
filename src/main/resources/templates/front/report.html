@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/widgets.css">
     <link rel="stylesheet" href="/assets/css/responsive.css">
+    <link href="/plugins/bootstrap-fileinput/css/fileinput.min.css" media="all" rel="stylesheet">
+    <link href="/plugins/bootstrap-fileinput/themes/explorer-fas/theme.css" media="all" rel="stylesheet">
+    <link rel="stylesheet" href="/plugins/notifications/css/css.css">
+    <link rel="stylesheet" href="/plugins/notifications/css/lobibox.min.css">
+    <link href="/css/icons.css" rel="stylesheet">
 </head>
 
 <body>
@@ -26,25 +31,27 @@
             <div class="entry-wraper mt-50">
                 <h1 class="mt-30">举报</h1>
                 <hr class="wp-block-separator is-style-wide">
-                <form class="form-contact comment_form" action="page-contact.html#" method="post" enctype="multipart/form-data">
+                <form class="form-contact comment_form" id="reportForm" enctype="multipart/form-data">
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-6 mb-30">
                             <div class="form-group">
-                                <select class="form-control" style="width: 100%" name="reportType">
+                                <select class="form-control" style="width: 100%" name="illegalType">
                                     <option value="" disabled selected>请选择举报类型</option>
                                     <option value="user">账号</option>
-                                    <option value="topic">话题</option>
+                                    <option value="topic">讨论</option>
+                                    <option value="course">课程</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <input type="file" class="form-control" name="file">
-                            </div>
+                        <div class="col-md-12 mb-30">
+                            <label for="illegalImgUpload" class="form-label">举报截图</label>
+                            <input id="illegalImgUpload" name="multipartFiles" type="file" class="file"
+                                   accept=".png,.jpg,.jpeg" required>
+                            <input type="hidden" name="illegalImg" id="illegalImg">
                         </div>
                         <div class="col-12">
                             <div class="form-group">
-                                <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9" placeholder="请在此描述举报原因..."></textarea>
+                                <textarea class="form-control w-100" name="illegalDetail" id="illegalDetail" cols="30" rows="9" placeholder="请在此描述举报原因..."></textarea>
                             </div>
                         </div>
                     </div>
@@ -81,8 +88,20 @@
     <script src="/assets/js/vendor/perfect-scrollbar.js"></script>
     <script src="/assets/js/vendor/waypoints.min.js"></script>
     <script src="/assets/js/vendor/jquery.theia.sticky.js"></script>
+    <script src="/plugins/bootstrap-fileinput/js/plugins/piexif.js"></script>
+    <script src="/plugins/bootstrap-fileinput/js/fileinput.min.js"></script>
+    <script src="/plugins/bootstrap-fileinput/js/locales/zh.js"></script>
+    <script src="/plugins/bootstrap-fileinput/themes/fas/theme.js"></script>
+    <script src="/plugins/bootstrap-fileinput/themes/explorer-fas/theme.js"></script>
+    <!--notification js-->
+    <script src="/plugins/notifications/js/lobibox.min.js"></script>
+    <script src="/plugins/notifications/js/notifications.min.js"></script>
+    <script src="/plugins/notifications/js/notification-custom-script.js"></script>
     <!-- NewsBoard JS -->
     <script src="/assets/js/main.js"></script>
+    <script src="/js/config.js"></script>
+    <script src="/js/page/front/report.js"></script>
+
 </body>
 
 </html>

@@ -431,6 +431,33 @@ public class RouterController {
         return "/front/course-mine";
     }
 
+    @RequestMapping(value = {"/topic/mine"})
+    public String toMyTopic(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String userName = session.getAttribute("userName").toString();
+        //获取我发起的课程
+        Topic tmpTopic = new Topic();
+        tmpTopic.setTopicCreater(userName);
+        List<Topic> myCreateTopicList = this.topicService.queryByTopic(tmpTopic).getContent();
+
+        //获取我点赞、评论的课程
+        Set<Topic> myLikeAndCommentTopic=new HashSet<>();
+        //点赞
+        for(TopicLike topicLike:this.topicLikeService.queryByTopicLike(new TopicLike(null, userName)).getContent()){
+            myLikeAndCommentTopic.add(this.topicService.queryById(topicLike.getTopicId()));
+        }
+        //一级评论
+        for(TopicFirstComment topicFirstComment:this.topicFirstCommentService.queryByTopicFirstComment(new TopicFirstComment(null,userName,null,null,null))){
+            myLikeAndCommentTopic.add(this.topicService.queryById(topicFirstComment.getTopicId()));
+        }
+
+
+
+        model.addAttribute("myCreateTopic", myCreateTopicList);
+        model.addAttribute("myLikeAndCommentTopic", myLikeAndCommentTopic);
+        return "/front/topic-mine";
+    }
+
     @RequestMapping(value = {"/profile/{userName}"})
     public String toProfile(@PathVariable String userName, Model model) {
         User user = this.userService.queryById(userName);

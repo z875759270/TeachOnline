@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="d-flex post-card-content">
                                     <h5 class="post-title mb-20 font-weight-900">
-                                        <a class="text-white" th:href="@{/course/intro/}+${course.courseId}" th:text="${course.courseName}">课程名称</a>
+                                        <a th:href="@{/course/intro/}+${course.courseId}" th:text="${course.courseName}">课程名称</a>
                                     </h5>
                                     <div class="post-excerpt mb-25 font-small text-muted">
                                         <p>课程简介：[[${course.courseDetail}]]</p>
@@ -95,6 +95,7 @@
     <script src="/assets/js/vendor/jquery.theia.sticky.js"></script>
     <!-- NewsBoard JS -->
     <script src="/assets/js/main.js"></script>
+    <script src="/js/config.js"></script>
 </body>
 
 </html>
