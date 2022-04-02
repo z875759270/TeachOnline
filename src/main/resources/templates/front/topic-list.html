@@ -51,7 +51,7 @@
                                                 <h5 class="post-title font-weight-900 mb-20">
                                                     <a th:href="@{/topic/info/}+${topic.topicId}" th:text="${topic.topicTitle}">话题标题</a>
                                                 </h5>
-                                                <div class="post-excerpt mb-25 font-small text-muted">
+                                                <div class="post-excerpt mb-25 font-small text-muted text-limit-2-row">
                                                     <p>话题描述：[[${topic.topicDetail}]]</p>
                                                 </div>
                                                 <div class="entry-meta meta-1 float-left font-x-small text-uppercase">

@@ -55,6 +55,10 @@ public class RouterController {
     @Resource
     private CourseSecondCommentService courseSecondCommentService;
     @Resource
+    private  TopicFirstCommentService topicFirstCommentService;
+    @Resource
+    private TopicSecondCommentService topicSecondCommentService;
+    @Resource
     private CourseCollectionService courseCollectionService;
     @Resource
     private CourseUserService courseUserService;
@@ -278,7 +282,8 @@ public class RouterController {
         boolean isCollection = this.courseCollectionService.queryByCourseCollection(new CourseCollection(session.getAttribute("userName").toString(), courseId)).getNumberOfElements() != 0;
 
         //获取一级评论
-        Page<CourseFirstComment> courseFirstComments = this.courseFirstCommentService.queryByCourseFirstComment(new CourseFirstComment(null, null, course.getCourseId(), null, null));
+        Page<CourseFirstComment> courseFirstComments =
+                this.courseFirstCommentService.queryByCourseFirstComment(new CourseFirstComment(null, null, course.getCourseId(), null, null));
 
         //获取二级评论
         Map<Integer, Object> secondCommentList = new HashMap<>();
@@ -345,15 +350,42 @@ public class RouterController {
     }
 
     @RequestMapping(value = {"/topic/info/{topicId}"})
-    public String toTopicInfo(@PathVariable Integer topicId, Model model) {
+    public String toTopicInfo(@PathVariable Integer topicId, Model model,HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
         //获取课程
         Topic topic = this.topicService.queryById(topicId);
+
+        //浏览量+1
+        Cookie[] cookies = request.getCookies();
+        boolean isView = false;
+        for (Cookie cookie : cookies) {
+            if (("topic_" + topic.getTopicId()).equals(cookie.getName()))
+                isView = true;
+        }
+        if (!isView) {
+            Topic tmpTopic=new Topic();
+            tmpTopic.setTopicId(topic.getTopicId());
+            tmpTopic.setTopicViews(topic.getTopicViews() + 1);
+            this.topicService.update(tmpTopic);
+        }
+        CommonUtils.setCookie("topic_" + topic.getTopicId(), "true", 30 * 60, request, response);
 
         //获取创建者信息
         User user = this.userService.queryById(topic.getTopicCreater());
 
+        //获取一级评论
+        Page<TopicFirstComment> topicFirstComments = this.topicFirstCommentService.queryByTopicFirstComment(new TopicFirstComment(null, null, topic.getTopicId(), null, null));
+
+        //获取二级评论
+        Map<Integer, Object> secondCommentList = new HashMap<>();
+        for (TopicFirstComment firstComment : topicFirstComments.getContent()) {
+            secondCommentList.put(firstComment.getCommentId(), this.topicSecondCommentService.queryById(firstComment.getCommentId()));
+        }
+
         model.addAttribute("topic", topic);
         model.addAttribute("creater",user);
+        model.addAttribute("firstComments", topicFirstComments);
+        model.addAttribute("secondComments", secondCommentList);
         return "/front/topic-info";
     }
 

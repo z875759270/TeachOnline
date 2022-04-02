@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 /**
  * (TopicSecondComment)表服务实现类
@@ -66,6 +67,7 @@ public class TopicSecondCommentServiceImpl implements TopicSecondCommentService 
      */
     @Override
     public TopicSecondComment insert(TopicSecondComment topicSecondComment) {
+        topicSecondComment.setCommentTime(new Date());
         this.topicSecondCommentDao.insert(topicSecondComment);
         return topicSecondComment;
     }

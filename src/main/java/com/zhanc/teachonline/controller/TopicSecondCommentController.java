@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * (TopicSecondComment)表控制层
@@ -67,7 +69,9 @@ public class TopicSecondCommentController {
      * @return 新增结果
      */
     @PostMapping("add")
-    public ResponseEntity<TopicSecondComment> add(TopicSecondComment topicSecondComment) {
+    public ResponseEntity<TopicSecondComment> add(TopicSecondComment topicSecondComment, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        topicSecondComment.setUserName(session.getAttribute("userName").toString());
         return ResponseEntity.ok(this.topicSecondCommentService.insert(topicSecondComment));
     }
 

@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * (TopicFirstComment)表控制层
@@ -67,7 +69,9 @@ public class TopicFirstCommentController {
      * @return 新增结果
      */
     @PostMapping("add")
-    public ResponseEntity<TopicFirstComment> add(TopicFirstComment topicFirstComment) {
+    public ResponseEntity<TopicFirstComment> add(TopicFirstComment topicFirstComment, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        topicFirstComment.setUserName(session.getAttribute("userName").toString());
         return ResponseEntity.ok(this.topicFirstCommentService.insert(topicFirstComment));
     }
 

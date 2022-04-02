@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 /**
  * (TopicFirstComment)表服务实现类
@@ -66,6 +67,7 @@ public class TopicFirstCommentServiceImpl implements TopicFirstCommentService {
      */
     @Override
     public TopicFirstComment insert(TopicFirstComment topicFirstComment) {
+        topicFirstComment.setCommentTime(new Date());
         this.topicFirstCommentDao.insert(topicFirstComment);
         return topicFirstComment;
     }
