@@ -191,8 +191,15 @@ public class RouterController {
             model.addAttribute("resList", this.topicService.queryBySearch(searchStr, pageRequest));
         }
 
+        //获取热门课程（浏览量）
+        List<Course> hotCourseByViews = new ArrayList<>(this.courseService.getHotCourse(5));
+
+        //获取热门讨论
+        model.addAttribute("hotTopicList",this.topicService.getHotTopicByView(4));
+
         model.addAttribute("searchStr", searchStr);
         model.addAttribute("searchType", searchType);
+        model.addAttribute("hotCourseByViews", hotCourseByViews);
 
         return "/front/search";
     }
