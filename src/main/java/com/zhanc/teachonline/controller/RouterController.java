@@ -55,13 +55,15 @@ public class RouterController {
     @Resource
     private CourseSecondCommentService courseSecondCommentService;
     @Resource
-    private  TopicFirstCommentService topicFirstCommentService;
+    private TopicFirstCommentService topicFirstCommentService;
     @Resource
     private TopicSecondCommentService topicSecondCommentService;
     @Resource
     private CourseCollectionService courseCollectionService;
     @Resource
     private CourseUserService courseUserService;
+    @Resource
+    private TopicLikeService topicLikeService;
 
     //region 后台
 
@@ -162,7 +164,7 @@ public class RouterController {
         courseSet.addAll(newestCourseList);
 
         //获取热门讨论
-        model.addAttribute("hotTopicList",this.topicService.getHotTopicByView(4));
+        model.addAttribute("hotTopicList", this.topicService.getHotTopicByView(4));
         model.addAttribute("hotTags", hotTags);
         model.addAttribute("tagMap", getTagMap(courseSet));
         model.addAttribute("collectionNumMap", getCourseListCollectionNum(courseSet));
@@ -200,7 +202,7 @@ public class RouterController {
         List<Course> hotCourseByViews = new ArrayList<>(this.courseService.getHotCourse(5));
 
         //获取热门讨论
-        model.addAttribute("hotTopicList",this.topicService.getHotTopicByView(4));
+        model.addAttribute("hotTopicList", this.topicService.getHotTopicByView(4));
 
         model.addAttribute("searchStr", searchStr);
         model.addAttribute("searchType", searchType);
@@ -340,7 +342,7 @@ public class RouterController {
     @RequestMapping(value = {"/topic/list/all"})
     public String toTopicList(Model model) {
         model.addAttribute("topicPage", this.topicService.queryByTopic(new Topic()));
-        model.addAttribute("hotTopicList",this.topicService.getHotTopicByView(4));
+        model.addAttribute("hotTopicList", this.topicService.getHotTopicByView(4));
         return "/front/topic-list";
     }
 
@@ -350,7 +352,7 @@ public class RouterController {
     }
 
     @RequestMapping(value = {"/topic/info/{topicId}"})
-    public String toTopicInfo(@PathVariable Integer topicId, Model model,HttpServletRequest request, HttpServletResponse response) {
+    public String toTopicInfo(@PathVariable Integer topicId, Model model, HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         //获取课程
         Topic topic = this.topicService.queryById(topicId);
@@ -363,7 +365,7 @@ public class RouterController {
                 isView = true;
         }
         if (!isView) {
-            Topic tmpTopic=new Topic();
+            Topic tmpTopic = new Topic();
             tmpTopic.setTopicId(topic.getTopicId());
             tmpTopic.setTopicViews(topic.getTopicViews() + 1);
             this.topicService.update(tmpTopic);
@@ -372,6 +374,12 @@ public class RouterController {
 
         //获取创建者信息
         User user = this.userService.queryById(topic.getTopicCreater());
+
+        //获取是否点赞了
+        boolean isLike = this.topicLikeService.queryByTopicLike(new TopicLike(topic.getTopicId(), session.getAttribute("userName").toString())).getNumberOfElements() != 0;
+
+        //获取点赞数
+        int likeNum=this.topicLikeService.queryByTopicLike(new TopicLike(topic.getTopicId(),null)).getNumberOfElements();
 
         //获取一级评论
         Page<TopicFirstComment> topicFirstComments = this.topicFirstCommentService.queryByTopicFirstComment(new TopicFirstComment(null, null, topic.getTopicId(), null, null));
@@ -383,7 +391,9 @@ public class RouterController {
         }
 
         model.addAttribute("topic", topic);
-        model.addAttribute("creater",user);
+        model.addAttribute("creater", user);
+        model.addAttribute("isLike",isLike);
+        model.addAttribute("likeNum",likeNum);
         model.addAttribute("firstComments", topicFirstComments);
         model.addAttribute("secondComments", secondCommentList);
         return "/front/topic-info";

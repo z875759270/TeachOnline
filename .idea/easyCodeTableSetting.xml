@@ -606,6 +606,40 @@
             </TableInfoDTO>
           </value>
         </entry>
+        <entry key="topic_like">
+          <value>
+            <TableInfoDTO>
+              <option name="fullColumn">
+                <list>
+                  <ColumnInfoDTO>
+                    <option name="comment" value="话题ID" />
+                    <option name="custom" value="false" />
+                    <option name="ext">
+                      <map />
+                    </option>
+                    <option name="name" value="topicId" />
+                    <option name="type" value="java.lang.Integer" />
+                  </ColumnInfoDTO>
+                  <ColumnInfoDTO>
+                    <option name="comment" value="用户名" />
+                    <option name="custom" value="false" />
+                    <option name="ext">
+                      <map />
+                    </option>
+                    <option name="name" value="userName" />
+                    <option name="type" value="java.lang.String" />
+                  </ColumnInfoDTO>
+                </list>
+              </option>
+              <option name="name" value="TopicLike" />
+              <option name="preName" value="" />
+              <option name="saveModelName" value="TeachOnline" />
+              <option name="savePackageName" value="com.zhanc.teachonline" />
+              <option name="savePath" value="./src/main/java/com/zhanc/teachonline" />
+              <option name="templateGroupName" value="Zhanc-lombok-swagger2" />
+            </TableInfoDTO>
+          </value>
+        </entry>
         <entry key="user">
           <value>
             <TableInfoDTO>

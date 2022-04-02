@@ -10,6 +10,8 @@ import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,6 +29,7 @@ import java.util.Date;
 @Aspect
 @Component
 public class SysLogAspect {
+    static Logger logger= LoggerFactory.getLogger(SysLogAspect.class);
 
     @Autowired
     private SysLogService sysLogService;
@@ -40,7 +43,7 @@ public class SysLogAspect {
     //切面 配置通知
     @AfterReturning("logPointCut()")
     public void saveSysLog(JoinPoint joinPoint) {
-        System.out.println("操作已记录至数据库");
+        logger.info("操作已记录至数据库");
         //保存日志
         SysLog sysLog = new SysLog();
 
