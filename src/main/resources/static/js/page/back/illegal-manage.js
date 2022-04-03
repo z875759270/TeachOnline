@@ -14,22 +14,19 @@ function getIllegalList() {
     return illegalList;
 }
 
-function delIllegal() {
+function updateIllegal(status) {
     let id = $($("input[name='hidId']")[0]).val()
     $.ajax({
-        url: Const.domain + "illegal/delete/" + id,
-        type: "DELETE",
-        dataType: "json",
+        url: Const.domain + "illegal/edit",
+        type: "PUT",
+        data: {
+            illegalId: id,
+            illegalStatus: status
+        },
         success: function (res) {
-            if (res) {
-                success_noti("删除成功！");
-                $("#tb_mgr").bootstrapTable('removeByUniqueId', id);
-            } else {
-                error_noti("删除失败！请联系管理员！");
-            }
+            success_noti("操作成功！");
         }
     })
-
 
 }
 
@@ -127,21 +124,18 @@ $(function () {
 
 function AddFounction(value, row, index) {
     return [
-        '<button id="tblIllegalInfo" type="button" class="btn btn-success">查看详情</button>',
-        '<button id="tblIllegalEdit" type="button" style="margin-left: 10px" class="btn btn-primary">编辑</button>',
-        '<button id="tblIllegalDel" type="button" style="margin-left: 10px" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delModal">删除</button>'
+        '<button id="tblIllegalInfo" type="button" class="btn btn-success">已处理</button>',
+        '<button id="tblIllegalEdit" type="button" style="margin-left: 10px" class="btn btn-primary">未违规</button>'
     ].join("")
 }
 
 window.operateEvents = {
-    "click #tblIllegalInfo": function (e, value, row, index) {
-        location.href = Const.domain + "illegal/info/" + row["illegalId"];
-    },
     "click #tblIllegalEdit": function (e, value, row, index) {
-        location.href = Const.domain + "illegal/edit/" + row["illegalId"];
-    },
-    "click #tblIllegalDel": function (e, value, row, index) {
         $($("input[name='hidId']")[0]).val(row["illegalId"]);
-        $($(".modal-body")[0]).html("确认删除[" + row["illegalId"] + "]吗？");
+        updateIllegal(1)
+    },
+    "click #tblIllegalInfo": function (e, value, row, index) {
+        $($("input[name='hidId']")[0]).val(row["illegalId"]);
+        updateIllegal(0);
     }
 }
