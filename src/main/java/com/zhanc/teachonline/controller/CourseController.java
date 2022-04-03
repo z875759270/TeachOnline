@@ -142,6 +142,11 @@ public class CourseController {
      * @return 编辑结果
      */
     @PutMapping("edit")
+    public ResponseEntity<Course> edit(MultipartFile[] multipartFiles, Course course) {
+        return ResponseEntity.ok(this.courseService.update(course));
+    }
+
+    @PostMapping("edit")
     public ResponseEntity<Course> edit(Course course) {
         return ResponseEntity.ok(this.courseService.update(course));
     }

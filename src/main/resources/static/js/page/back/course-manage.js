@@ -14,6 +14,28 @@ function getCourseList() {
     return courseList;
 }
 
+function getCourseCategoryList() {
+    var categoryList = [];
+    $.ajax({
+        url: Const.domain + "courseCategory/list",
+        type: "GET",
+        dataType: "json",
+        async: false,
+        success: function (res) {
+            if (!res.empty) {
+                let content = res.content;
+                console.log(content);
+                for (let i = 0; i < content.length; i++) {
+                    categoryList.push(
+                        {value: content[i].categoryId, text: content[i].categoryName}
+                    )
+                }
+            }
+        }
+    });
+    return categoryList;
+}
+
 function delCourse() {
     let id = $($("input[name='hidId']")[0]).val()
     $.ajax({
@@ -35,6 +57,8 @@ function delCourse() {
 
 $(function () {
     var aList = getCourseList();
+    var bList = getCourseCategoryList();
+    console.log(bList)
     $("#tb_mgr").bootstrapTable({
         toolbar: "#toolbar",
         idField: "courseId",
@@ -46,6 +70,20 @@ $(function () {
         pageList: "[5,10,15,All]",
         url: "",
         data: aList,
+        onEditableSave: function (field, row, oldValue, $el) {
+            $.ajax({
+                url: Const.domain + "course/edit",
+                type: "POST",
+                data: {
+                    courseId: row['courseId'],
+                    courseCategoryId: row['courseCategoryId'],
+                    courseStatus: row['courseStatus']
+                },
+                success: function (res) {
+                    success_noti("操作成功！");
+                }
+            })
+        },
         columns: [{
             field: "courseId",
             title: "课程号",
@@ -53,38 +91,37 @@ $(function () {
         }, {
             field: "courseName",
             title: "课程名称",
-            sortable: true
+            sortable: true,
+            formatter: function (value,row,index,field) {
+                return '<a href="/course/info/' + row["courseId"] + '" target="_blank">' + value + '</a>'
+            }
         }, {
             field: "courseCreater",
             title: "创建者",
             sortable: true,
             formatter: function (value) {
-                return "<a href='/profile/" + value + "' target='_blank'>"+value+"</a>"
+                return "<a href='/profile/" + value + "' target='_blank'>" + value + "</a>"
             }
         }, {
             field: "courseCategoryId",
             title: "分类",
             sortable: true,
-            formatter: function (value) {
-                let res = "";
-                $.ajax({
-                    url: "/courseCategory/find/" + value,
-                    type: "GET",
-                    async:false,
-                    success: function (data) {
-                        res = data.categoryName;
-                    }
-                })
-                return res;
+            editable: {
+                type: "select",
+                title: "分类",
+                source: bList
             }
         }, {
-            field: "courseCreateTime",
-            title: "创建时间",
+            field: "courseStatus",
+            title: "状态",
             sortable: true,
-            formatter:function (value) {
-                let time = value.split('.')[0]
-                let ab = time.split('T');
-                return ab[0]+' '+ab[1];
+            editable: {
+                type: "select",
+                title: "课程状态",
+                source: [
+                    {value: 2, text: "待审核"},
+                    {value: 1, text: "上架"},
+                    {value: 0, text: "下架"}]
             }
         }, {
             field: "courseViews",
@@ -94,47 +131,24 @@ $(function () {
             field: "courseImg",
             title: "封面",
             formatter: function (value) {
-                return "<img src='" + "/media/" + "course/img/" + value + "' class=\"product-img-2\">"
+                return "<img src='" + "/media/" + "course/img/" + value + "' class=\"product-img-2\" " +
+                    "data-bs-toggle=\"popover\" data-bs-container=\"body\" data-bs-placement=\"top\" " +
+                    "data-bs-content=\"<img src='/media/course/img/" + value + "' class='img-fluid'>\">"
             }
         }, {
-            field: "courseStatus",
-            title: "状态",
+            field: "courseCreateTime",
+            title: "创建时间",
             sortable: true,
             formatter: function (value) {
-                if (value === 2) {
-                    return "<div class=\"badge rounded-pill text-warning bg-light-warning p-2 px-3\"><i class=\"bx bxs-circle me-1\"></i>待审核</div>";
-                } else if (value === 1) {
-                    return "<div class=\"badge rounded-pill text-success bg-light-success p-2 px-3\"><i class=\"bx bxs-circle me-1\"></i>正常</div>"
-                } else if (value === 0) {
-                    return "<div class=\"badge rounded-pill text-danger bg-light-danger p-2 px-3\"><i class=\"bx bxs-circle me-1\"></i>下架</div>"
-                }
+                let time = value.split('.')[0]
+                let ab = time.split('T');
+                return ab[0] + ' ' + ab[1];
             }
-        }, {
-            field: "action",
-            title: "操作",
-            events: operateEvents,
-            formatter: AddFounction
         }],
     })
+    $('[data-bs-toggle="popover"]').popover({
+        trigger: 'hover',
+        html: true
+    });
 })
 
-function AddFounction(value, row, index) {
-    return [
-        '<button id="tblCourseInfo" type="button" class="btn btn-success">查看详情</button>',
-        '<button id="tblCourseEdit" type="button" style="margin-left: 10px" class="btn btn-primary">编辑</button>',
-        '<button id="tblCourseDel" type="button" style="margin-left: 10px" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delModal">删除</button>'
-    ].join("")
-}
-
-window.operateEvents = {
-    "click #tblCourseInfo": function (e, value, row, index) {
-        location.href = Const.domain + "course/info/" + row["courseId"];
-    },
-    "click #tblCourseEdit": function (e, value, row, index) {
-        location.href = Const.domain + "course/edit/" + row["courseId"];
-    },
-    "click #tblCourseDel": function (e, value, row, index) {
-        $($("input[name='hidId']")[0]).val(row["courseId"]);
-        $($(".modal-body")[0]).html("确认删除[" + row["courseId"] + "]吗？");
-    }
-}
