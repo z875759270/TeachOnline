@@ -46,7 +46,9 @@ $(function () {
             field: "userName",
             title: "用户名",
             sortable: true,
-
+            formatter:function (value) {
+                return '<a href="/profile/'+value+'" target="_blank">'+value+'</a>'
+            }
         }, {
             field: "userRole",
             title: "角色",
