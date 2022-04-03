@@ -28,11 +28,20 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2) throws Exception {
         //重定向
-        Object object = arg0.getSession().getAttribute("userName");
-        if (null == object) {
+        Object userName = arg0.getSession().getAttribute("userName");
+        Object userStatus = arg0.getSession().getAttribute("userStatus");
+
+        if (null == userName) {
             arg1.sendRedirect("/login");
             return false;
         }
+        System.out.println("============="+userStatus);
+        if(!"1".equals(userStatus.toString())){
+            arg0.getSession().invalidate();
+            arg1.sendRedirect("/login");
+            return false;
+        }
+
         return true;
     }
 }

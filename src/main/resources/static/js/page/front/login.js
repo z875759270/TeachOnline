@@ -7,11 +7,11 @@ $("#loginForm").submit(function () {
         processData: false,
         data: new FormData($("#loginForm")[0]),
         success: function (res) {
-            if(res) {
+            if(res.isLoginSuccess) {
                 location.href = Const.domain + "index";
             }
             else{
-                error_noti("账号或密码错误，请重试！");
+                error_noti(res.msg);
             }
 
         },

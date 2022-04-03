@@ -22,6 +22,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * (User)表控制层
@@ -135,6 +137,12 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
+
+    @PostMapping("edit")
+    public ResponseEntity<User> edit(User user) {
+            return ResponseEntity.ok(this.userService.update(user));
+    }
+
     /**
      * 删除数据
      *
@@ -154,15 +162,29 @@ public class UserController {
      * @return 是否成功
      */
     @PostMapping("loginCheck")
-    public ResponseEntity<Boolean> loginCheck(@ApiParam("用户名") String userName, @ApiParam("密码") String userPwd, HttpServletRequest request){
+    public ResponseEntity<Map<String,Object>> loginCheck(@ApiParam("用户名") String userName, @ApiParam("密码") String userPwd, HttpServletRequest request){
         User user=this.userService.loginCheck(userName, userPwd);
         boolean isLogin = (user != null);
+        Map<String,Object> res=new HashMap<>();
         if(isLogin){
+            if(user.getUserStatus()!=1){
+                res.put("isLoginSuccess",false);
+                res.put("msg","该账户已被冻结！");
+                return ResponseEntity.ok(res);
+            }
             HttpSession session=request.getSession();
             session.setAttribute("userName",user.getUserName());
             session.setAttribute("userRole",user.getUserRole());
+            session.setAttribute("userStatus",user.getUserStatus());
+            res.put("isLoginSuccess",true);
+            res.put("msg","登录成功！");
+            return ResponseEntity.ok(res);
+        }else{
+            res.put("isLoginSuccess",false);
+            res.put("msg","账号或密码错误，请重试！");
+            return ResponseEntity.ok(res);
         }
-        return ResponseEntity.ok(isLogin);
+
     }
 
     /**
