@@ -8,8 +8,11 @@
     <link href="/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
     <link href="/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet">
 
+    <link href="/plugins/input-tags/css/tagsinput.css" rel="stylesheet">
     <link href="/plugins/bootstrap-fileinput/css/fileinput.min.css" media="all" rel="stylesheet">
     <link href="/plugins/bootstrap-fileinput/themes/explorer-fas/theme.css" media="all" rel="stylesheet">
+    <link rel="stylesheet" href="/plugins/notifications/css/css.css">
+    <link rel="stylesheet" href="/plugins/notifications/css/lobibox.min.css">
     <!-- loader-->
     <link href="/css/pace.min.css" rel="stylesheet">
     <script src="/js/pace.min.js"></script>
@@ -49,29 +52,46 @@
             <!--Content-->
             <div class=" card border-top border-0 border-4 border-primary">
                 <div class="card-body p-5">
-                    <form class="row g-3 me-5 ms-5">
-                        <div class="col-md-12">
-                            <label for="courseImg" class="form-label">课程封面</label>
-                            <input id="courseImg" name="courseImg" type="file" class="file" accept=".png,.jpg,.gif" required>
+                    <form class="row g-3 me-5 ms-5" enctype="multipart/form-data" id="editForm">
+                        <div class="col-md-6">
+                            <input type="hidden" id="courseId" name="courseId" th:value="${course.courseId}">
+                            <label for="courseImgUpload" class="form-label">课程封面</label>
+                            <img th:src="'/media/course/img/'+${course.courseImg}" class="card-img-top mb-3">
+                            <input id="courseImgUpload" name="multipartFiles" type="file" class="file"
+                                   accept=".png,.jpg,.gif" >
+                            <input type="hidden" name="courseImg" id="courseImg">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="courseVideoUpload" class="form-label">课程视频</label>
+                            <video th:src="'/media/course/video/'+${course.courseVideo}" class="card-img-top mb-3" controls></video>
+                            <input id="courseVideoUpload" name="multipartFiles" type="file" class="file" accept=".mp4">
+                            <input type="hidden" name="courseVideo" id="courseVideo">
                         </div>
                         <div class="col-md-6">
                             <label for="courseName" class="form-label">课程名</label>
-                            <input type="password" class="form-control" id="courseName" name="courseName" required>
+                            <input type="text" class="form-control" id="courseName" name="courseName" minlength="4"
+                                   maxlength="30" th:value="${course.courseName}" required>
                         </div>
                         <div class="col-md-6">
                             <label for="courseCategoryId" class="form-label">分类</label>
-                            <select id="courseCategoryId" class="form-select" required>
-                                <option selected="">Choose...</option>
-                                <option>...</option>
+                            <select id="courseCategoryId" name="courseCategoryId" class="form-select" required>
+                                <option th:each="opt : ${categories}" th:text="${opt.categoryName}"
+                                        th:value="${opt.categoryId}" th:selected="${course.courseCategoryId == opt.categoryId}"></option>
                             </select>
                         </div>
                         <div class="col-md-12">
-                            <label for="inputPassword" class="form-label">简介</label>
-                            <textarea type="text" class="form-control" id="inputPassword" rows="5" required></textarea>
+                            <div class="mb-3 text-capitalize">
+                                <label class="form-label">标签(最多三个，每个10字符)</label>
+                                <!--$("#tagsInput").tagsinput('items')-->
+                                <select multiple="" data-role="tagsinput" id="tagsInput" >
+                                    <option th:each="tag : ${tagList}" th:value="${tag.tagName}" th:text="${tag.tagName}"></option>
+                                </select>
+                            </div>
                         </div>
                         <div class="col-md-12">
-                            <label for="courseFile" class="form-label">课件（可选）</label>
-                            <input id="courseFile" name="courseFile" type="file" class="file" accept=".png,.jpg,.gif" multiple>
+                            <label for="courseDetail" class="form-label">简介</label>
+                            <textarea type="text" class="form-control" id="courseDetail" name="courseDetail" rows="5"
+                                      minlength="10" required th:text="${course.courseDetail}"></textarea>
                         </div>
                         <div class="col-12">
                             <button type="submit" class="btn btn-primary px-5">提交修改</button>
@@ -103,7 +123,13 @@
 <script src="/plugins/bootstrap-fileinput/js/plugins/piexif.js"></script>
 <script src="/plugins/bootstrap-fileinput/js/fileinput.min.js"></script>
 <script src="/plugins/bootstrap-fileinput/js/locales/zh.js"></script>
+<script src="/plugins/bootstrap-fileinput/themes/fas/theme.js"></script>
 <script src="/plugins/bootstrap-fileinput/themes/explorer-fas/theme.js"></script>
+<script src="/plugins/input-tags/js/tagsinput.js"></script>
+<!--notification js-->
+<script src="/plugins/notifications/js/lobibox.min.js"></script>
+<script src="/plugins/notifications/js/notifications.min.js"></script>
+<script src="/plugins/notifications/js/notification-custom-script.js"></script>
 <!--app JS-->
 <script src="/js/app.js"></script>
 <script src="/js/config.js"></script>

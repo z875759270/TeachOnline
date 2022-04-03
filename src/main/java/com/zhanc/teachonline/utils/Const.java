@@ -33,4 +33,6 @@ public class Const {
 
     public static final String PROJECT_IMG_LOCAL_PATH="D:/Pictures/TeachOnline/media/";
 
+    public static final String PROJECT_IMG_OSS_PATH="https://zhanc-teach-online.oss-cn-shenzhen.aliyuncs.com/media/";
+
 }

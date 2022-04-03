@@ -79,7 +79,13 @@ public class CourseTagController {
      */
     @PostMapping("add")
     public ResponseEntity<CourseTag> add(CourseTag courseTag) {
-        return ResponseEntity.ok(this.courseTagService.insert(courseTag));
+        boolean b = this.courseTagService.queryByCourseTag(courseTag).getNumberOfElements()!=0;
+        if(!b){
+            return ResponseEntity.ok(this.courseTagService.insert(courseTag));
+        }else{
+            return ResponseEntity.ok(courseTag);
+        }
+
     }
 
     /**
@@ -90,18 +96,19 @@ public class CourseTagController {
      */
     @PutMapping("edit")
     public ResponseEntity<CourseTag> edit(CourseTag courseTag) {
+
         return ResponseEntity.ok(this.courseTagService.update(courseTag));
     }
 
     /**
      * 删除数据
      *
-     * @param id 主键
+     * @param courseTag 主键
      * @return 删除是否成功
      */
-    @DeleteMapping("delete/{id}")
-    public ResponseEntity<Boolean> deleteById(@PathVariable("id") Integer id) {
-        return ResponseEntity.ok(this.courseTagService.deleteById(id));
+    @DeleteMapping("delete")
+    public ResponseEntity<Boolean> deleteById(CourseTag courseTag) {
+        return ResponseEntity.ok(this.courseTagService.deleteById(courseTag.getTagId(),courseTag.getCourseId()));
     }
 
 }

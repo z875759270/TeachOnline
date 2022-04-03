@@ -91,9 +91,10 @@ public interface CourseTagDao {
      * 通过主键删除数据
      *
      * @param tagId 主键
+     * @param courseId 主键
      * @return 影响行数
      */
-    int deleteById(Integer tagId);
+    int deleteById(Integer tagId,Integer courseId);
 
 }
 

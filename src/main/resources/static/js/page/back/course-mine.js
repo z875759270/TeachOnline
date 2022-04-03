@@ -17,27 +17,95 @@ function getCourseList() {
     return courseList;
 }
 
+function getCourseCategoryList() {
+    var categoryList = [];
+    $.ajax({
+        url: Const.domain + "courseCategory/list",
+        type: "GET",
+        dataType: "json",
+        async: false,
+        success: function (res) {
+            if (!res.empty) {
+                let content = res.content;
+                console.log(content);
+                for (let i = 0; i < content.length; i++) {
+                    categoryList.push(
+                        {value: content[i].categoryId, text: content[i].categoryName}
+                    )
+                }
+            }
+        }
+    });
+    return categoryList;
+}
+
+function getTagList() {
+    var tagList = null;
+    $.ajax({
+        url: Const.domain + "tag/list",
+        type: "GET",
+        dataType: "json",
+        async: false,
+        data:{
+            courseCreater: document.getElementById('courseMineScript').getAttribute('data')
+        },
+        success: function (res) {
+            if (!res.empty) {
+                tagList = res.content;
+            }
+        }
+    });
+    return tagList;
+}
+
 function delCourse() {
     let id = $($("input[name='hidId']")[0]).val()
     $.ajax({
-        url: Const.domain + "course/delete/" + id,
-        type: "DELETE",
+        url: Const.domain + "course/edit",
+        type: "PUT",
         dataType: "json",
+        data:{
+            courseId:id,
+            courseStatus: 0
+        },
         success: function (res) {
             if (res) {
-                success_noti("删除成功！");
-                $("#tb_mgr").bootstrapTable('removeByUniqueId', id);
+                success_noti("下架成功！");
+                setTimeout(function () {
+                    location.reload();
+                },5*1000)
             } else {
-                error_noti("删除失败！请联系管理员！");
+                error_noti("下架失败！请联系管理员！");
             }
         }
     })
+}
 
 
+
+function setNotice() {
+    let id = $($("input[name='hidId']")[0]).val()
+    $.ajax({
+        url: Const.domain + "course/edit",
+        type: "POST",
+        dataType: "json",
+        data:{
+            courseId:id,
+            courseNotice: $("#courseNotice").val()
+        },
+        success: function (res) {
+            if (res) {
+                success_noti("发布成功！");
+            } else {
+                error_noti("发布失败！请联系管理员！");
+            }
+        }
+    })
 }
 
 $(function () {
     var aList = getCourseList();
+    var bList = getCourseCategoryList();
     $("#tb_mgr").bootstrapTable({
         toolbar: "#toolbar",
         idField: "courseId",
@@ -49,6 +117,20 @@ $(function () {
         pageList: "[5,10,15,All]",
         url: "",
         data: aList,
+        onEditableSave: function (field, row, oldValue, $el) {
+            $.ajax({
+                url: Const.domain + "course/edit",
+                type: "PUT",
+                data: {
+                    courseId: row['courseId'],
+                    courseCategoryId: row['courseCategoryId'],
+                    courseStatus: row['courseStatus']
+                },
+                success: function (res) {
+                    success_noti("操作成功！");
+                }
+            })
+        },
         columns: [{
             field: "courseId",
             title: "课程号",
@@ -56,41 +138,18 @@ $(function () {
         }, {
             field: "courseName",
             title: "课程名称",
-            sortable: true
+            sortable: true,
+            formatter: function (value,row,index,field) {
+                return '<a href="/course/info/' + row["courseId"] + '" target="_blank">' + value + '</a>'
+            }
         }, {
             field: "courseCategoryId",
             title: "分类",
             sortable: true,
-            formatter: function (value) {
-                let res = "";
-                $.ajax({
-                    url: "/courseCategory/find/" + value,
-                    type: "GET",
-                    async:false,
-                    success: function (data) {
-                        res = data.categoryName;
-                    }
-                })
-                return res;
-            }
-        }, {
-            field: "courseCreateTime",
-            title: "创建时间",
-            sortable: true,
-            formatter:function (value) {
-                let time = value.split('.')[0]
-                let ab = time.split('T');
-                return ab[0]+' '+ab[1];
-            }
-        }, {
-            field: "courseViews",
-            title: "浏览量",
-            sortable: true,
-        }, {
-            field: "courseImg",
-            title: "封面",
-            formatter: function (value) {
-                return "<img src='" + Const.oss + "course/img/" + value + "' class=\"product-img-2\">"
+            editable: {
+                type: "select",
+                title: "分类",
+                source: bList
             }
         }, {
             field: "courseStatus",
@@ -106,31 +165,58 @@ $(function () {
                 }
             }
         }, {
+            field: "courseViews",
+            title: "浏览量",
+            sortable: true,
+        }, {
+            field: "courseImg",
+            title: "封面",
+            formatter: function (value) {
+                return "<img src='" + "/media/" + "course/img/" + value + "' class=\"product-img-2\" " +
+                    "data-bs-toggle=\"popover\" data-bs-container=\"body\" data-bs-placement=\"top\" " +
+                    "data-bs-content=\"<img src='/media/course/img/" + value + "' class='img-fluid'>\">"
+            }
+        }, {
+            field: "courseCreateTime",
+            title: "创建时间",
+            sortable: true,
+            formatter: function (value) {
+                let time = value.split('.')[0]
+                let ab = time.split('T');
+                return ab[0] + ' ' + ab[1];
+            }
+        }, {
             field: "action",
             title: "操作",
             events: operateEvents,
             formatter: AddFounction
         }],
     })
+
+    $('[data-bs-toggle="popover"]').popover({
+        trigger: 'hover',
+        html: true
+    });
 })
 
 function AddFounction(value, row, index) {
     return [
-        '<button id="tblCourseInfo" type="button" class="btn btn-success">查看详情</button>',
-        '<button id="tblCourseEdit" type="button" style="margin-left: 10px" class="btn btn-primary">编辑</button>',
-        '<button id="tblCourseDel" type="button" style="margin-left: 10px" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delModal">删除</button>'
+        '<button id="tblCourseNotice" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#noticeModal">发布公告</button>',
+        '<button id="tblCourseEdit" type="button" style="margin-left: 10px" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">编辑</button>',
+        '<button id="tblCourseDel" type="button" style="margin-left: 10px" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delModal">下架</button>'
     ].join("")
 }
 
 window.operateEvents = {
-    "click #tblCourseInfo": function (e, value, row, index) {
-        location.href = Const.domain + "course/info/" + row["courseId"];
+    "click #tblCourseNotice": function (e, value, row, index) {
+        $($("input[name='hidId']")[0]).val(row["courseId"]);
+        $("#courseNotice").val(row["courseNotice"]);
     },
     "click #tblCourseEdit": function (e, value, row, index) {
-        location.href = Const.domain + "course/edit/" + row["courseId"];
+        location.href="/back/course/edit/"+row["courseId"]
     },
     "click #tblCourseDel": function (e, value, row, index) {
         $($("input[name='hidId']")[0]).val(row["courseId"]);
-        $($(".modal-body")[0]).html("确认删除[" + row["courseId"] + "]吗？");
+        $($(".modal-body")[0]).html("确认删除[" + row["courseName"] + "]吗？该操作不可撤销！");
     }
 }

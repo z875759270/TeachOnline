@@ -114,10 +114,11 @@ public class CourseTagServiceImpl implements CourseTagService {
      * 通过主键删除数据
      *
      * @param tagId 主键
+     * @param courseId 主键
      * @return 是否成功
      */
     @Override
-    public boolean deleteById(Integer tagId) {
-        return this.courseTagDao.deleteById(tagId) > 0;
+    public boolean deleteById(Integer tagId,Integer courseId) {
+        return this.courseTagDao.deleteById(tagId,courseId) > 0;
     }
 }

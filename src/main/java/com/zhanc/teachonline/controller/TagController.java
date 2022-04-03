@@ -85,11 +85,10 @@ public class TagController {
     @PostMapping("add")
     public ResponseEntity<Tag> add(Tag tag) {
         tag.setTagName(tag.getTagName().toLowerCase());
-        Page<Tag> tags = this.tagService.queryByTag(tag);
-        if(tags.getContent().size()==0){
+        if(this.tagService.queryByTag(tag).getNumberOfElements()==0){
             return ResponseEntity.ok(this.tagService.insert(tag));
         }else{
-            return ResponseEntity.ok(tags.getContent().get(0));
+            return ResponseEntity.ok(tag);
         }
     }
 

@@ -118,7 +118,9 @@ public class RouterController {
 
     //region 老师操作
     @RequestMapping(value = {"/back/course/manage/teacher"})
-    public String toCourseMine() {
+    public String toCourseMine(Model model) {
+        PageRequest pageRequest = PageRequest.of(0, 1000);
+        model.addAttribute("categories", courseCategoryService.queryByPage(new CourseCategory(), pageRequest));
         return "/back/course-mine";
     }
 
@@ -129,8 +131,15 @@ public class RouterController {
         return "/back/course-upload";
     }
 
-    @RequestMapping(value = {"/back/course/edit"})
-    public String toCourseEdit() {
+    @RequestMapping(value = {"/back/course/edit/{courseId}"})
+    public String toCourseEdit(@PathVariable Integer courseId,Model model) {
+        Course course=this.courseService.queryById(courseId);
+
+
+        PageRequest pageRequest = PageRequest.of(0, 1000);
+        model.addAttribute("categories", courseCategoryService.queryByPage(new CourseCategory(), pageRequest));
+        model.addAttribute("course",course);
+        model.addAttribute("tagList",getTag(course));
         return "/back/course-edit";
     }
     //endregion

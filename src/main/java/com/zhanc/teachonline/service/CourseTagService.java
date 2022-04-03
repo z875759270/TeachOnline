@@ -73,8 +73,9 @@ public interface CourseTagService {
      * 通过主键删除数据
      *
      * @param tagId 主键
+     * @param courseId 主键
      * @return 是否成功
      */
-    boolean deleteById(Integer tagId);
+    boolean deleteById(Integer tagId,Integer courseId);
 
 }

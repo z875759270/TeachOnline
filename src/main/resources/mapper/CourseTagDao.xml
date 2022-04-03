@@ -78,6 +78,7 @@
         delete
         from course_tag
         where tag_id = #{tagId}
+        and course_id = #{courseId}
     </delete>
 
 
