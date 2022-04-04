@@ -35,18 +35,18 @@
     <!--start page wrapper -->
     <div class="page-wrapper">
         <div class="page-content">
-            <div class="row row-cols-1 row-cols-md-1 row-cols-xl-3">
+            <div class="row row-cols-1 row-cols-md-1 row-cols-xl-4">
                 <div class="col">
                     <div class="card radius-10 border-start border-0 border-3 border-info">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div>
-                                    <p class="mb-0 text-secondary">已发布的文章数</p>
-                                    <h4 class="my-1 text-info">4805</h4>
+                                    <p class="mb-0 text-secondary">已发布的课程数</p>
+                                    <h4 class="my-1 text-info">[[${courseNum}]]</h4>
                                     <!--                                <p class="mb-0 font-13">+2.5% from last week</p>-->
                                 </div>
                                 <div class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto"><i
-                                        class='bx bxs-cart'></i>
+                                        class='bx bxs-cabinet'></i>
                                 </div>
                             </div>
                         </div>
@@ -57,8 +57,8 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div>
-                                    <p class="mb-0 text-secondary">网站浏览量</p>
-                                    <h4 class="my-1 text-danger">777</h4>
+                                    <p class="mb-0 text-secondary">已发布的话题数</p>
+                                    <h4 class="my-1 text-danger">[[${topicNum}]]</h4>
                                 </div>
                                 <div class="widgets-icons-2 rounded-circle bg-gradient-bloody text-white ms-auto"><i
                                         class='bx bxs-wallet'></i>
@@ -72,11 +72,26 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div>
-                                    <p class="mb-0 text-secondary">文章总浏览量</p>
-                                    <h4 class="my-1 text-success">777</h4>
+                                    <p class="mb-0 text-secondary">用户数量</p>
+                                    <h4 class="my-1 text-success">[[${userNum}]]</h4>
                                 </div>
                                 <div class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto">
-                                    <i class='bx bxs-bar-chart-alt-2'></i>
+                                    <i class='bx bxs-user'></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card radius-10 border-start border-0 border-3 border-warning">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div>
+                                    <p class="mb-0 text-secondary">总评论数</p>
+                                    <h4 class="my-1 text-warning">[[${commentNum}]]</h4>
+                                </div>
+                                <div class="widgets-icons-2 rounded-circle bg-gradient-blooker text-white ms-auto">
+                                    <i class="bx bxs-comment-detail"></i>
                                 </div>
                             </div>
                         </div>
@@ -150,43 +165,16 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div>
-                                    <h6 class="mb-0">Trending Products</h6>
+                                    <h6 class="mb-0">热门分类</h6>
                                 </div>
-                                <div class="dropdown ms-auto">
-                                    <a class="dropdown-toggle dropdown-toggle-nocaret" href="#"
-                                       data-bs-toggle="dropdown"><i
-                                            class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="javascript:;">Action</a>
-                                        </li>
-                                        <li><a class="dropdown-item" href="javascript:;">Another action</a>
-                                        </li>
-                                        <li>
-                                            <hr class="dropdown-divider">
-                                        </li>
-                                        <li><a class="dropdown-item" href="javascript:;">Something else here</a>
-                                        </li>
-                                    </ul>
-                                </div>
+
                             </div>
                             <div class="chart-container-2 mt-4">
                                 <canvas id="chart2"></canvas>
                             </div>
                         </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
-                                Jeans <span class="badge bg-success rounded-pill">25</span>
-                            </li>
-                            <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
-                                T-Shirts <span class="badge bg-danger rounded-pill">10</span>
-                            </li>
-                            <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
-                                Shoes <span class="badge bg-primary rounded-pill">65</span>
-                            </li>
-                            <li class="list-group-item d-flex bg-transparent justify-content-between align-items-center">
-                                Lingerie <span class="badge bg-warning text-dark rounded-pill">14</span>
-                            </li>
+                        <ul class="list-group list-group-flush" id="hotTagsUl">
+
                         </ul>
                     </div>
                 </div>
@@ -611,6 +599,7 @@
 <script src="/plugins/vectormap/jquery-jvectormap-world-mill-en.js"></script>
 <script src="/plugins/chartjs/js/Chart.min.js"></script>
 <script src="/plugins/chartjs/js/Chart.extension.js"></script>
+<script src="/js/config.js"></script>
 <script src="/js/index.js"></script>
 <!--app JS-->
 <script src="/js/app.js"></script>

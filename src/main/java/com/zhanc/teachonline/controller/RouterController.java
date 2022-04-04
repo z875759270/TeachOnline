@@ -68,7 +68,18 @@ public class RouterController {
     //region 后台
 
     @RequestMapping(value = {"/back", "/back/", "/back/index"})
-    public String toBackIndex() {
+    public String toBackIndex(Model model) {
+        int courseNum = this.courseService.queryByCourse(new Course()).getNumberOfElements();
+        int topicNum = this.topicService.queryByTopic(new Topic()).getNumberOfElements();
+        int userNum = this.userService.queryByUser(new User()).getNumberOfElements();
+        int commentNum = this.courseFirstCommentService.queryByCourseFirstComment(new CourseFirstComment()).getNumberOfElements()
+                +this.courseSecondCommentService.queryByCourseSecondComment(new CourseSecondComment()).getNumberOfElements();
+
+
+        model.addAttribute("courseNum",courseNum);
+        model.addAttribute("topicNum",topicNum);
+        model.addAttribute("userNum",userNum);
+        model.addAttribute("commentNum",commentNum);
         return "/back/index";
     }
 
