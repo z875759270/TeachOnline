@@ -1,5 +1,6 @@
 package com.zhanc.teachonline.controller;
 
+import com.zhanc.teachonline.annotation.MyLog;
 import com.zhanc.teachonline.entity.CourseTag;
 import com.zhanc.teachonline.service.CourseTagService;
 import org.springframework.data.domain.Page;
@@ -77,6 +78,7 @@ public class CourseTagController {
      * @param courseTag 实体
      * @return 新增结果
      */
+    @MyLog("链接课程标签")
     @PostMapping("add")
     public ResponseEntity<CourseTag> add(CourseTag courseTag) {
         boolean b = this.courseTagService.queryByCourseTag(courseTag).getNumberOfElements()!=0;
@@ -94,6 +96,7 @@ public class CourseTagController {
      * @param courseTag 实体
      * @return 编辑结果
      */
+    @MyLog("修改课程标签链接")
     @PutMapping("edit")
     public ResponseEntity<CourseTag> edit(CourseTag courseTag) {
 
@@ -106,6 +109,7 @@ public class CourseTagController {
      * @param courseTag 主键
      * @return 删除是否成功
      */
+    @MyLog("删除课程标签链接")
     @DeleteMapping("delete")
     public ResponseEntity<Boolean> deleteById(CourseTag courseTag) {
         return ResponseEntity.ok(this.courseTagService.deleteById(courseTag.getTagId(),courseTag.getCourseId()));

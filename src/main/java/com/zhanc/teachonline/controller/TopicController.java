@@ -1,5 +1,6 @@
 package com.zhanc.teachonline.controller;
 
+import com.zhanc.teachonline.annotation.MyLog;
 import com.zhanc.teachonline.entity.Topic;
 import com.zhanc.teachonline.service.TopicService;
 import org.springframework.data.domain.Page;
@@ -68,6 +69,7 @@ public class TopicController {
      * @param topic 实体
      * @return 新增结果
      */
+    @MyLog("新增话题")
     @PostMapping("add")
     public ResponseEntity<Topic> add(Topic topic, HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -81,6 +83,7 @@ public class TopicController {
      * @param topic 实体
      * @return 编辑结果
      */
+    @MyLog("修改话题")
     @PutMapping("edit")
     public ResponseEntity<Topic> edit(Topic topic) {
         return ResponseEntity.ok(this.topicService.update(topic));
@@ -92,6 +95,7 @@ public class TopicController {
      * @param id 主键
      * @return 删除是否成功
      */
+    @MyLog("删除话题")
     @DeleteMapping("delete/{id}")
     public ResponseEntity<Boolean> deleteById(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(this.topicService.deleteById(id));

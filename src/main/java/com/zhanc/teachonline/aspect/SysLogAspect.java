@@ -92,8 +92,7 @@ public class SysLogAspect {
         HttpServletRequest request = CommonUtils.getHttpServletRequest();
         HttpSession session=request.getSession();
         //获取用户名
-        //sysLog.setUserName((String) session.getAttribute("userName"));
-        sysLog.setUserName(("userName"));
+        sysLog.setUserName(session.getAttribute("userName").toString());
 
         sysLog.setIp(CommonUtils.getIpAddr(request));
 

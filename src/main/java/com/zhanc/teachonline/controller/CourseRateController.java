@@ -1,5 +1,6 @@
 package com.zhanc.teachonline.controller;
 
+import com.zhanc.teachonline.annotation.MyLog;
 import com.zhanc.teachonline.entity.CourseRate;
 import com.zhanc.teachonline.service.CourseRateService;
 import org.springframework.data.domain.Page;
@@ -68,6 +69,7 @@ public class CourseRateController {
      * @param courseRate 实体
      * @return 新增结果
      */
+    @MyLog("新增评分")
     @PostMapping("add")
     public ResponseEntity<CourseRate> add(CourseRate courseRate, HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -81,6 +83,7 @@ public class CourseRateController {
      * @param courseRate 实体
      * @return 编辑结果
      */
+    @MyLog("修改评分")
     @PutMapping("edit")
     public ResponseEntity<CourseRate> edit(CourseRate courseRate) {
         return ResponseEntity.ok(this.courseRateService.update(courseRate));
@@ -92,6 +95,7 @@ public class CourseRateController {
      * @param id 主键
      * @return 删除是否成功
      */
+    @MyLog("删除评分")
     @DeleteMapping("delete/{id}")
     public ResponseEntity<Boolean> deleteById(@PathVariable("id") String id) {
         return ResponseEntity.ok(this.courseRateService.deleteById(id));

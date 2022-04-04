@@ -1,5 +1,6 @@
 package com.zhanc.teachonline.controller;
 
+import com.zhanc.teachonline.annotation.MyLog;
 import com.zhanc.teachonline.entity.CourseFile;
 import com.zhanc.teachonline.service.CourseFileService;
 import org.springframework.data.domain.Page;
@@ -66,6 +67,7 @@ public class CourseFileController {
      * @param courseFile 实体
      * @return 新增结果
      */
+    @MyLog("新增课件")
     @PostMapping("add")
     public ResponseEntity<CourseFile> add(CourseFile courseFile) {
         return ResponseEntity.ok(this.courseFileService.insert(courseFile));
@@ -77,6 +79,7 @@ public class CourseFileController {
      * @param courseFile 实体
      * @return 编辑结果
      */
+    @MyLog("修改课件")
     @PutMapping("edit")
     public ResponseEntity<CourseFile> edit(CourseFile courseFile) {
         return ResponseEntity.ok(this.courseFileService.update(courseFile));
@@ -88,6 +91,7 @@ public class CourseFileController {
      * @param id 主键
      * @return 删除是否成功
      */
+    @MyLog("删除课件")
     @DeleteMapping("delete/{id}")
     public ResponseEntity<Boolean> deleteById(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(this.courseFileService.deleteById(id));

@@ -1,5 +1,6 @@
 package com.zhanc.teachonline.controller;
 
+import com.zhanc.teachonline.annotation.MyLog;
 import com.zhanc.teachonline.entity.CourseUser;
 import com.zhanc.teachonline.service.CourseUserService;
 import org.springframework.data.domain.Page;
@@ -73,6 +74,7 @@ public class CourseUserController {
      * @param courseUser 实体
      * @return 新增结果
      */
+    @MyLog("链接用户和课程（用户学习课程）")
     @PostMapping("add")
     public ResponseEntity<CourseUser> add(CourseUser courseUser) {
         return ResponseEntity.ok(this.courseUserService.insert(courseUser));
@@ -84,6 +86,7 @@ public class CourseUserController {
      * @param courseUser 实体
      * @return 编辑结果
      */
+    @MyLog("修改用户和课程链接")
     @PutMapping("edit")
     public ResponseEntity<CourseUser> edit(CourseUser courseUser) {
         return ResponseEntity.ok(this.courseUserService.update(courseUser));
@@ -95,6 +98,7 @@ public class CourseUserController {
      * @param id 主键
      * @return 删除是否成功
      */
+    @MyLog("删除用户和课程链接（取消学习）")
     @DeleteMapping("delete/{id}")
     public ResponseEntity<Boolean> deleteById(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(this.courseUserService.deleteById(id));

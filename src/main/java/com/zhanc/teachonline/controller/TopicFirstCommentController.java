@@ -1,5 +1,6 @@
 package com.zhanc.teachonline.controller;
 
+import com.zhanc.teachonline.annotation.MyLog;
 import com.zhanc.teachonline.entity.TopicFirstComment;
 import com.zhanc.teachonline.service.TopicFirstCommentService;
 import org.springframework.data.domain.Page;
@@ -68,6 +69,7 @@ public class TopicFirstCommentController {
      * @param topicFirstComment 实体
      * @return 新增结果
      */
+    @MyLog("话题新增一级评论")
     @PostMapping("add")
     public ResponseEntity<TopicFirstComment> add(TopicFirstComment topicFirstComment, HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -81,6 +83,7 @@ public class TopicFirstCommentController {
      * @param topicFirstComment 实体
      * @return 编辑结果
      */
+    @MyLog("话题修改一级评论")
     @PutMapping("edit")
     public ResponseEntity<TopicFirstComment> edit(TopicFirstComment topicFirstComment) {
         return ResponseEntity.ok(this.topicFirstCommentService.update(topicFirstComment));
@@ -92,6 +95,7 @@ public class TopicFirstCommentController {
      * @param id 主键
      * @return 删除是否成功
      */
+    @MyLog("话题删除一级评论")
     @DeleteMapping("delete/{id}")
     public ResponseEntity<Boolean> deleteById(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(this.topicFirstCommentService.deleteById(id));

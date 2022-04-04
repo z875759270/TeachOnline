@@ -1,5 +1,6 @@
 package com.zhanc.teachonline.controller;
 
+import com.zhanc.teachonline.annotation.MyLog;
 import com.zhanc.teachonline.entity.Illegal;
 import com.zhanc.teachonline.service.IllegalService;
 import com.zhanc.teachonline.utils.CommonUtils;
@@ -84,6 +85,7 @@ public class IllegalController {
      * @param illegal 实体
      * @return 新增结果
      */
+    @MyLog("新增举报")
     @PostMapping("add")
     public ResponseEntity<Illegal> add(Illegal illegal, HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -91,6 +93,12 @@ public class IllegalController {
         return ResponseEntity.ok(this.illegalService.insert(illegal));
     }
 
+    /**
+     * 举报截图上传
+     * @param multipartFiles 文件
+     * @return 文件名
+     */
+    @MyLog("举报截图上传")
     @PostMapping("upload")
     public ResponseEntity<Map<String, Object>> upload(MultipartFile[] multipartFiles) {
         if (null == multipartFiles && 0 == multipartFiles.length) {
@@ -125,6 +133,7 @@ public class IllegalController {
      * @param illegal 实体
      * @return 编辑结果
      */
+    @MyLog("修改举报")
     @PutMapping("edit")
     public ResponseEntity<Illegal> edit(Illegal illegal) {
         return ResponseEntity.ok(this.illegalService.update(illegal));
@@ -136,6 +145,7 @@ public class IllegalController {
      * @param id 主键
      * @return 删除是否成功
      */
+    @MyLog("删除举报")
     @DeleteMapping("delete/{id}")
     public ResponseEntity<Boolean> deleteById(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(this.illegalService.deleteById(id));

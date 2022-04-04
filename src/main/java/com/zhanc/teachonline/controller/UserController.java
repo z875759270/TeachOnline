@@ -1,5 +1,6 @@
 package com.zhanc.teachonline.controller;
 
+import com.zhanc.teachonline.annotation.MyLog;
 import com.zhanc.teachonline.entity.User;
 import com.zhanc.teachonline.service.UserService;
 import com.zhanc.teachonline.utils.CommonUtils;
@@ -89,6 +90,7 @@ public class UserController {
      * @param user 实体
      * @return 新增结果
      */
+    @MyLog("新增用户")
     @PostMapping("add")
     public ResponseEntity<User> add(User user) {
         User findUser = this.userService.queryById(user.getUserName());
@@ -106,6 +108,7 @@ public class UserController {
      * @param user 实体
      * @return 新增结果
      */
+    @MyLog("新增管理员")
     @PostMapping("add/admin")
     public ResponseEntity<Map<String, Object>> add(User user,String adminPwd,HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -140,6 +143,7 @@ public class UserController {
      * @param user 实体
      * @return 编辑结果
      */
+    @MyLog("修改账户信息（带图）")
     @PutMapping("edit")
     public ResponseEntity<User> edit(@RequestParam("file")MultipartFile file, User user,HttpServletRequest request) {
         //检测是否本人修改
@@ -174,7 +178,12 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
-
+    /**
+     * 修改账户信息
+     * @param user 账户对象
+     * @return 修改后的对象
+     */
+    @MyLog("修改账户信息")
     @PostMapping("edit")
     public ResponseEntity<User> edit(User user) {
             return ResponseEntity.ok(this.userService.update(user));
@@ -186,6 +195,7 @@ public class UserController {
      * @param id 主键
      * @return 删除是否成功
      */
+    @MyLog("删除账户")
     @DeleteMapping("delete/{id}")
     public ResponseEntity<Boolean> deleteById(@PathVariable("id") String id) {
         return ResponseEntity.ok(this.userService.deleteById(id));
@@ -198,6 +208,7 @@ public class UserController {
      * @param request request
      * @return 是否成功
      */
+    @MyLog("登录")
     @PostMapping("loginCheck")
     public ResponseEntity<Map<String,Object>> loginCheck(@ApiParam("用户名") String userName, @ApiParam("密码") String userPwd, HttpServletRequest request){
         User user=this.userService.loginCheck(userName, userPwd);

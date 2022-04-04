@@ -1,5 +1,6 @@
 package com.zhanc.teachonline.controller;
 
+import com.zhanc.teachonline.annotation.MyLog;
 import com.zhanc.teachonline.entity.Course;
 import com.zhanc.teachonline.service.CourseService;
 import com.zhanc.teachonline.utils.CommonUtils;
@@ -80,11 +81,15 @@ public class CourseController {
         return ResponseEntity.ok(this.courseService.queryById(id));
     }
 
+    /**
+     * 获取热门课程
+     * @param num 数量
+     * @return 课程列表
+     */
     @GetMapping("hot/{num}")
     public ResponseEntity<List<Course>> getHotCourse(@PathVariable("num") int num) {
         return ResponseEntity.ok(this.courseService.getHotCourse(num));
     }
-
 
     /**
      * 新增数据
@@ -92,6 +97,7 @@ public class CourseController {
      * @param course 实体
      * @return 新增结果
      */
+    @MyLog("新增课程")
     @PostMapping("add")
     public ResponseEntity<Course> add(Course course, HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -99,6 +105,12 @@ public class CourseController {
         return ResponseEntity.ok(this.courseService.insert(course));
     }
 
+    /**
+     * 上传课程相关文件
+     * @param multipartFiles 文件
+     * @return 文件名
+     */
+    @MyLog("上传课程相关文件")
     @PostMapping("upload")
     public ResponseEntity<Map<String, Object>> upload(MultipartFile[] multipartFiles) {
         if (null == multipartFiles && 0 == multipartFiles.length) {
@@ -138,10 +150,11 @@ public class CourseController {
     }
 
     /**
-     * 编辑上传数据
+     * 编辑上传文件
      *
      * @return 编辑结果
      */
+    @MyLog("修改课程相关文件上传")
     @PostMapping("edit/upload")
     public ResponseEntity<Course> editUpload(MultipartFile[] multipartFiles, Integer courseId) {
         if (null == multipartFiles && 0 == multipartFiles.length) {
@@ -188,6 +201,12 @@ public class CourseController {
 
     }
 
+    /**
+     * 修改课程
+     * @param course 课程对象
+     * @return 修改后的对象
+     */
+    @MyLog("修改课程")
     @PutMapping("edit")
     public ResponseEntity<Course> edit(Course course) {
         return ResponseEntity.ok(this.courseService.update(course));
@@ -199,6 +218,7 @@ public class CourseController {
      * @param id 主键
      * @return 删除是否成功
      */
+    @MyLog("删除课程")
     @DeleteMapping("delete/{id}")
     public ResponseEntity<Boolean> deleteById(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(this.courseService.deleteById(id));

@@ -1,5 +1,6 @@
 package com.zhanc.teachonline.controller;
 
+import com.zhanc.teachonline.annotation.MyLog;
 import com.zhanc.teachonline.entity.CourseCategory;
 import com.zhanc.teachonline.service.CourseCategoryService;
 import org.springframework.data.domain.Page;
@@ -64,6 +65,7 @@ public class CourseCategoryController {
      * @param courseCategory 实体
      * @return 新增结果
      */
+    @MyLog("新增分类")
     @PostMapping("add")
     public ResponseEntity<CourseCategory> add(CourseCategory courseCategory) {
         return ResponseEntity.ok(this.courseCategoryService.insert(courseCategory));
@@ -75,6 +77,7 @@ public class CourseCategoryController {
      * @param courseCategory 实体
      * @return 编辑结果
      */
+    @MyLog("修改分类")
     @PutMapping("edit")
     public ResponseEntity<CourseCategory> edit(CourseCategory courseCategory) {
         return ResponseEntity.ok(this.courseCategoryService.update(courseCategory));
@@ -86,6 +89,7 @@ public class CourseCategoryController {
      * @param id 主键
      * @return 删除是否成功
      */
+    @MyLog("删除分类")
     @DeleteMapping("delete/{id}")
     public ResponseEntity<Boolean> deleteById(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(this.courseCategoryService.deleteById(id));

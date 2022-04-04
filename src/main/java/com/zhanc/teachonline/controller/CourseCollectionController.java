@@ -1,5 +1,6 @@
 package com.zhanc.teachonline.controller;
 
+import com.zhanc.teachonline.annotation.MyLog;
 import com.zhanc.teachonline.entity.CourseCollection;
 import com.zhanc.teachonline.service.CourseCollectionService;
 import org.springframework.data.domain.Page;
@@ -64,6 +65,11 @@ public class CourseCollectionController {
         return ResponseEntity.ok(this.courseCollectionService.queryById(id));
     }
 
+    /**
+     * 查询热门收藏
+     * @param num 数量
+     * @return 对象列表
+     */
     @GetMapping("hot/{num}")
     public ResponseEntity<List<Map<String, Object>>> queryByCollectionNum(@PathVariable Integer num) {
         return ResponseEntity.ok(this.courseCollectionService.getHotCollectionCourse(num));
@@ -75,6 +81,7 @@ public class CourseCollectionController {
      * @param courseCollection 实体
      * @return 新增结果
      */
+    @MyLog("新增收藏")
     @PostMapping("add")
     public ResponseEntity<CourseCollection> add(CourseCollection courseCollection, HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -88,6 +95,7 @@ public class CourseCollectionController {
      * @param courseCollection 实体
      * @return 编辑结果
      */
+    @MyLog("修改收藏")
     @PutMapping("edit")
     public ResponseEntity<CourseCollection> edit(CourseCollection courseCollection) {
         return ResponseEntity.ok(this.courseCollectionService.update(courseCollection));
@@ -99,6 +107,7 @@ public class CourseCollectionController {
      * @param courseId 课程号
      * @return 删除是否成功
      */
+    @MyLog("删除收藏")
     @DeleteMapping("delete")
     public ResponseEntity<Boolean> deleteById(Integer courseId, HttpServletRequest request) {
         HttpSession session = request.getSession();

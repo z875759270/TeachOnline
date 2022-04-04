@@ -1,5 +1,6 @@
 package com.zhanc.teachonline.controller;
 
+import com.zhanc.teachonline.annotation.MyLog;
 import com.zhanc.teachonline.utils.SensitiveWordUtil;
 import io.swagger.annotations.ApiParam;
 import org.springframework.http.ResponseEntity;
@@ -23,11 +24,18 @@ import java.io.*;
 @RequestMapping("back/senci")
 public class SenciController {
 
+    /**
+     * 修改敏感词列表
+     * @param senciList 修改后的敏感词列表
+     * @return 修改是否成功
+     */
+    @MyLog("修改敏感词")
     @PostMapping("edit")
-    public ResponseEntity<Boolean> edit(@ApiParam("修改后的敏感词列表") String senciList) throws IOException {
+    public ResponseEntity<Boolean> edit(@ApiParam("修改后的敏感词列表") String senciList) {
         FileWriter fw = null;
         boolean isSuccess = false;
         try {
+
             File file = new File(SensitiveWordUtil.class.getResource("/").getPath() + "com/zhanc/teachonline/utils/sensi_word.txt");
             if (!file.exists()) {
                 file.createNewFile();
@@ -39,7 +47,12 @@ public class SenciController {
             e.printStackTrace();
         } finally {
             if (fw != null) {
-                fw.close();
+                try{
+                    fw.close();
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+
             }
         }
         return ResponseEntity.ok(isSuccess);

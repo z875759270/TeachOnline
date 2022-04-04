@@ -1,7 +1,7 @@
 function getLogList() {
     var LogList=null;
     $.ajax({
-        url: AdminConfig.domain + "log/list/0/10000",
+        url: Const.domain + "log/list/0/100000",
         type: "GET",
         dataType: "json",
         async:false,
@@ -56,7 +56,12 @@ $(function () {
         },{
             field: "createTime",
             title: "操作时间",
-            sortable: true
+            sortable: true,
+            formatter: function (value) {
+                let time = value.split('.')[0]
+                let ab = time.split('T');
+                return ab[0] + ' ' + ab[1];
+            }
         }],
     })
 })

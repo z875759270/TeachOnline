@@ -1,5 +1,6 @@
 package com.zhanc.teachonline.controller;
 
+import com.zhanc.teachonline.annotation.MyLog;
 import com.zhanc.teachonline.entity.Tag;
 import com.zhanc.teachonline.service.CourseTagService;
 import com.zhanc.teachonline.service.TagService;
@@ -66,6 +67,11 @@ public class TagController {
         return ResponseEntity.ok(this.tagService.queryById(id));
     }
 
+    /**
+     * 获取热门标签
+     * @param num 数量
+     * @return 热门列表
+     */
     @PostMapping("hot/{num}")
     public ResponseEntity<List<Tag>> getHotTag(@PathVariable int num){
         List<Integer> hotTagsId = this.courseTagService.getHotTags(num);
@@ -82,6 +88,7 @@ public class TagController {
      * @param tag 实体
      * @return 新增结果
      */
+    @MyLog("新增标签")
     @PostMapping("add")
     public ResponseEntity<Tag> add(Tag tag) {
         tag.setTagName(tag.getTagName().toLowerCase());
@@ -98,6 +105,7 @@ public class TagController {
      * @param tag 实体
      * @return 编辑结果
      */
+    @MyLog("修改标签")
     @PutMapping("edit")
     public ResponseEntity<Tag> edit(Tag tag) {
         return ResponseEntity.ok(this.tagService.update(tag));
@@ -109,6 +117,7 @@ public class TagController {
      * @param id 主键
      * @return 删除是否成功
      */
+    @MyLog("删除标签")
     @DeleteMapping("delete/{id}")
     public ResponseEntity<Boolean> deleteById(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(this.tagService.deleteById(id));

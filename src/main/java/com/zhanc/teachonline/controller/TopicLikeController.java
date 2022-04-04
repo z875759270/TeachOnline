@@ -1,5 +1,6 @@
 package com.zhanc.teachonline.controller;
 
+import com.zhanc.teachonline.annotation.MyLog;
 import com.zhanc.teachonline.entity.TopicLike;
 import com.zhanc.teachonline.service.TopicLikeService;
 import org.springframework.data.domain.Page;
@@ -68,6 +69,7 @@ public class TopicLikeController {
      * @param topicLike 实体
      * @return 新增结果
      */
+    @MyLog("话题点赞")
     @PostMapping("add")
     public ResponseEntity<TopicLike> add(TopicLike topicLike, HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -82,6 +84,7 @@ public class TopicLikeController {
      * @param topicLike 实体
      * @return 编辑结果
      */
+    @MyLog("修改点赞")
     @PutMapping("edit")
     public ResponseEntity<TopicLike> edit(TopicLike topicLike) {
         return ResponseEntity.ok(this.topicLikeService.update(topicLike));
@@ -92,6 +95,7 @@ public class TopicLikeController {
      *
      * @return 删除是否成功
      */
+    @MyLog("话题取消点赞")
     @DeleteMapping("delete")
     public ResponseEntity<Boolean> deleteById(TopicLike topicLike,HttpServletRequest request) {
         HttpSession session = request.getSession();
