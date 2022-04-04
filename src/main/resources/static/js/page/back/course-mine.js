@@ -5,7 +5,7 @@ function getCourseList() {
         type: "GET",
         dataType: "json",
         async: false,
-        data:{
+        data: {
             courseCreater: document.getElementById('courseMineScript').getAttribute('data')
         },
         success: function (res) {
@@ -46,7 +46,7 @@ function getTagList() {
         type: "GET",
         dataType: "json",
         async: false,
-        data:{
+        data: {
             courseCreater: document.getElementById('courseMineScript').getAttribute('data')
         },
         success: function (res) {
@@ -64,8 +64,8 @@ function delCourse() {
         url: Const.domain + "course/edit",
         type: "PUT",
         dataType: "json",
-        data:{
-            courseId:id,
+        data: {
+            courseId: id,
             courseStatus: 0
         },
         success: function (res) {
@@ -73,7 +73,7 @@ function delCourse() {
                 success_noti("下架成功！");
                 setTimeout(function () {
                     location.reload();
-                },5*1000)
+                }, 5 * 1000)
             } else {
                 error_noti("下架失败！请联系管理员！");
             }
@@ -82,15 +82,14 @@ function delCourse() {
 }
 
 
-
 function setNotice() {
     let id = $($("input[name='hidId']")[0]).val()
     $.ajax({
         url: Const.domain + "course/edit",
         type: "POST",
         dataType: "json",
-        data:{
-            courseId:id,
+        data: {
+            courseId: id,
             courseNotice: $("#courseNotice").val()
         },
         success: function (res) {
@@ -98,6 +97,38 @@ function setNotice() {
                 success_noti("发布成功！");
             } else {
                 error_noti("发布失败！请联系管理员！");
+            }
+        }
+    })
+}
+
+function getCourseUser() {
+    $("#userModalBody").html("");
+    $.ajax({
+        url: Const.domain + "courseUser/list",
+        type: "GET",
+        data: {
+            courseId: $($("input[name='hidId']")[0]).val()
+        },
+        success: function (res) {
+            if (res.numberOfElements===0){
+                $("#userModalBody").html("暂无用户学习该课程！");
+                return;
+            }
+            let content = res.content;
+            for (let i = 0; i < content.length; i++) {
+                let userName = content[i].userName;
+                $.ajax({
+                    url: Const.domain + "user/find/" + userName,
+                    type: "GET",
+                    success: function (res) {
+                        let tempStr = $("#userModalBody").html();
+                        let appendStr = '<div class="chip">\n' +
+                            '<a href="/profile/'+res.userName+'" target="_blank">' +
+                            '<img src="/media/user/img/' + res.userImg + '">' + res.userName + '</a></div>'
+                        $("#userModalBody").html(tempStr + appendStr);
+                    }
+                })
             }
         }
     })
@@ -139,7 +170,7 @@ $(function () {
             field: "courseName",
             title: "课程名称",
             sortable: true,
-            formatter: function (value,row,index,field) {
+            formatter: function (value, row, index, field) {
                 return '<a href="/course/info/' + row["courseId"] + '" target="_blank">' + value + '</a>'
             }
         }, {
@@ -202,6 +233,7 @@ $(function () {
 function AddFounction(value, row, index) {
     return [
         '<button id="tblCourseNotice" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#noticeModal">发布公告</button>',
+        '<button id="tblCourseEdit" type="button" style="margin-left: 10px" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userModal">成员列表</button>',
         '<button id="tblCourseEdit" type="button" style="margin-left: 10px" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">编辑</button>',
         '<button id="tblCourseDel" type="button" style="margin-left: 10px" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delModal">下架</button>'
     ].join("")
@@ -213,10 +245,11 @@ window.operateEvents = {
         $("#courseNotice").val(row["courseNotice"]);
     },
     "click #tblCourseEdit": function (e, value, row, index) {
-        location.href="/back/course/edit/"+row["courseId"]
+        $($("input[name='hidId']")[0]).val(row["courseId"]);
+        getCourseUser();
     },
     "click #tblCourseDel": function (e, value, row, index) {
         $($("input[name='hidId']")[0]).val(row["courseId"]);
-        $($(".modal-body")[0]).html("确认删除[" + row["courseName"] + "]吗？该操作不可撤销！");
+        $("#delModalBody").html("确认删除[" + row["courseName"] + "]吗？该操作不可撤销！");
     }
 }
