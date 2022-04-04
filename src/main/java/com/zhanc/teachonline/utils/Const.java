@@ -35,4 +35,6 @@ public class Const {
 
     public static final String PROJECT_IMG_OSS_PATH="https://zhanc-teach-online.oss-cn-shenzhen.aliyuncs.com/media/";
 
+    public static final String SENSITIVE_WORD_FILE_PATH="com/zhanc/teachonline/utils/sensi_word.txt";
+
 }

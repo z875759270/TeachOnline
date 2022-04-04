@@ -31,6 +31,21 @@ public class SensitiveWordUtil {
         initSensitiveWordMap(sensitiveWordSet);
     }
 
+    public static synchronized void init(String filePath) throws IOException {
+        Set<String> sensitiveWordSet = new HashSet<>();
+
+        File file = new File(SensitiveWordUtil.class.getResource("/").getPath() + filePath);
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+        String line = null;
+
+        while ((line = bufferedReader.readLine()) != null){
+            if(!"".equals(line))
+                sensitiveWordSet.add(line);
+        }
+        //初始化敏感词库
+        SensitiveWordUtil.init(sensitiveWordSet);
+    }
+
     /**
      * 初始化敏感词库，构建DFA算法模型
      *

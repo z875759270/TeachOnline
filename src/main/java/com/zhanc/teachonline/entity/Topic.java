@@ -1,12 +1,17 @@
 package com.zhanc.teachonline.entity;
 
+import com.zhanc.teachonline.utils.Const;
+import com.zhanc.teachonline.utils.SensitiveWordUtil;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
+import java.io.IOException;
 import java.util.Date;
 import java.io.Serializable;
 
@@ -22,6 +27,8 @@ import java.io.Serializable;
 @Validated
 @Component
 public class Topic implements Serializable {
+    static Logger logger= LoggerFactory.getLogger(Topic.class);
+
     private static final long serialVersionUID = 564302294931254973L;
     /**
      * 话题ID
@@ -52,6 +59,36 @@ public class Topic implements Serializable {
      */    @ApiModelProperty(value = "创建者")
     private String topicCreater;
 
+    public String getTopicDetail() {
+        //替换语句中的敏感词
+        if (topicDetail!=null && !"".equals(topicDetail)){
+            try{
+                SensitiveWordUtil.init(Const.SENSITIVE_WORD_FILE_PATH);
+            }catch (IOException e){
+                logger.error("敏感词文件读取失败！");
+                return topicDetail;
+            }
+            return SensitiveWordUtil.replaceSensitiveWord(topicDetail, '*');
+        }
+        else{
+            return topicDetail;
+        }
+    }
 
+    public String getTopicTitle() {
+        //替换语句中的敏感词
+        if (topicTitle!=null && !"".equals(topicTitle)){
+            try{
+                SensitiveWordUtil.init(Const.SENSITIVE_WORD_FILE_PATH);
+            }catch (IOException e){
+                logger.error("敏感词文件读取失败！");
+                return topicTitle;
+            }
+            return SensitiveWordUtil.replaceSensitiveWord(topicTitle, '*');
+        }
+        else{
+            return topicTitle;
+        }
+    }
 }
 
