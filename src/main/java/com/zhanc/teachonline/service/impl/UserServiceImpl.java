@@ -71,7 +71,6 @@ public class UserServiceImpl implements UserService {
         String pwd = user.getUserPwd();
         String salt = Md5Utils.getRandomSalt(6);
         user.setUserSalt(salt);
-        user.setUserRole("ROLE_USER");
         user.setUserPwd(Md5Utils.encrypt(pwd, salt));
         user.setUserStatus(Const.STATUS_CHECK);
         this.userDao.insert(user);

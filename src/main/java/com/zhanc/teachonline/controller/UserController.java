@@ -3,6 +3,7 @@ package com.zhanc.teachonline.controller;
 import com.zhanc.teachonline.entity.User;
 import com.zhanc.teachonline.service.UserService;
 import com.zhanc.teachonline.utils.CommonUtils;
+import com.zhanc.teachonline.utils.Const;
 import com.zhanc.teachonline.utils.OssUtils;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
@@ -91,10 +92,46 @@ public class UserController {
     @PostMapping("add")
     public ResponseEntity<User> add(User user) {
         User findUser = this.userService.queryById(user.getUserName());
-        if (null == findUser)
+        if (null == findUser) {
+            user.setUserRole("ROLE_USER");
             return ResponseEntity.ok(this.userService.insert(user));
+        }
         else
             return ResponseEntity.ok(new User());
+    }
+
+    /**
+     * 新增数据
+     *
+     * @param user 实体
+     * @return 新增结果
+     */
+    @PostMapping("add/admin")
+    public ResponseEntity<Map<String, Object>> add(User user,String adminPwd,HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Map<String, Object> resMap=new HashMap<>();
+        if(!"ROLE_ADMIN".equals(session.getAttribute("userRole"))){
+            resMap.put("isSuccess",false);
+            resMap.put("msg","需要管理员权限！");
+            return ResponseEntity.ok(resMap);
+        }
+        if(!Const.ADMIN_PWD.equals(adminPwd)){
+            resMap.put("isSuccess",false);
+            resMap.put("msg","管理员密码错误！");
+            return ResponseEntity.ok(resMap);
+        }
+        if(this.userService.queryById(user.getUserName())!=null){
+            resMap.put("isSuccess",false);
+            resMap.put("msg","用户名重复！");
+            return ResponseEntity.ok(resMap);
+        }
+        user.setUserRole("ROLE_ADMIN");
+        resMap.put("isSuccess",true);
+        resMap.put("msg","管理员注册成功！");
+        resMap.put("obj",this.userService.insert(user));
+
+
+        return ResponseEntity.ok(resMap);
     }
 
     /**

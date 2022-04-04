@@ -11,9 +11,9 @@ public class Const {
 
     //region MD5盐
     /**
-     * salt
+     * AdminPwd
      */
-    public static final String MD5_SALT="P@ssw0rd.salt";
+    public static final String ADMIN_PWD="NCBM99923";
     //endregion
 
     //region 状态

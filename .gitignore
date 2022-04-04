@@ -3,3 +3,4 @@
 /src/main/resources/templates/front/temp.html
 /src/main/resources/static/assets/video/
 /src/main/java/com/zhanc/teachonline/utils/OssConst.java
+/src/main/java/com/zhanc/teachonline/utils/Const.java
