@@ -98,7 +98,9 @@
                     <div class="author-description text-muted" th:text="${course.courseNotice}">课程公告..... balabala</div>
 
                     <h6>相关课件：</h6>
-                    <div class="author-description text-muted">文件名.txt&emsp;<a href="#" class="author-bio-link">下载</a>
+                    <div th:if="${courseFileList.size() eq 0}" class="author-description text-muted">暂无课件</div>
+                    <div th:if="${courseFileList.size() ne 0}" th:each="courseFile : ${courseFileList}" class="author-description text-muted">[[${courseFile.fileUrl}]]&emsp;
+                        <a th:href="'/media/course/file/'+${courseFile.fileUrl}" class="author-bio-link" download="" target="_blank">下载</a>
                     </div>
                 </div>
             </div>

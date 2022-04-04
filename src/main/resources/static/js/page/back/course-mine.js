@@ -233,8 +233,9 @@ $(function () {
 function AddFounction(value, row, index) {
     return [
         '<button id="tblCourseNotice" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#noticeModal">发布公告</button>',
-        '<button id="tblCourseUser" type="button" style="margin-left: 10px" class="btn btn-info text-light" data-bs-toggle="modal" data-bs-target="#userModal">成员列表</button>',
-        '<button id="tblCourseEdit" type="button" style="margin-left: 10px" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">编辑</button>',
+        '<button id="tblCourseUser" type="button" style="margin-left: 10px" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#userModal">成员列表</button>',
+        '<button id="tblCourseFileAdd" type="button" style="margin-left: 10px" class="btn btn-success">上传课件</button>',
+        '<button id="tblCourseEdit" type="button" style="margin-left: 10px" class="btn btn-primary">编辑</button>',
         '<button id="tblCourseDel" type="button" style="margin-left: 10px" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delModal">下架</button>'
     ].join("")
 }
@@ -247,6 +248,9 @@ window.operateEvents = {
     "click #tblCourseUser": function (e, value, row, index) {
         $($("input[name='hidId']")[0]).val(row["courseId"]);
         getCourseUser();
+    },
+    "click #tblCourseFileAdd": function (e, value, row, index) {
+        location.href="/back/course/file/upload/"+row["courseId"];
     },
     "click #tblCourseEdit": function (e, value, row, index) {
         location.href="/back/course/edit/"+row["courseId"]

@@ -64,6 +64,8 @@ public class RouterController {
     private CourseUserService courseUserService;
     @Resource
     private TopicLikeService topicLikeService;
+    @Resource
+    private CourseFileService courseFileService;
 
     //region 后台
 
@@ -152,6 +154,13 @@ public class RouterController {
         model.addAttribute("course",course);
         model.addAttribute("tagList",getTag(course));
         return "/back/course-edit";
+    }
+
+    @RequestMapping(value = {"/back/course/file/upload/{courseId}"})
+    public String toCourseFileUpload(Model model, @PathVariable Integer courseId) {
+        model.addAttribute("course",this.courseService.queryById(courseId));
+        model.addAttribute("fileList",this.courseFileService.queryByCourseFile(new CourseFile(null, courseId, null, null, null)).getContent());
+        return "/back/course-file-upload";
     }
     //endregion
 
@@ -303,6 +312,9 @@ public class RouterController {
         //获取当前用户是否收藏
         boolean isCollection = this.courseCollectionService.queryByCourseCollection(new CourseCollection(session.getAttribute("userName").toString(), courseId)).getNumberOfElements() != 0;
 
+        //获取课件
+        List<CourseFile> courseFileList = this.courseFileService.queryByCourseFile(new CourseFile(null, course.getCourseId(), null, null, null)).getContent();
+
         //获取一级评论
         Page<CourseFirstComment> courseFirstComments =
                 this.courseFirstCommentService.queryByCourseFirstComment(new CourseFirstComment(null, null, course.getCourseId(), null, null));
@@ -321,6 +333,7 @@ public class RouterController {
         model.addAttribute("collectNum", collectNum);
         model.addAttribute("currentRate", currentScore);
         model.addAttribute("isCollection", isCollection);
+        model.addAttribute("courseFileList", courseFileList);
         model.addAttribute("firstComments", courseFirstComments);
         model.addAttribute("secondComments", secondCommentList);
         return "/front/course-info";

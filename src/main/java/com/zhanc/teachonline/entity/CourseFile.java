@@ -46,7 +46,7 @@ public class CourseFile implements Serializable {
      * 课件大小
      */
     @ApiModelProperty(value = "课件大小")
-    private Integer fileSize;
+    private Long fileSize;
 
 
 }

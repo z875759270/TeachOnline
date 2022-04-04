@@ -66,6 +66,7 @@ public class CourseFileServiceImpl implements CourseFileService {
      */
     @Override
     public CourseFile insert(CourseFile courseFile) {
+        courseFile.setFileDownload(0);
         this.courseFileDao.insert(courseFile);
         return courseFile;
     }
