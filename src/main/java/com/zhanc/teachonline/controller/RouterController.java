@@ -498,6 +498,16 @@ public class RouterController {
         return "/front/profile";
     }
 
+    @RequestMapping(value = "chat/{userName}")
+    public String toChat(@PathVariable String userName,HttpServletRequest request,Model model){
+
+
+
+        model.addAttribute("targetUser",this.userService.queryById(userName));
+
+        return "/back/chat-box";
+    }
+
     //endregion 前台
 
 
