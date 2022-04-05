@@ -3,6 +3,8 @@ package com.zhanc.teachonline.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.zhanc.teachonline.entity.SendMess;
 import com.zhanc.teachonline.service.WebSocketService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
@@ -16,12 +18,13 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * @Author xxs
- * @Date 2020/4/24 15:44
+ * @Author zhanc
+ * @Date 2022/3/27 15:44
  */
 @ServerEndpoint("/webSocket/{userName}")
 @Component
 public class WebSocketServiceImpl implements WebSocketService {
+    static Logger logger= LoggerFactory.getLogger(WebSocketServiceImpl.class);
     //静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
     private static final AtomicInteger onlineNum = new AtomicInteger();
 
@@ -59,14 +62,14 @@ public class WebSocketServiceImpl implements WebSocketService {
     public void onOpen(Session session, @PathParam(value = "userName") String userName){
         sessionPools.put(userName, session);
         addOnlineCount();
-        System.out.println(userName + "加入webSocket！当前人数为" + onlineNum);
+        logger.info(userName + "加入webSocket！当前人数为" + onlineNum);
         List<String> userIds = new ArrayList();
         Enumeration<String> keys = sessionPools.keys();
         while(keys.hasMoreElements()){
             String value = keys.nextElement();//调用nextElement方法获得元素
             userIds.add(value);
         }
-        System.out.println("=============当前用户：" + userIds.toString());//打印当前参与聊天人数
+        logger.info("当前用户：" + userIds.toString());//打印当前参与聊天人数
         for(Session s:sessionPools.values()){
             try {
                 sendMessageByCmd(s,"userList",userIds);
@@ -81,14 +84,14 @@ public class WebSocketServiceImpl implements WebSocketService {
     public void onClose(@PathParam(value = "userName") String userName){
         sessionPools.remove(userName);
         subOnlineCount();
-        System.out.println(userName + "断开webSocket连接！当前人数为" + onlineNum);
+        logger.info(userName + "断开webSocket连接！当前人数为" + onlineNum);
     }
 
     //收到客户端信息
     @OnMessage
     public void onMessage(String message) throws IOException{
         SendMess sendMess = JSON.parseObject(message, SendMess.class);
-        System.out.println("客户端：" + message + ",已收到");
+        logger.info("客户端：" + message + ",已收到");
 
         String toUserId = sendMess.getToUser();
         Session session = sessionPools.get(toUserId);

@@ -9,8 +9,8 @@ import java.io.IOException;
 
 
 /**
- * @Author xxs
- * @Date 2020/4/24 15:44
+ * @Author zhanc
+ * @Date 2022/3/27 15:44
  */
 @ServerEndpoint("/webSocket/{sid}")
 @Component
