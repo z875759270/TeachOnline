@@ -31,6 +31,7 @@
                course_status
         from course
         where course_id = #{courseId}
+        and course_status = 1
     </select>
 
     <!--查询指定行数据-->
@@ -100,19 +101,23 @@
         from course
         where course_name like concat('%',#{searchStr},'%')
         limit #{pageable.offset}, #{pageable.pageSize}
+        and course_status = 1
     </select>
 
     <!--根据浏览量排序课程-->
     <select id="getHotCourse" resultMap="CourseMap">
         select *
         from course
+        where course_status = 1
         order by course_views desc limit 0,#{num}
+
     </select>
 
     <!--根据创建时间排序课程-->
     <select id="getNewestCourse" resultMap="CourseMap">
         select *
         from course
+        where course_status = 1
         order by course_create_time desc limit 0,#{num}
     </select>
     <!--获取模糊查询的条数-->
@@ -120,6 +125,7 @@
         select count(1)
         from course
         where course_name like concat('%',#{searchStr},'%')
+        and course_status = 1
     </select>
 
     <!--统计总行数-->

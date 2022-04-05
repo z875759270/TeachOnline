@@ -197,8 +197,10 @@ public class RouterController {
         model.addAttribute("hotTags", hotTags);
         model.addAttribute("tagMap", getTagMap(courseSet));
         model.addAttribute("collectionNumMap", getCourseListCollectionNum(courseSet));
-        model.addAttribute("firstCourse", hotCourseByViews.get(0));
-        hotCourseByViews.remove(0);
+        if(hotCourseByViews.size() > 0){
+            model.addAttribute("firstCourse", hotCourseByViews.get(0));
+            hotCourseByViews.remove(0);
+        }
         model.addAttribute("hotCourseByViews", hotCourseByViews);
         model.addAttribute("hotCourseByCollection", hotCourseByCollection);
         model.addAttribute("newestCourseList", newestCourseList);
@@ -519,9 +521,13 @@ public class RouterController {
      */
     private Map<Integer, List<Tag>> getTagMap(Collection<Course> courseList) {
         Map<Integer, List<Tag>> tagMap = new HashMap<>();
-        for (Course c : courseList) {
-            tagMap.put(c.getCourseId(), getTag(c));
+        logger.info(courseList.size()+"");
+        if(courseList.size()>0){
+            for (Course c : courseList) {
+                tagMap.put(c.getCourseId(), getTag(c));
+            }
         }
+
         return tagMap;
     }
 

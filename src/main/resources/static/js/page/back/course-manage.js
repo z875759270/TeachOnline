@@ -73,7 +73,7 @@ $(function () {
         onEditableSave: function (field, row, oldValue, $el) {
             $.ajax({
                 url: Const.domain + "course/edit",
-                type: "POST",
+                type: "PUT",
                 data: {
                     courseId: row['courseId'],
                     courseCategoryId: row['courseCategoryId'],

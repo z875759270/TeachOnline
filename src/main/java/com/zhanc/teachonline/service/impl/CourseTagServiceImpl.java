@@ -80,9 +80,12 @@ public class CourseTagServiceImpl implements CourseTagService {
     public List<Integer> getHotTags(int num){
         List<Map<String, Object>> tagGroup = this.queryTagGroup();
         List<Integer> resList=new ArrayList<>();
-        for (int i = 0; i < num; i++) {
-            resList.add(Integer.parseInt(tagGroup.get(i).get("tag_id").toString()));
+        if(tagGroup.size()>0){
+            for (int i = 0; i < num; i++) {
+                resList.add(Integer.parseInt(tagGroup.get(i).get("tag_id").toString()));
+            }
         }
+
         return resList;
     }
 
