@@ -133,6 +133,7 @@
                             </ul>
                         </li>
                         <li><a th:href="@{/topic/list/all}">论坛</a></li>
+                        <li><a th:if="${session.userRole ne 'ROLE_USER'}" th:href="@{/back/index}">管理系统</a></li>
                     </ul>
                     <!--Mobile menu-->
                     <ul id="mobile-menu" class="d-block d-lg-none text-muted">
