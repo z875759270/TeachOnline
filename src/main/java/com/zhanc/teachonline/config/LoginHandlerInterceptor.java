@@ -35,11 +35,6 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
             arg1.sendRedirect("/login");
             return false;
         }
-        if(!"1".equals(userStatus.toString())){
-            arg0.getSession().invalidate();
-            arg1.sendRedirect("/login");
-            return false;
-        }
 
         return true;
     }

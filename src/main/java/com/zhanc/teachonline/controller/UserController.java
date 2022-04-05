@@ -226,6 +226,7 @@ public class UserController {
             session.setAttribute("userStatus",user.getUserStatus());
             res.put("isLoginSuccess",true);
             res.put("msg","登录成功！");
+            res.put("role",user.getUserRole());
             return ResponseEntity.ok(res);
         }else{
             res.put("isLoginSuccess",false);
