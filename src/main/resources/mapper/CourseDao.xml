@@ -100,8 +100,9 @@
         course_img, course_video, course_notice, course_status
         from course
         where course_name like concat('%',#{searchStr},'%')
-        limit #{pageable.offset}, #{pageable.pageSize}
         and course_status = 1
+        limit #{pageable.offset}, #{pageable.pageSize}
+
     </select>
 
     <!--根据浏览量排序课程-->

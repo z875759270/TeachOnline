@@ -50,7 +50,7 @@
                                     <h5 class="post-title mb-20 font-weight-900">
                                         <a th:href="@{/course/intro/}+${course.courseId}" th:text="${course.courseName}">课程名称</a>
                                     </h5>
-                                    <div class="post-excerpt mb-25 font-small text-muted">
+                                    <div class="post-excerpt mb-25 font-small text-muted text-limit-3-row">
                                         <p>课程简介：[[${course.courseDetail}]]</p>
                                     </div>
                                     <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
