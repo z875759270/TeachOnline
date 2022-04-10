@@ -32,7 +32,7 @@
                             <p class="d-inline-block mr-5 mb-0"><i class="elegant-icon  icon_tag_alt mr-5 text-muted"></i>热门标签:</p>
                             <ul class="list-inline d-inline-block tags">
 
-                                <li class="list-inline-item text-capitalize" th:each="tag : ${hotTags}"><a th:href="@{/course/list/tag/}+${tag.tagId}"># [[${tag.tagName}]]</a></li>
+                                <li class="list-inline-item text-capitalize" th:each="tag : ${hotTags}"><a th:href="@{/course/list/show/tag/}+${tag.tagId}"># [[${tag.tagName}]]</a></li>
                             </ul>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                                             <a class="img-link" th:href="@{/course/intro/}+${firstCourse.courseId}"></a>
                                             <div class="post-content-overlay text-white ml-30 mr-30 pb-50">
                                                 <div class="entry-meta meta-0 font-small mb-20">
-                                                    <a th:href="@{/course/list/tag/}+${tag.tagId}" th:each="tag : ${tagMap.get(firstCourse.courseId)}"><span class="post-cat text-info text-uppercase" th:text="${tag.tagName}">标签1</span></a>
+                                                    <a th:href="@{/course/list/show/tag/}+${tag.tagId}" th:each="tag : ${tagMap.get(firstCourse.courseId)}"><span class="post-cat text-info text-uppercase" th:text="${tag.tagName}">标签1</span></a>
                                                 </div>
                                                 <h3 class="post-title font-weight-900 mb-20">
                                                     <a class="text-white" th:href="@{/course/intro/}+${firstCourse.courseId}" th:text="${firstCourse.courseName}">查询出来的第一个课程</a>
@@ -73,7 +73,7 @@
                             </div>
                             <div class="post-content p-30">
                                 <div class="entry-meta meta-0 font-small mb-10">
-                                    <a th:href="@{/course/list/tag/}+${tag.tagId}" th:each="tag : ${tagMap.get(course.courseId)}"><span class="post-cat text-info text-uppercase" th:text="${tag.tagName}">标签1</span></a>
+                                    <a th:href="@{/course/list/show/tag/}+${tag.tagId}" th:each="tag : ${tagMap.get(course.courseId)}"><span class="post-cat text-info text-uppercase" th:text="${tag.tagName}">标签1</span></a>
                                 </div>
                                 <div class="d-flex post-card-content">
                                     <h5 class="post-title mb-20 font-weight-900">
@@ -108,7 +108,7 @@
                                             </div>
                                             <div class="post-content p-30">
                                                 <div class="entry-meta meta-0 font-small mb-10">
-                                                    <a th:href="@{/course/list/tag/}+${tag.tagId}" th:each="tag : ${tagMap.get(course.courseId)}"><span class="post-cat text-info text-capitalize" th:text="${tag.tagName}">标签1</span></a>
+                                                    <a th:href="@{/course/list/show/tag/}+${tag.tagId}" th:each="tag : ${tagMap.get(course.courseId)}"><span class="post-cat text-info text-capitalize" th:text="${tag.tagName}">标签1</span></a>
                                                 </div>
                                                 <div class="d-flex post-card-content">
                                                     <h5 class="post-title mb-20 font-weight-900">
@@ -143,7 +143,7 @@
                                         <div class="col-md-8 align-self-center">
                                             <div class="post-content">
                                                 <div class="entry-meta meta-0 font-small mb-10">
-                                                    <a th:href="@{/course/list/tag/}+${tag.tagId}" th:each="tag : ${tagMap.get(course.courseId)}"><span class="post-cat text-info text-capitalize" th:text="${tag.tagName}">标签1</span></a>
+                                                    <a th:href="@{/course/list/show/tag/}+${tag.tagId}" th:each="tag : ${tagMap.get(course.courseId)}"><span class="post-cat text-info text-capitalize" th:text="${tag.tagName}">标签1</span></a>
                                                 </div>
                                                 <h5 class="post-title font-weight-900 mb-20">
                                                     <a th:href="@{/course/intro/}+${course.courseId}" th:text="${course.courseName}">课程名称</a>

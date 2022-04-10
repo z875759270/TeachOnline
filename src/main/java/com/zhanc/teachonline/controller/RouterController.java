@@ -346,7 +346,7 @@ public class RouterController {
         return "/front/report";
     }
 
-    @GetMapping(value = {"/course/list/{type}/{id}"})
+    @GetMapping(value = {"/course/list/show/{type}/{id}"})
     public String toCourseList(@PathVariable Integer id, @PathVariable String type, Model model) {
         List<Course> courseList = new ArrayList<>();
         if ("tag".equals(type)) {
@@ -354,16 +354,24 @@ public class RouterController {
             courseTag.setTagId(id);
             List<CourseTag> courseTagList = this.courseTagService.queryByCourseTag(courseTag).getContent();
             for (CourseTag ct : courseTagList) {
-                courseList.add(this.courseService.queryById(ct.getCourseId()));
+                Course course = new Course();
+                course.setCourseId(ct.getCourseId());
+                course.setCourseStatus(1);
+                List<Course> content = this.courseService.queryByCourse(course).getContent();
+                if(content.size()>0){
+                    courseList.add(content.get(0));
+                }
+
             }
             model.addAttribute("tagName", this.tagService.queryById(id).getTagName());
         } else if ("category".equals(type)) {
             Course course = new Course();
             course.setCourseCategoryId(id);
+            course.setCourseStatus(1);
             courseList.addAll(this.courseService.queryByCourse(course).getContent());
             model.addAttribute("categoryName", this.courseCategoryService.queryById(id).getCategoryName());
         }
-
+        logger.info("==========");
         model.addAttribute("tagMap", this.getTagMap(courseList));
         model.addAttribute("collectionNumMap", getCourseListCollectionNum(courseList));
         model.addAttribute("firstCourse", courseList.get(0));
@@ -442,7 +450,13 @@ public class RouterController {
         List<CourseCollection> courseCollections = this.courseCollectionService.queryByCourseCollection(new CourseCollection(userName, null)).getContent();
         List<Course> courseList = new ArrayList<>();
         for (CourseCollection courseCollection : courseCollections) {
-            courseList.add(this.courseService.queryById(courseCollection.getCourseId()));
+            Course course = new Course();
+            course.setCourseId(courseCollection.getCourseId());
+            course.setCourseStatus(1);
+            List<Course> content = this.courseService.queryByCourse(course).getContent();
+            if(content.size()>0){
+                courseList.add(content.get(0));
+            }
         }
 
         model.addAttribute("courseList", courseList);
@@ -458,7 +472,13 @@ public class RouterController {
         List<CourseUser> courseUsers = this.courseUserService.queryByCourseUser(new CourseUser(null, userName)).getContent();
         List<Course> courseList = new ArrayList<>();
         for (CourseUser courseUser : courseUsers) {
-            courseList.add(this.courseService.queryById(courseUser.getCourseId()));
+            Course course = new Course();
+            course.setCourseId(courseUser.getCourseId());
+            course.setCourseStatus(1);
+            List<Course> content = this.courseService.queryByCourse(course).getContent();
+            if(content.size()>0){
+                courseList.add(content.get(0));
+            }
         }
 
         model.addAttribute("courseList", courseList);

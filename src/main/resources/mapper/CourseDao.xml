@@ -31,7 +31,6 @@
                course_status
         from course
         where course_id = #{courseId}
-        and course_status = 1
     </select>
 
     <!--查询指定行数据-->
