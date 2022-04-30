@@ -81,12 +81,11 @@ function delCourse() {
     })
 }
 
-
 function setNotice() {
     let id = $($("input[name='hidId']")[0]).val()
     $.ajax({
         url: Const.domain + "course/edit",
-        type: "POST",
+        type: "PUT",
         dataType: "json",
         data: {
             courseId: id,
@@ -102,6 +101,45 @@ function setNotice() {
     })
 }
 
+function addHomeWork() {
+    for (let i = 0; i < 5; i++) {
+        $.ajax({
+            url: Const.domain + "/homework/add",
+            type: "POST",
+            async:false,
+            dataType: "json",
+            contentType: false,
+            processData: false,
+            data: new FormData($($("form[name='radioForm']")[i])[0]),
+            success: function (res) {
+            },
+            error: function () {
+                error_noti("出错了！");
+            }
+        });
+    }
+
+    for (let i = 0; i < 5; i++) {
+        $.ajax({
+            url: Const.domain + "/homework/add",
+            type: "POST",
+            dataType: "json",
+            async:false,
+            contentType: false,
+            processData: false,
+            data: new FormData($($("form[name='checkBoxForm']")[i])[0]),
+            success: function (res) {
+            },
+            error: function () {
+                error_noti("出错了！");
+            }
+        });
+    }
+    success_noti("成功！");
+}
+
+
+
 function getCourseUser() {
     $("#userModalBody").html("");
     $.ajax({
@@ -111,7 +149,7 @@ function getCourseUser() {
             courseId: $($("input[name='hidId']")[0]).val()
         },
         success: function (res) {
-            if (res.numberOfElements===0){
+            if (res.numberOfElements === 0) {
                 $("#userModalBody").html("暂无用户学习该课程！");
                 return;
             }
@@ -124,7 +162,7 @@ function getCourseUser() {
                     success: function (res) {
                         let tempStr = $("#userModalBody").html();
                         let appendStr = '<div class="chip">\n' +
-                            '<a href="/profile/'+res.userName+'" target="_blank">' +
+                            '<a href="/profile/' + res.userName + '" target="_blank">' +
                             '<img src="/media/user/img/' + res.userImg + '">' + res.userName + '</a></div>'
                         $("#userModalBody").html(tempStr + appendStr);
                     }
@@ -228,12 +266,36 @@ $(function () {
         trigger: 'hover',
         html: true
     });
+
+    for (let i = 0; i < 5; i++) {
+        $($("form[name='radioForm']")[i]).submit(function () {return false;})
+    }
+
+    for (let i = 0; i < 5; i++) {
+        $($("form[name='checkBoxForm']")[i]).submit(function () {return false;})
+    }
+
 })
 
 function AddFounction(value, row, index) {
+    let hasWork=false;
+    $.ajax({
+        url: Const.domain+"homework/list",
+        type: "GET",
+        async:false,
+        data: {
+            courseId:row['courseId']
+        },
+        success:function(res){
+            if (res.numberOfElements>0){
+                hasWork=true;
+            }
+        }
+    })
     return [
         '<button id="tblCourseNotice" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#noticeModal">发布公告</button>',
         '<button id="tblCourseUser" type="button" style="margin-left: 10px" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#userModal">成员列表</button>',
+        (!hasWork)?'<button id="tblCourseWorkAdd" type="button" style="margin-left: 10px" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#workModal">添加作业</button>':'',
         '<button id="tblCourseFileAdd" type="button" style="margin-left: 10px" class="btn btn-success">上传课件</button>',
         '<button id="tblCourseEdit" type="button" style="margin-left: 10px" class="btn btn-primary">编辑</button>',
         '<button id="tblCourseDel" type="button" style="margin-left: 10px" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delModal">下架</button>'
@@ -249,11 +311,14 @@ window.operateEvents = {
         $($("input[name='hidId']")[0]).val(row["courseId"]);
         getCourseUser();
     },
+    "click #tblCourseWorkAdd": function (e, value, row, index) {
+        $("input[name='courseId']").val(row["courseId"]);
+    },
     "click #tblCourseFileAdd": function (e, value, row, index) {
-        location.href="/back/course/file/upload/"+row["courseId"];
+        location.href = "/back/course/file/upload/" + row["courseId"];
     },
     "click #tblCourseEdit": function (e, value, row, index) {
-        location.href="/back/course/edit/"+row["courseId"]
+        location.href = "/back/course/edit/" + row["courseId"]
     },
     "click #tblCourseDel": function (e, value, row, index) {
         $($("input[name='hidId']")[0]).val(row["courseId"]);

@@ -91,7 +91,7 @@
             <div class="entry-bottom mt-50 mb-30 wow fadeIn animated">
                 <div class="tags">
                     <span>Tags: </span>
-                    <a class="text-capitalize" th:href="@{/course/list/tag/}+${tag.tagId}" th:each="tag : ${tagList}"
+                    <a class="text-capitalize" th:href="@{/course/list/show/tag/}+${tag.tagId}" th:each="tag : ${tagList}"
                        th:text="${tag.tagName}">标签</a>
                 </div>
             </div>
@@ -187,36 +187,58 @@
             </div>
 
             <!--Homework-->
-            <div class="p-30 mt-50 border-radius-10 bg-white wow fadeIn animated">
+            <div class="p-30 mt-50 border-radius-10 bg-white wow fadeIn animated" th:fragment="homework_area" id="homework_area">
 
                 <h4 class="col-md-12">练习</h4>
+                <div class="text-center" th:if="${homeworkList.size() eq 0}"><label>暂无练习</label></div>
                 <form class="form-group mx-auto" name="workForm" th:each="work : ${homeworkList}">
                     <div class="row">
                         <div th:if="${workStat.index eq 0}" class="bt-1 border-color-1 mt-10 mb-20" style="width: 100%"></div>
 
                         <div class="col-md-10 offset-md-1 col form-group">
-                            <h6><strong>1、[[${work.workTitle}]]</strong></h6>
-                            <div class="form-check" th:each="opt : ${work.workOption.split(',')}">
-                                <input type="radio" class="form-check-input" name="opt" th:if="${optStat.index eq 0}" value="A">
+                            <h6><strong>[[${workStat.index+1}]]、[[${work.workTitle}]]</strong></h6>
+                            <input type="hidden" name="workId" th:value="${work.workId}">
+                            <input type="hidden" name="courseId" th:value="${work.courseId}">
+                            <input type="hidden" name="userName" th:value="${session.userName}">
+                            <!--当用户已经做了练习-->
+                            <div class="form-check" th:each="opt : ${work.workOption.split(',')}" th:if="${homeworkAnswerList.size() ne 0}">
+                                <input th:type="${work.workType}" class="form-check-input" name="workAnswer" th:if="${optStat.index eq 0}" value="A"
+                                       th:checked="${homeworkAnswerList[workStat.index].workAnswer.contains('A')}" disabled>
                                 <label class="form-check-label" th:if="${optStat.index eq 0}">A、[[${opt}]]</label>
-                                <input type="radio" class="form-check-input" name="opt" th:if="${optStat.index eq 1}" value="B">
+                                <input th:type="${work.workType}" class="form-check-input" name="workAnswer" th:if="${optStat.index eq 1}" value="B"
+                                       th:checked="${homeworkAnswerList[workStat.index].workAnswer.contains('B')}" disabled>
                                 <label class="form-check-label" th:if="${optStat.index eq 1}">B、[[${opt}]]</label>
-                                <input type="radio" class="form-check-input" name="opt" th:if="${optStat.index eq 2}" value="C">
+                                <input th:type="${work.workType}" class="form-check-input" name="workAnswer" th:if="${optStat.index eq 2}" value="C"
+                                       th:checked="${homeworkAnswerList[workStat.index].workAnswer.contains('C')}" disabled>
                                 <label class="form-check-label" th:if="${optStat.index eq 2}">C、[[${opt}]]</label>
-                                <input type="radio" class="form-check-input" name="opt" th:if="${optStat.index eq 3}" value="D">
+                                <input th:type="${work.workType}" class="form-check-input" name="workAnswer" th:if="${optStat.index eq 3}" value="D"
+                                       th:checked="${homeworkAnswerList[workStat.index].workAnswer.contains('D')}" disabled>
                                 <label class="form-check-label" th:if="${optStat.index eq 3}">D、[[${opt}]]</label>
                             </div>
-                            <div class="">
+
+                            <!--当用户未做练习-->
+                            <div class="form-check" th:each="opt : ${work.workOption.split(',')}" th:if="${homeworkAnswerList.size() eq 0}">
+                                <input th:type="${work.workType}" class="form-check-input" name="workAnswer" th:if="${optStat.index eq 0}" value="A" required>
+                                <label class="form-check-label" th:if="${optStat.index eq 0}">A、[[${opt}]]</label>
+                                <input th:type="${work.workType}" class="form-check-input" name="workAnswer" th:if="${optStat.index eq 1}" value="B" required>
+                                <label class="form-check-label" th:if="${optStat.index eq 1}">B、[[${opt}]]</label>
+                                <input th:type="${work.workType}" class="form-check-input" name="workAnswer" th:if="${optStat.index eq 2}" value="C" required>
+                                <label class="form-check-label" th:if="${optStat.index eq 2}">C、[[${opt}]]</label>
+                                <input th:type="${work.workType}" class="form-check-input" name="workAnswer" th:if="${optStat.index eq 3}" value="D" required>
+                                <label class="form-check-label" th:if="${optStat.index eq 3}">D、[[${opt}]]</label>
+                            </div>
+                            <div th:if="${homeworkAnswerList.size() ne 0}">
+                                你的选择：<strong th:class="${homeworkAnswerList[workStat.index].workAnswer eq work.workAnswer?'text-info':'text-danger'}">[[${homeworkAnswerList[workStat.index].workAnswer}]]</strong><br>
                                 正确答案：<strong th:text="${work.workAnswer}">A</strong><p>解析：[[${work.workAnalysis}]]</p>
                             </div>
                         </div>
 
-                        <div class="bt-1 border-color-1 mb-20" style="width: 100%"></div>
+                        <div class="bt-1 border-color-1 mb-15" style="width: 100%"></div>
 
                     </div>
 
                 </form>
-                <button type="button" class="button button-contactForm btn-block">
+                <button th:if="${homeworkList.size() ne 0 && homeworkAnswerList.size eq 0}" type="button" class="button button-contactForm btn-block" onclick="workSubmit()">
                     提交
                 </button>
             </div>

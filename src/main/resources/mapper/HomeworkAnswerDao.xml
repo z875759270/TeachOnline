@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhanc.teachonline.dao.HomeworkAnswerDao">
+
+    <resultMap type="com.zhanc.teachonline.entity.HomeworkAnswer" id="HomeworkAnswerMap">
+        <result property="workId" column="work_id" jdbcType="INTEGER"/>
+        <result property="courseId" column="course_id" jdbcType="INTEGER"/>
+        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="workAnswer" column="work_answer" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="HomeworkAnswerMap">
+        select work_id,
+               course_id,
+               user_name,
+               work_answer
+        from homework_answer
+        where work_id = #{workId}
+        and course_id=#{courseId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="HomeworkAnswerMap">
+        select work_id,
+               course_id,
+               user_name,
+               work_answer
+        from homework_answer limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--指定对象查询数据-->
+    <select id="queryAllByHomeworkAnswer" resultMap="HomeworkAnswerMap">
+        select
+        work_id, course_id, user_name, work_answer
+        from homework_answer
+        <where>
+            <if test="workId != null">
+                and work_id = #{workId}
+            </if>
+            <if test="courseId != null">
+                and course_id = #{courseId}
+            </if>
+            <if test="userName != null and userName != ''">
+                and user_name = #{userName}
+            </if>
+            <if test="workAnswer != null and workAnswer != ''">
+                and work_answer = #{workAnswer}
+            </if>
+        </where>
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from homework_answer
+        <where>
+            <if test="workId != null">
+                and work_id = #{workId}
+            </if>
+            <if test="courseId != null">
+                and course_id = #{courseId}
+            </if>
+            <if test="userName != null and userName != ''">
+                and user_name = #{userName}
+            </if>
+            <if test="workAnswer != null and workAnswer != ''">
+                and work_answer = #{workAnswer}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="workId" useGeneratedKeys="true">
+        insert into homework_answer(work_id,course_id, user_name, work_answer)
+        values (#{workId},#{courseId}, #{userName}, #{workAnswer})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update homework_answer
+        <set>
+            <if test="courseId != null">
+                course_id = #{courseId},
+            </if>
+            <if test="userName != null and userName != ''">
+                user_name = #{userName},
+            </if>
+            <if test="workAnswer != null and workAnswer != ''">
+                work_answer = #{workAnswer},
+            </if>
+        </set>
+        where work_id = #{workId}
+        and course_id = #{courseId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from homework_answer
+        where work_id = #{workId}
+        and course_id = #{courseId}
+    </delete>
+
+</mapper>
+

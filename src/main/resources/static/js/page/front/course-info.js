@@ -11,7 +11,7 @@ $("#commentForm").submit(function () {
             //异步刷新
             $("#comment_area").load(Const.domain + "courseFirstComment/comment", {
                 courseId: $("#hidId").val()
-            },function (res,stat,xhr) {
+            }, function (res, stat, xhr) {
                 $("#commentContent").val("");
             })
         },
@@ -46,7 +46,7 @@ $("#replyForm").submit(function () {
 
             $("#comment_area").load(Const.domain + "courseFirstComment/comment", {
                 courseId: $("#hidId").val()
-            },function (res,stat,xhr) {
+            }, function (res, stat, xhr) {
                 $("#replyArea").val("");
             })
         },
@@ -106,6 +106,51 @@ function delCollection() {
     })
 }
 
+function workSubmit() {
+
+    //为真时说明填写不完整
+    let radioCheck =($("input[name='workAnswer']")[0].validity.valueMissing) || ($("input[name='workAnswer']")[4].validity.valueMissing)
+        || ($("input[name='workAnswer']")[8].validity.valueMissing) || ($("input[name='workAnswer']")[12].validity.valueMissing)
+        || ($("input[name='workAnswer']")[16].validity.valueMissing)
+    //为真时说明填写完整了
+    let checkboxCheck=true;
+    for (let i = 0; i < 5; i++) {
+        let tmpCheck=false;
+        for (let j = 0; j < 4; j++) {
+            tmpCheck = tmpCheck || $("input[type='checkbox']")[i*4+j].checked;
+        }
+        checkboxCheck = checkboxCheck && tmpCheck;
+    }
+    if(!radioCheck && checkboxCheck){
+        for (let i = 0; i < 10; i++) {
+            $.ajax({
+                url: Const.domain + "homeworkAnswer/add",
+                type: "POST",
+                dataType: "json",
+                async: false,
+                contentType: false,
+                processData: false,
+                data: new FormData($("form[name='workForm']")[i]),
+                success: function (res) {
+
+                },
+                error: function () {
+                    error_noti("出错了！");
+                }
+            });
+        }
+        success_noti("成功！");
+        $("#homework_area").load(Const.domain + "homework/homework", {
+            courseId: $("#hidId").val()
+        },function (res,stat,xhr) {
+            $("#commentContent").val("");
+        })
+    }else{
+        warning_noti("请完整作答！");
+    }
+
+}
+
 
 $("#rateForm").submit(function () {
     $.ajax({
@@ -118,7 +163,7 @@ $("#rateForm").submit(function () {
         success: function (res) {
             console.log(res);
             success_noti("评分成功！");
-            $("input[type='range']").attr("disabled","true");
+            $("input[type='range']").attr("disabled", "true");
             $("#btnDiv").html('<button type="button" class="btn btn-info px-5 radius-30"\n' +
                 '                                    disabled><i\n' +
                 '                                    class="bx bx-star mr-1"></i>已评分\n' +
@@ -136,5 +181,9 @@ $("#rateForm").submit(function () {
 
 
 $(function () {
-
+    for (let i = 0; i < 10; i++) {
+        $($("form[name='workForm']")[i]).submit(function () {
+            return false;
+        })
+    }
 })

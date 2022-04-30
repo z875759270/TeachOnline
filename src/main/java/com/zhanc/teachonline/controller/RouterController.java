@@ -66,6 +66,10 @@ public class RouterController {
     private TopicLikeService topicLikeService;
     @Resource
     private CourseFileService courseFileService;
+    @Resource
+    private HomeworkService homeworkService;
+    @Resource
+    private HomeworkAnswerService homeworkAnswerService;
 
     //region 后台
 
@@ -317,6 +321,12 @@ public class RouterController {
         //获取课件
         List<CourseFile> courseFileList = this.courseFileService.queryByCourseFile(new CourseFile(null, course.getCourseId(), null, null, null)).getContent();
 
+        //获取练习
+        List<Homework> homeworkList = this.homeworkService.queryByHomework(new Homework(null, course.getCourseId(), null, null, null, null, null, 1)).getContent();
+
+        //获取当前用户练习情况
+        List<HomeworkAnswer> homeworkAnswerList = this.homeworkAnswerService.queryByHomeworkAnswer(new HomeworkAnswer(null, course.getCourseId(), session.getAttribute("userName").toString(), null)).getContent();
+
         //获取一级评论
         Page<CourseFirstComment> courseFirstComments =
                 this.courseFirstCommentService.queryByCourseFirstComment(new CourseFirstComment(null, null, course.getCourseId(), null, null));
@@ -336,6 +346,8 @@ public class RouterController {
         model.addAttribute("currentRate", currentScore);
         model.addAttribute("isCollection", isCollection);
         model.addAttribute("courseFileList", courseFileList);
+        model.addAttribute("homeworkList", homeworkList);
+        model.addAttribute("homeworkAnswerList", homeworkAnswerList);
         model.addAttribute("firstComments", courseFirstComments);
         model.addAttribute("secondComments", secondCommentList);
         return "/front/course-info";

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhanc.teachonline.dao.HomeworkDao">
+
+    <resultMap type="com.zhanc.teachonline.entity.Homework" id="HomeworkMap">
+        <result property="workId" column="work_id" jdbcType="INTEGER"/>
+        <result property="courseId" column="course_id" jdbcType="INTEGER"/>
+        <result property="workType" column="work_type" jdbcType="VARCHAR"/>
+        <result property="workTitle" column="work_title" jdbcType="VARCHAR"/>
+        <result property="workOption" column="work_option" jdbcType="VARCHAR"/>
+        <result property="workAnswer" column="work_answer" jdbcType="VARCHAR"/>
+        <result property="workAnalysis" column="work_analysis" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="HomeworkMap">
+        select work_id,
+               course_id,
+               work_type,
+               work_title,
+               work_option,
+               work_answer,
+               work_analysis
+        from homework
+        where work_id = #{workId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="HomeworkMap">
+        select work_id,
+               course_id,
+               work_type,
+               work_title,
+               work_option,
+               work_answer,
+               work_analysis
+        from homework limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--指定对象查询数据-->
+    <select id="queryAllByHomework" resultMap="HomeworkMap">
+        select
+        work_id, course_id, work_type, work_title, work_option, work_answer, work_analysis
+        from homework
+        <where>
+            <if test="workId != null">
+                and work_id = #{workId}
+            </if>
+            <if test="courseId != null">
+                and course_id = #{courseId}
+            </if>
+            <if test="workType != null and workType != ''">
+                and work_type = #{workType}
+            </if>
+            <if test="workTitle != null and workTitle != ''">
+                and work_title = #{workTitle}
+            </if>
+            <if test="workOption != null and workOption != ''">
+                and work_option = #{workOption}
+            </if>
+            <if test="workAnswer != null and workAnswer != ''">
+                and work_answer = #{workAnswer}
+            </if>
+            <if test="workAnalysis != null and workAnalysis != ''">
+                and work_analysis = #{workAnalysis}
+            </if>
+        </where>
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from homework
+        <where>
+            <if test="workId != null">
+                and work_id = #{workId}
+            </if>
+            <if test="courseId != null">
+                and course_id = #{courseId}
+            </if>
+            <if test="workType != null and workType != ''">
+                and work_type = #{workType}
+            </if>
+            <if test="workTitle != null and workTitle != ''">
+                and work_title = #{workTitle}
+            </if>
+            <if test="workOption != null and workOption != ''">
+                and work_option = #{workOption}
+            </if>
+            <if test="workAnswer != null and workAnswer != ''">
+                and work_answer = #{workAnswer}
+            </if>
+            <if test="workAnalysis != null and workAnalysis != ''">
+                and work_analysis = #{workAnalysis}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="workId" useGeneratedKeys="true">
+        insert into homework(course_id, work_type, work_title, work_option, work_answer, work_analysis)
+        values (#{courseId}, #{workType}, #{workTitle}, #{workOption}, #{workAnswer}, #{workAnalysis})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="workId" useGeneratedKeys="true">
+        insert into homework(course_id, work_type, work_title, work_option, work_answer, work_analysis)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.courseId}, #{entity.workType}, #{entity.workTitle}, #{entity.workOption}, #{entity.workAnswer},
+            #{entity.workAnalysis})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="workId" useGeneratedKeys="true">
+        insert into homework(course_id, work_type, work_title, work_option, work_answer, work_analysis)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.courseId}, #{entity.workType}, #{entity.workTitle}, #{entity.workOption}, #{entity.workAnswer},
+            #{entity.workAnalysis})
+        </foreach>
+        on duplicate key update
+        course_id = values(course_id),
+        work_type = values(work_type),
+        work_title = values(work_title),
+        work_option = values(work_option),
+        work_answer = values(work_answer),
+        work_analysis = values(work_analysis)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update homework
+        <set>
+            <if test="courseId != null">
+                course_id = #{courseId},
+            </if>
+            <if test="workType != null and workType != ''">
+                work_type = #{workType},
+            </if>
+            <if test="workTitle != null and workTitle != ''">
+                work_title = #{workTitle},
+            </if>
+            <if test="workOption != null and workOption != ''">
+                work_option = #{workOption},
+            </if>
+            <if test="workAnswer != null and workAnswer != ''">
+                work_answer = #{workAnswer},
+            </if>
+            <if test="workAnalysis != null and workAnalysis != ''">
+                work_analysis = #{workAnalysis},
+            </if>
+        </set>
+        where work_id = #{workId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from homework
+        where work_id = #{workId}
+    </delete>
+
+</mapper>
+

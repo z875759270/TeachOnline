@@ -93,7 +93,8 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <textarea class="form-control" id="courseNotice" name="courseNotice" rows="5"></textarea>
+                                                <textarea class="form-control" id="courseNotice" name="courseNotice"
+                                                          rows="5"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -125,6 +126,542 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">确认</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="workModal" tabindex="-1" style="display: none;" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">课程作业</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-12 mb-5">
+                                            <div class="form-group">
+                                                <label for="radioAccordion"><h5>单选题</h5></label>
+                                                <div class="accordion" id="radioAccordion">
+                                                    <form name="radioForm" class="accordion-item">
+                                                        <h2 class="accordion-header" id="headingOne">
+                                                            <button class="accordion-button" type="button"
+                                                                    data-bs-toggle="collapse"
+                                                                    data-bs-target="#collapseOne" aria-expanded="true"
+                                                                    aria-controls="collapseOne">
+                                                                #1 第一道题
+                                                            </button>
+                                                        </h2>
+                                                        <div id="collapseOne" class="accordion-collapse collapse show"
+                                                             aria-labelledby="headingOne"
+                                                             data-bs-parent="#radioAccordion">
+                                                            <div class="accordion-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-12 form-group mb-3">
+                                                                        <input type="hidden" name="courseId">
+                                                                        <input type="hidden" name="workType" value="radio">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workTitle" placeholder="在此输入题目..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项A..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项B..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项C..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项D..." required>
+                                                                    </div>
+                                                                    <div class="col-md-12 mb-3">
+                                                                        答案：
+                                                                        <input type="radio" name="workAnswer" value="A" required> A
+                                                                        <input type="radio" name="workAnswer" value="B" required> B
+                                                                        <input type="radio" name="workAnswer" value="C" required> C
+                                                                        <input type="radio" name="workAnswer" value="D" required> D
+                                                                    </div>
+                                                                    <div class="col-md-12">
+                                                                        <textarea class="form-control" name="workAnalysis" placeholder="请输入答案解析..." required></textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                    <form name="radioForm" class="accordion-item">
+                                                        <h2 class="accordion-header" id="headingTwo">
+                                                            <button class="accordion-button collapsed" type="button"
+                                                                    data-bs-toggle="collapse"
+                                                                    data-bs-target="#collapseTwo" aria-expanded="false"
+                                                                    aria-controls="collapseTwo">
+                                                                #2 第二道题
+                                                            </button>
+                                                        </h2>
+                                                        <div id="collapseTwo" class="accordion-collapse collapse "
+                                                             aria-labelledby="headingTwo"
+                                                             data-bs-parent="#radioAccordion">
+                                                            <div class="accordion-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-12 form-group mb-3">
+                                                                        <input type="hidden" name="courseId">
+                                                                        <input type="hidden" name="workType" value="radio">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workTitle" placeholder="在此输入题目..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项A..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项B..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项C..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项D..." required>
+                                                                    </div>
+                                                                    <div class="col-md-12 mb-3">
+                                                                        答案：
+                                                                        <input type="radio" name="workAnswer" value="A" required> A
+                                                                        <input type="radio" name="workAnswer" value="B" required> B
+                                                                        <input type="radio" name="workAnswer" value="C" required> C
+                                                                        <input type="radio" name="workAnswer" value="D" required> D
+                                                                    </div>
+                                                                    <div class="col-md-12">
+                                                                        <textarea class="form-control" name="workAnalysis" placeholder="请输入答案解析..." required></textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                    <form name="radioForm" class="accordion-item">
+                                                        <h2 class="accordion-header" id="headingThree">
+                                                            <button class="accordion-button collapsed" type="button"
+                                                                    data-bs-toggle="collapse"
+                                                                    data-bs-target="#collapseThree" aria-expanded="false"
+                                                                    aria-controls="collapseThree">
+                                                                #3 第三道题
+                                                            </button>
+                                                        </h2>
+                                                        <div id="collapseThree" class="accordion-collapse collapse"
+                                                             aria-labelledby="headingThree"
+                                                             data-bs-parent="#radioAccordion">
+                                                            <div class="accordion-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-12 form-group mb-3">
+                                                                        <input type="hidden" name="courseId">
+                                                                        <input type="hidden" name="workType" value="radio">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workTitle" placeholder="在此输入题目..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项A..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项B..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项C..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项D..." required>
+                                                                    </div>
+                                                                    <div class="col-md-12 mb-3">
+                                                                        答案：
+                                                                        <input type="radio" name="workAnswer" value="A" required> A
+                                                                        <input type="radio" name="workAnswer" value="B" required> B
+                                                                        <input type="radio" name="workAnswer" value="C" required> C
+                                                                        <input type="radio" name="workAnswer" value="D" required> D
+                                                                    </div>
+                                                                    <div class="col-md-12">
+                                                                        <textarea class="form-control" name="workAnalysis" placeholder="请输入答案解析..." required></textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                    <form name="radioForm" class="accordion-item">
+                                                        <h2 class="accordion-header" id="headingFour">
+                                                            <button class="accordion-button collapsed" type="button"
+                                                                    data-bs-toggle="collapse"
+                                                                    data-bs-target="#collapseFour" aria-expanded="false"
+                                                                    aria-controls="collapseFour">
+                                                                #4 第四道题
+                                                            </button>
+                                                        </h2>
+                                                        <div id="collapseFour" class="accordion-collapse collapse"
+                                                             aria-labelledby="headingFour"
+                                                             data-bs-parent="#radioAccordion">
+                                                            <div class="accordion-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-12 form-group mb-3">
+                                                                        <input type="hidden" name="courseId">
+                                                                        <input type="hidden" name="workType" value="radio">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workTitle" placeholder="在此输入题目..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项A..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项B..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项C..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项D..." required>
+                                                                    </div>
+                                                                    <div class="col-md-12 mb-3">
+                                                                        答案：
+                                                                        <input type="radio" name="workAnswer" value="A" required> A
+                                                                        <input type="radio" name="workAnswer" value="B" required> B
+                                                                        <input type="radio" name="workAnswer" value="C" required> C
+                                                                        <input type="radio" name="workAnswer" value="D" required> D
+                                                                    </div>
+                                                                    <div class="col-md-12">
+                                                                        <textarea class="form-control" name="workAnalysis" placeholder="请输入答案解析..." required></textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                    <form name="radioForm" class="accordion-item">
+                                                        <h2 class="accordion-header " id="headingFive">
+                                                            <button class="accordion-button collapsed" type="button"
+                                                                    data-bs-toggle="collapse"
+                                                                    data-bs-target="#collapseFive" aria-expanded="false"
+                                                                    aria-controls="collapseFive">
+                                                                #5 第五道题
+                                                            </button>
+                                                        </h2>
+                                                        <div id="collapseFive" class="accordion-collapse collapse"
+                                                             aria-labelledby="headingFive"
+                                                             data-bs-parent="#radioAccordion">
+                                                            <div class="accordion-body">
+                                                                <div class="row ">
+                                                                    <div class="col-md-12 form-group mb-3">
+                                                                        <input type="hidden" name="courseId">
+                                                                        <input type="hidden" name="workType" value="radio">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workTitle" placeholder="在此输入题目..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项A..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项B..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项C..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项D..." required>
+                                                                    </div>
+                                                                    <div class="col-md-12 mb-3">
+                                                                        答案：
+                                                                        <input type="radio" name="workAnswer" value="A" required> A
+                                                                        <input type="radio" name="workAnswer" value="B" required> B
+                                                                        <input type="radio" name="workAnswer" value="C" required> C
+                                                                        <input type="radio" name="workAnswer" value="D" required> D
+                                                                    </div>
+                                                                    <div class="col-md-12">
+                                                                        <textarea class="form-control" name="workAnalysis" placeholder="请输入答案解析..." required></textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="checkboxAccordion"><h5>多选题</h5></label>
+                                                <div class="accordion" id="checkboxAccordion">
+                                                    <form name="checkBoxForm" class="accordion-item">
+                                                        <h2 class="accordion-header" id="headingOne1">
+                                                            <button class="accordion-button collapsed" type="button"
+                                                                    data-bs-toggle="collapse"
+                                                                    data-bs-target="#checkBoxOne" aria-expanded="true"
+                                                                    aria-controls="checkBoxOne">
+                                                                #1 第一道题
+                                                            </button>
+                                                        </h2>
+                                                        <div id="checkBoxOne" class="accordion-collapse collapse"
+                                                             aria-labelledby="headingOne1"
+                                                             data-bs-parent="#checkboxAccordion">
+                                                            <div class="accordion-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-12 form-group mb-3">
+                                                                        <input type="hidden" name="courseId">
+                                                                        <input type="hidden" name="workType" value="checkbox">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workTitle" placeholder="在此输入题目..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项A..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项B..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项C..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项D..." required>
+                                                                    </div>
+                                                                    <div class="col-md-12 mb-3">
+                                                                        答案：
+                                                                        <input type="checkbox" name="workAnswer" value="A" required> A
+                                                                        <input type="checkbox" name="workAnswer" value="B" required> B
+                                                                        <input type="checkbox" name="workAnswer" value="C" required> C
+                                                                        <input type="checkbox" name="workAnswer" value="D" required> D
+                                                                    </div>
+                                                                    <div class="col-md-12">
+                                                                        <textarea class="form-control" name="workAnalysis" placeholder="请输入答案解析..." required></textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                    <form name="checkBoxForm" class="accordion-item">
+                                                        <h2 class="accordion-header" id="headingTwo2">
+                                                            <button class="accordion-button collapsed" type="button"
+                                                                    data-bs-toggle="collapse"
+                                                                    data-bs-target="#checkBoxTwo" aria-expanded="false"
+                                                                    aria-controls="checkBoxTwo">
+                                                                #2 第二道题
+                                                            </button>
+                                                        </h2>
+                                                        <div id="checkBoxTwo" class="accordion-collapse collapse "
+                                                             aria-labelledby="headingTwo2"
+                                                             data-bs-parent="#checkboxAccordion">
+                                                            <div class="accordion-body">
+                                                                <div class="row ">
+                                                                    <div class="col-md-12 form-group mb-3">
+                                                                        <input type="hidden" name="courseId">
+                                                                        <input type="hidden" name="workType" value="checkbox">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workTitle" placeholder="在此输入题目..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项A..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项B..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项C..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项D..." required>
+                                                                    </div>
+                                                                    <div class="col-md-12 mb-3">
+                                                                        答案：
+                                                                        <input type="checkbox" name="workAnswer" value="A" required> A
+                                                                        <input type="checkbox" name="workAnswer" value="B" required> B
+                                                                        <input type="checkbox" name="workAnswer" value="C" required> C
+                                                                        <input type="checkbox" name="workAnswer" value="D" required> D
+                                                                    </div>
+                                                                    <div class="col-md-12">
+                                                                        <textarea class="form-control" name="workAnalysis" placeholder="请输入答案解析..." required></textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                    <form name="checkBoxForm" class="accordion-item">
+                                                        <h2 class="accordion-header" id="headingThree3">
+                                                            <button class="accordion-button collapsed" type="button"
+                                                                    data-bs-toggle="collapse"
+                                                                    data-bs-target="#checkBoxThree" aria-expanded="false"
+                                                                    aria-controls="checkBoxThree">
+                                                                #3 第三道题
+                                                            </button>
+                                                        </h2>
+                                                        <div id="checkBoxThree" class="accordion-collapse collapse"
+                                                             aria-labelledby="headingThree3"
+                                                             data-bs-parent="#checkboxAccordion">
+                                                            <div class="accordion-body">
+                                                                <div class="row ">
+                                                                    <div class="col-md-12 form-group mb-3">
+                                                                        <input type="hidden" name="courseId">
+                                                                        <input type="hidden" name="workType" value="checkbox">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workTitle" placeholder="在此输入题目..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项A..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项B..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项C..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项D..." required>
+                                                                    </div>
+                                                                    <div class="col-md-12 mb-3">
+                                                                        答案：
+                                                                        <input type="checkbox" name="workAnswer" value="A" required> A
+                                                                        <input type="checkbox" name="workAnswer" value="B" required> B
+                                                                        <input type="checkbox" name="workAnswer" value="C" required> C
+                                                                        <input type="checkbox" name="workAnswer" value="D" required> D
+                                                                    </div>
+                                                                    <div class="col-md-12">
+                                                                        <textarea class="form-control" name="workAnalysis" placeholder="请输入答案解析..." required></textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                    <form name="checkBoxForm" class="accordion-item">
+                                                        <h2 class="accordion-header" id="headingFour4">
+                                                            <button class="accordion-button collapsed" type="button"
+                                                                    data-bs-toggle="collapse"
+                                                                    data-bs-target="#checkBoxFour" aria-expanded="false"
+                                                                    aria-controls="checkBoxFour">
+                                                                #4 第四道题
+                                                            </button>
+                                                        </h2>
+                                                        <div id="checkBoxFour" class="accordion-collapse collapse"
+                                                             aria-labelledby="headingFour4"
+                                                             data-bs-parent="#checkboxAccordion">
+                                                            <div class="accordion-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-12 form-group mb-3">
+                                                                        <input type="hidden" name="courseId">
+                                                                        <input type="hidden" name="workType" value="checkbox">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workTitle" placeholder="在此输入题目..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项A..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项B..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项C..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项D..." required>
+                                                                    </div>
+                                                                    <div class="col-md-12 mb-3">
+                                                                        答案：
+                                                                        <input type="checkbox" name="workAnswer" value="A" required> A
+                                                                        <input type="checkbox" name="workAnswer" value="B" required> B
+                                                                        <input type="checkbox" name="workAnswer" value="C" required> C
+                                                                        <input type="checkbox" name="workAnswer" value="D" required> D
+                                                                    </div>
+                                                                    <div class="col-md-12">
+                                                                        <textarea class="form-control" name="workAnalysis" placeholder="请输入答案解析..." required></textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                    <form name="checkBoxForm" class="accordion-item">
+                                                        <h2 class="accordion-header " id="headingFive5">
+                                                            <button class="accordion-button collapsed" type="button"
+                                                                    data-bs-toggle="collapse"
+                                                                    data-bs-target="#checkBoxFive" aria-expanded="false"
+                                                                    aria-controls="checkBoxFive">
+                                                                #5 第五道题
+                                                            </button>
+                                                        </h2>
+                                                        <div id="checkBoxFive" class="accordion-collapse collapse"
+                                                             aria-labelledby="headingFive5"
+                                                             data-bs-parent="#checkboxAccordion">
+                                                            <div class="accordion-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-12 form-group mb-3">
+                                                                        <input type="hidden" name="courseId">
+                                                                        <input type="hidden" name="workType" value="checkbox">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workTitle" placeholder="在此输入题目..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项A..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项B..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项C..." required>
+                                                                    </div>
+                                                                    <div class="col-md-6 form-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="workOption" placeholder="在此输入选项D..." required>
+                                                                    </div>
+                                                                    <div class="col-md-12 mb-3">
+                                                                        答案：
+                                                                        <input type="checkbox" name="workAnswer" value="A" required> A
+                                                                        <input type="checkbox" name="workAnswer" value="B" required> B
+                                                                        <input type="checkbox" name="workAnswer" value="C" required> C
+                                                                        <input type="checkbox" name="workAnswer" value="D" required> D
+                                                                    </div>
+                                                                    <div class="col-md-12">
+                                                                        <textarea class="form-control" name="workAnalysis" placeholder="请输入答案解析..." required></textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                                    <button type="button" class="btn btn-primary" onclick="addHomeWork()"
+                                            data-bs-dismiss="modal">发布
+                                    </button>
                                 </div>
                             </div>
                         </div>
