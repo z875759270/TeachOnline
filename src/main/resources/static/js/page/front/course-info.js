@@ -8,7 +8,7 @@ $("#commentForm").submit(function () {
         data: new FormData($("#commentForm")[0]),
         success: function (res) {
             success_noti("评论成功！")
-
+            //异步刷新
             $("#comment_area").load(Const.domain + "courseFirstComment/comment", {
                 courseId: $("#hidId").val()
             },function (res,stat,xhr) {
@@ -43,9 +43,12 @@ $("#replyForm").submit(function () {
         success: function (res) {
             $('#exampleModal').modal('hide');
             success_noti("回复成功！");
-            setTimeout(function () {
-                location.reload();
-            }, 5 * 1000)
+
+            $("#comment_area").load(Const.domain + "courseFirstComment/comment", {
+                courseId: $("#hidId").val()
+            },function (res,stat,xhr) {
+                $("#replyArea").val("");
+            })
         },
         error: function () {
             warning_noti("回复失败，不可重复回复！");
