@@ -117,7 +117,12 @@ $("#rateForm").submit(function () {
         data: new FormData($("#rateForm")[0]),
         success: function (res) {
             console.log(res);
-            success_noti("评分成功！")
+            success_noti("评分成功！");
+            $("input[type='range']").attr("disabled","true");
+            $("#btnDiv").html('<button type="button" class="btn btn-info px-5 radius-30"\n' +
+                '                                    disabled><i\n' +
+                '                                    class="bx bx-star mr-1"></i>已评分\n' +
+                '                            </button>');
             setTimeout(function () {
                 location.reload();
             }, 5 * 1000)
