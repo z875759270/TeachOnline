@@ -8,7 +8,12 @@ $("#commentForm").submit(function () {
         data: new FormData($("#commentForm")[0]),
         success: function (res) {
             success_noti("评论成功！")
-            location.reload();
+
+            $("#comment_area").load(Const.domain + "courseFirstComment/comment", {
+                courseId: $("#hidId").val()
+            },function (res,stat,xhr) {
+                $("#commentContent").val("");
+            })
         },
         error: function () {
             error_noti("评论失败，出错了！");

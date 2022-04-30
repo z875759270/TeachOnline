@@ -15,37 +15,37 @@
     <link href="/css/app.css" rel="stylesheet">
     <link href="/css/icons.css" rel="stylesheet">
 
-<style>
-    #chatOnline {
-        border: 0;
-        font-size: 13px;
-        box-shadow: none;
-        outline: 0;
-        color: #fff;
-        background: var(--color-primary);
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        text-align: center;
-        line-height: 40px;
-        padding: 0;
-        margin-right: 10px;
-        box-shadow: 0 2px 4px var(--button-shadow-color-normal),0 0 0 transparent;
-        transition: all .25s cubic-bezier(.02,.01,.47,1);
-    }
+    <style>
+        #chatOnline {
+            border: 0;
+            font-size: 13px;
+            box-shadow: none;
+            outline: 0;
+            color: #fff;
+            background: var(--color-primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            padding: 0;
+            margin-right: 10px;
+            box-shadow: 0 2px 4px var(--button-shadow-color-normal), 0 0 0 transparent;
+            transition: all .25s cubic-bezier(.02, .01, .47, 1);
+        }
 
-    .chat-header {
-        /* position: absolute; */
-        height: 70px;
-        left: 0;
-        top: 0;
-        padding: 15px;
-        background: #fff;
-        border-bottom: 1px solid rgba(0, 0, 0, .125);
-        border-top-right-radius: .25rem;
-        z-index: 1;
-    }
-</style>
+        .chat-header {
+            /* position: absolute; */
+            height: 70px;
+            left: 0;
+            top: 0;
+            padding: 15px;
+            background: #fff;
+            border-bottom: 1px solid rgba(0, 0, 0, .125);
+            border-top-right-radius: .25rem;
+            z-index: 1;
+        }
+    </style>
 </head>
 
 <body>
@@ -98,13 +98,15 @@
             <div class="single-social-share clearfix wow fadeIn animated">
                 <div class="entry-meta meta-1 font-small color-grey float-left mt-10">
                     <span class="hit-count mr-15"><i class="elegant-icon icon_comment_alt mr-5"></i>[[${firstComments.getNumberOfElements()}]]</span>
-                    <span class="hit-count mr-15"><i class="elegant-icon icon_star_alt mr-5"></i>[[${collectNum}]]</span>
+                    <span class="hit-count mr-15"><i
+                            class="elegant-icon icon_star_alt mr-5"></i>[[${collectNum}]]</span>
                     <span class="hit-count" th:if="${avgRate.isNaN()}"><i
                             class="elegant-icon icon_star-half_alt mr-5"></i>暂无评分/10</span>
                     <span class="hit-count" th:if="${!avgRate.isNaN()}"><i
                             class="elegant-icon icon_star-half_alt mr-5"></i>[[${#numbers.formatDecimal(avgRate,1,'COMMA',1,'POINT')}]]/10</span>
                 </div>
-                <div class="header-social-network d-inline-block list-inline float-md-right mt-md-0 mt-4" id="collectionDiv">
+                <div class="header-social-network d-inline-block list-inline float-md-right mt-md-0 mt-4"
+                     id="collectionDiv">
                     <li class="list-inline-item" th:if="${isCollection}">
                         <button type="button" class="btn btn-info px-5 radius-30" onclick="delCollection()">
                             <i class="bx bx-heart mr-1"></i>已收藏
@@ -131,8 +133,10 @@
 
                     <h6>相关课件：</h6>
                     <div th:if="${courseFileList.size() eq 0}" class="author-description text-muted">暂无课件</div>
-                    <div th:if="${courseFileList.size() ne 0}" th:each="courseFile : ${courseFileList}" class="author-description text-muted">[[${courseFile.fileUrl}]]&emsp;
-                        <a th:href="'/media/course/file/'+${courseFile.fileUrl}" class="author-bio-link" download="" target="_blank">下载</a>
+                    <div th:if="${courseFileList.size() ne 0}" th:each="courseFile : ${courseFileList}"
+                         class="author-description text-muted">[[${courseFile.fileUrl}]]&emsp;
+                        <a th:href="'/media/course/file/'+${courseFile.fileUrl}" class="author-bio-link" download=""
+                           target="_blank">下载</a>
                     </div>
                 </div>
             </div>
@@ -181,8 +185,44 @@
 
                 </form>
             </div>
+
+            <!--Homework-->
+            <div class="p-30 mt-50 border-radius-10 bg-white wow fadeIn animated">
+
+                <h4 class="col-md-12">练习</h4>
+                <form class="form-group mx-auto" name="workForm" th:each="work : ${homeworkList}">
+                    <div class="row">
+                        <div th:if="${workStat.index eq 0}" class="bt-1 border-color-1 mt-10 mb-20" style="width: 100%"></div>
+
+                        <div class="col-md-10 offset-md-1 col form-group">
+                            <h6><strong>1、[[${work.workTitle}]]</strong></h6>
+                            <div class="form-check" th:each="opt : ${work.workOption.split(',')}">
+                                <input type="radio" class="form-check-input" name="opt" th:if="${optStat.index eq 0}" value="A">
+                                <label class="form-check-label" th:if="${optStat.index eq 0}">A、[[${opt}]]</label>
+                                <input type="radio" class="form-check-input" name="opt" th:if="${optStat.index eq 1}" value="B">
+                                <label class="form-check-label" th:if="${optStat.index eq 1}">B、[[${opt}]]</label>
+                                <input type="radio" class="form-check-input" name="opt" th:if="${optStat.index eq 2}" value="C">
+                                <label class="form-check-label" th:if="${optStat.index eq 2}">C、[[${opt}]]</label>
+                                <input type="radio" class="form-check-input" name="opt" th:if="${optStat.index eq 3}" value="D">
+                                <label class="form-check-label" th:if="${optStat.index eq 3}">D、[[${opt}]]</label>
+                            </div>
+                            <div class="">
+                                正确答案：<strong th:text="${work.workAnswer}">A</strong><p>解析：[[${work.workAnalysis}]]</p>
+                            </div>
+                        </div>
+
+                        <div class="bt-1 border-color-1 mb-20" style="width: 100%"></div>
+
+                    </div>
+
+                </form>
+                <button type="button" class="button button-contactForm btn-block">
+                    提交
+                </button>
+            </div>
+
             <!--Comments-->
-            <div class="comments-area">
+            <div class="comments-area" th:fragment="comment_area" id="comment_area">
                 <div class="widget-header-2 position-relative mb-30">
                     <h5 class="mt-5 mb-30">评论</h5>
                 </div>
@@ -253,7 +293,7 @@
                 <form class="form-contact comment_form" id="commentForm">
                     <div class="row">
                         <div class="col-12">
-                            <input type="hidden" name="courseId" th:value="${course.courseId}">
+                            <input type="hidden" id="hidId" name="courseId" th:value="${course.courseId}">
                             <div class="form-group">
                                 <textarea class="form-control w-100" name="commentContent" id="commentContent" cols="30"
                                           rows="9" placeholder="发表你的评论..." required></textarea>
@@ -308,12 +348,12 @@
                 </button>
             </div>
             <div class="modal-body">
-                <iframe th:src="@{/chat/}+${course.courseCreater}" style="width: 100%;height: 600px" frameborder="0" scrolling="no"></iframe>
+                <iframe th:src="@{/chat/}+${course.courseCreater}" style="width: 100%;height: 600px" frameborder="0"
+                        scrolling="no"></iframe>
             </div>
         </div>
     </div>
 </div>
-
 
 
 <!--site-bottom-->

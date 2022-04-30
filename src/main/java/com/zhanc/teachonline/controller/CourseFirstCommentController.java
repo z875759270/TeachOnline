@@ -3,14 +3,19 @@ package com.zhanc.teachonline.controller;
 import com.zhanc.teachonline.annotation.MyLog;
 import com.zhanc.teachonline.entity.CourseFirstComment;
 import com.zhanc.teachonline.service.CourseFirstCommentService;
+import com.zhanc.teachonline.service.CourseSecondCommentService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * (CourseFirstComment)表控制层
@@ -26,7 +31,8 @@ public class CourseFirstCommentController {
      */
     @Resource
     private CourseFirstCommentService courseFirstCommentService;
-
+    @Resource
+    private CourseSecondCommentService courseSecondCommentService;
     /**
      * 分页查询
      *
@@ -101,5 +107,20 @@ public class CourseFirstCommentController {
         return ResponseEntity.ok(this.courseFirstCommentService.deleteById(id));
     }
 
+    @PostMapping("comment")
+    public ModelAndView commentFresh(Integer courseId, Model model){
+        //获取一级评论
+        Page<CourseFirstComment> courseFirstComments =
+                this.courseFirstCommentService.queryByCourseFirstComment(new CourseFirstComment(null, null, courseId, null, null));
+
+        //获取二级评论
+        Map<Integer, Object> secondCommentList = new HashMap<>();
+        for (CourseFirstComment firstComment : courseFirstComments.getContent()) {
+            secondCommentList.put(firstComment.getCommentId(), this.courseSecondCommentService.queryById(firstComment.getCommentId()));
+        }
+        model.addAttribute("firstComments", courseFirstComments);
+        model.addAttribute("secondComments", secondCommentList);
+        return new ModelAndView("/front/course-info::comment_area");
+    }
 }
 
