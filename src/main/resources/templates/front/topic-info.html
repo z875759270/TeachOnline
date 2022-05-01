@@ -40,14 +40,31 @@
                             By <a th:href="@{/profile/}+${topic.topicCreater}"><span
                                 class="author-name font-weight-bold" th:text="${topic.topicCreater}">创建者</span></a>
                         </p>
-                        <span class="post-on" th:text="${#dates.format(topic.topicCreateTime,'yyyy-MM-dd')}">2022-03-17</span>
+                        <span class="post-on"
+                              th:text="${#dates.format(topic.topicCreateTime,'yyyy-MM-dd')}">2022-03-17</span>
                         <span class="hit-count has-dot"><i class="elegant-icon icon_group"></i> [[${topic.topicViews}]]</span>
                     </div>
                 </div>
             </div>
         </div>
+
         <!--figure-->
         <article class="entry-wraper mb-50">
+            <div class="author-bio p-30 mt-50 border-radius-10 bg-white wow fadeIn animated mb-20"
+                 th:if="${course ne null}">
+                <div class="author-image mb-30">
+                    <a href="#"><img th:src="'/media/course/img/'+${course.courseImg}" alt="" class="avatar"
+                                     style="object-fit: cover"></a>
+                </div>
+                <div class="author-info">
+                    <h4 class="font-weight-bold mb-20"><span class="vcard author"><span class="fn"><a
+                            th:href="@{/course/info/}+${course.courseId}">[[${course.courseName}]]<i class="bx bx-link-alt"></i></a></span></span>
+                    </h4>
+                    <div class="author-description text-muted text-limit-2-row" th:text="${course.courseDetail}">课程简介
+                    </div>
+                </div>
+            </div>
+
             <div class="entry-main-content mb-40 wow fadeIn animated">
                 <div id="test-editor">
                         <textarea th:text="${topic.topicDetail}">

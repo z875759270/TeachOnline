@@ -323,7 +323,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn button button-contactForm">评论</button>
+                        <button type="submit" class="btn button button-contactForm">评论</button><label style="margin: 0px 10px ">或</label>
+                        <a th:href="@{/topic/add/}+${course.courseId}" class="btn button button-contactForm" target="_blank">发起讨论</a>
                     </div>
                 </form>
             </div>

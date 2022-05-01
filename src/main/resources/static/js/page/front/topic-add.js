@@ -7,13 +7,24 @@ $("#topicAddForm").submit(function () {
         processData: false,
         data: new FormData($("#topicAddForm")[0]),
         success: function (res) {
-            console.log(res);
+            $.ajax({
+                url: Const.domain + "topicCourse/add",
+                type: "POST",
+                data: {
+                    topicId:res.topicId,
+                    courseId:$("#hidCourseId").val()
+                },
+                success:function(res){
+                    console.log(res);
+                }
+            })
             success_noti("成功！")
         },
         error: function () {
             error_noti("出错了！");
         }
     });
+
     return false;
 })
 

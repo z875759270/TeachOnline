@@ -37,6 +37,20 @@
                                 <div class="col-md-12 mb-30">
                                     <input type="text" class="form-control" placeholder="在此输入讨论标题..." name="topicTitle" required/>
                                 </div>
+                                <div class="col-md-12 mb-30" th:if="${course ne null}">
+                                    <input type="hidden" id="hidCourseId" th:value="${course.courseId}">
+                                    <div class="carausel-3-columns-item d-flex bg-grey has-border p-25 hover-up-2 transition-normal border-radius-5">
+                                        <div class="post-thumb post-thumb-64 d-flex mr-15 border-radius-5 img-hover-scale overflow-hidden">
+                                            <a class="color-white" th:href="@{/course/info/}+${course.courseId}">
+                                                <img th:src="'/media/course/img/'+${course.courseImg}" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="post-content media-body">
+                                            <h6><a th:href="@{/course/info/}+${course.courseId}" th:text="${course.courseName}"></a></h6>
+                                            <p class="text-muted font-small text-limit-2-row" th:text="${course.courseDetail}"></p>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-md-12 md-30">
                                     <div id="test-editormd">
                                         <textarea style="display:none;" name="topicDetail"></textarea>
