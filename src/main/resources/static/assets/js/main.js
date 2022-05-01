@@ -10,7 +10,7 @@
                 let cList = data.content;
                 let str = "";
                 for (let i = 0; i < cList.length; i++) {
-                    str = str.concat('<li><a href="/course/list/category/' + cList[i].categoryId + '">' + cList[i].categoryName + '</a></li>')
+                    str = str.concat('<li><a href="/course/list/show/category/' + cList[i].categoryId + '">' + cList[i].categoryName + '</a></li>')
                 }
                 $("#courseCategoryMenu").html(str)
             }

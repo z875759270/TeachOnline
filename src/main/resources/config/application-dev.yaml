@@ -27,6 +27,7 @@ mybatis:
 server:
   port: 8091
 
+
 logging:
   level:
     com.zhanc.teachonline.dao: debug
@@ -38,3 +39,21 @@ file:
   upload:
     path: D://Pictures/TeachOnline/media/
     virtual-path: media/
+
+management:
+  server:
+    port: 8092
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      base-path: /actuator
+      cors:
+        allowed-origins: "*"
+  endpoint:
+    health:
+      show-details: always
+    metrics:
+      enabled: true
+    env:
+      enabled: false

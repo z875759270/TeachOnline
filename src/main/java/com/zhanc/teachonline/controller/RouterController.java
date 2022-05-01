@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -70,6 +71,8 @@ public class RouterController {
     private HomeworkService homeworkService;
     @Resource
     private HomeworkAnswerService homeworkAnswerService;
+    @Resource
+    private TopicCourseService topicCourseService;
 
     //region 后台
 
@@ -81,11 +84,16 @@ public class RouterController {
         int commentNum = this.courseFirstCommentService.queryByCourseFirstComment(new CourseFirstComment()).getNumberOfElements()
                 +this.courseSecondCommentService.queryByCourseSecondComment(new CourseSecondComment()).getNumberOfElements();
 
+        //获取热门课程
+        List<Course> courseList = this.courseService.getHotCourse(6);
+        double i = courseList.get(1).getCourseViews() / Double.parseDouble(courseList.get(0).getCourseViews()+"");
 
         model.addAttribute("courseNum",courseNum);
         model.addAttribute("topicNum",topicNum);
         model.addAttribute("userNum",userNum);
         model.addAttribute("commentNum",commentNum);
+
+        model.addAttribute("hotCourse",courseList);
         return "/back/index";
     }
 
@@ -406,6 +414,13 @@ public class RouterController {
         return "/front/topic-add";
     }
 
+    @RequestMapping(value = {"/topic/add/{courseId}"})
+    public String toTopicAddAndCourse(@PathVariable Integer courseId,Model model) {
+        Course course = this.courseService.queryById(courseId);
+        model.addAttribute("course",course);
+        return "/front/topic-add";
+    }
+
     @RequestMapping(value = {"/topic/info/{topicId}"})
     public String toTopicInfo(@PathVariable Integer topicId, Model model, HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
@@ -430,6 +445,15 @@ public class RouterController {
         //获取创建者信息
         User user = this.userService.queryById(topic.getTopicCreater());
 
+        //获取关联课程
+        Page<TopicCourse> topicCourses = this.topicCourseService.queryByTopicCourse(new TopicCourse(topicId, null));
+        Course course=null;
+        if (topicCourses.getNumberOfElements()>0){
+            TopicCourse topicCourse = topicCourses.getContent().get(0);
+            course = this.courseService.queryById(topicCourse.getCourseId());
+        }
+
+
         //获取是否点赞了
         boolean isLike = this.topicLikeService.queryByTopicLike(new TopicLike(topic.getTopicId(), session.getAttribute("userName").toString())).getNumberOfElements() != 0;
 
@@ -451,6 +475,9 @@ public class RouterController {
         model.addAttribute("likeNum",likeNum);
         model.addAttribute("firstComments", topicFirstComments);
         model.addAttribute("secondComments", secondCommentList);
+        if (course!=null){
+             model.addAttribute("course",course);
+        }
         return "/front/topic-info";
     }
 
